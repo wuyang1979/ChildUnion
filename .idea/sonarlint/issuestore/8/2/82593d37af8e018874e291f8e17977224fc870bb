@@ -1,0 +1,8 @@
+
+csquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(ΟΚύÿÿÿÿ
+Hsquid:S4423>",Change this code to use a stronger protocol.(΄βιόÿÿÿÿ
+csquid:S00112|"FDefine and throw a dedicated exception instead of using a generic one.(»¨σόÿÿÿÿ
+Bsquid:S11720"+Remove this unused method parameter "uuid".(»΅Κ­
+§%squid:RedundantThrowsDeclarationCheck"qRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from constructor's body.(ΟΚύÿÿÿÿ
+^squid:S001120"FDefine and throw a dedicated exception instead of using a generic one.(»΅Κ­
+Msquid:S1172s"1Remove this unused method parameter "autoReport".(Ο²‡¬όÿÿÿÿ

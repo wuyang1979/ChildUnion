@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qinzi123.dao.PCShowDao">
+
+    <resultMap id="cardScope" type="com.qinzi123.happiness.domain.CardScope">
+        <id property="cardId" column="cardid"/>
+        <result property="firstScope" column="firstscope"/>
+        <result property="secondScope" column="secondscope"/>
+    </resultMap>
+
+
+    <resultMap id="cardInfo" type="com.qinzi123.happiness.domain.CardInfo">
+        <id property="id" column="id"/>
+        <result property="bussinessId" column="bussinessid"/>
+        <result property="phone" column="phone"/>
+        <result property="headImgUrl" column="headimgurl"/>
+        <result property="realName" column="realname"/>
+        <result property="openId" column="openid"/>
+        <result property="workAddress" column="workaddress"/>
+        <result property="introduce" column="introduce"/>
+        <result property="permission" column="permission"/>
+        <result property="wxCard" column="wxcard"/>
+        <result property="datetime" column="datetime"/>
+        <result property="job" column="job"/>
+        <result property="company" column="company"/>
+        <result property="readNum" column="readnum"/>
+        <result property="leaguer" column="leaguer"/>
+        <collection property="cardScope" ofType="com.qinzi123.happiness.domain.CardScope"
+                    column="id" select="getCardScope">
+
+        </collection>
+
+    </resultMap>
+
+    <select id="getCardScope" resultMap="cardScope">
+		select * from card_scope where cardId = #{cardId}
+	</select>
+
+    <select id="getCardInfo" resultMap="cardInfo">
+		select * from card_info limit #{start}, #{pageSize}
+    </select>
+
+    <select id="getCardTotalRecords" resultType="java.lang.Integer">
+		select count(*) from card_info
+	</select>
+
+    <resultMap id="businessPcShowCampaigns" type="com.qinzi123.happiness.domain.BussinessPcShowCampaigns">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="imagePath" column="imagepath"/>
+        <result property="url" column="url"/>
+        <result property="datetime" column="datetime"/>
+        <result property="endDatetime" column="enddatetime"/>
+        <result property="cost" column="cost"/>
+        <result property="childCost" column="child_cost"/>
+        <result property="agemin" column="agemin"/>
+        <result property="agemax" column="agemax"/>
+        <result property="address" column="address"/>
+        <result property="peopleNumber" column="peopleNumber"/>
+        <result property="amendSignup" column="amendSignup"/>
+    </resultMap>
+
+    <select id="getBussinessCampaigns" resultMap="businessPcShowCampaigns">
+		select a.id,a.title,a.imagepath,a.url,a.datetime,a.enddatetime,a.cost,a.child_cost,a.agemin,a.agemax,a.address,a.peopleNumber,case b.amendSignup when b.amendSignup is null then b.amendSignup else a.amendSignup end as amendSignup  FROM
+		(select a.id,a.title,a.imagepath,b.url,c.datetime,c.enddatetime,c.cost,c.child_cost,c.agemin,c.agemax,c.address,c.peopleNumber,c.amendSignup from campaign_info a,campaign_type b, campaign_condition c
+		where a.status = 0 and a.campaigntype != 4  and a.campaigntype=b.id and a.id=c.id
+		order by a.publishdatetime desc) a
+		left JOIN
+		(select id, sum(adult_num + child_num) as amendSignup from campaign_sign_up GROUP BY id) b
+		on a.id = b.id
+		limit #{start}, #{pageSize}
+	</select>
+
+    <select id="getBusCampTotalRecords" resultType="java.lang.Integer">
+		select count(*)  FROM
+		(select a.id,a.title,a.imagepath,b.url,c.datetime,c.enddatetime,c.cost,c.child_cost,c.agemin,c.agemax,c.address,c.peopleNumber,c.amendSignup from campaign_info a,campaign_type b, campaign_condition c
+		where a.status = 0 and a.campaigntype != 4  and a.campaigntype=b.id and a.id=c.id
+		order by a.publishdatetime desc) a
+		left JOIN
+		(select id, sum(adult_num + child_num) as amendSignup from campaign_sign_up GROUP BY id) b
+		on a.id = b.id
+	</select>
+
+    <resultMap id="businessInfo" type="com.qinzi123.happiness.domain.BussinessInfo">
+        <id property="id" column="id"/>
+        <result property="bussinessName" column="bussinessname"/>
+        <result property="password" column="password"/>
+        <result property="nickname" column="nickname"/>
+        <result property="jobnumber" column="jobnumber"/>
+        <result property="sex" column="sex"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="country" column="country"/>
+        <result property="headImgUrl" column="headimgurl"/>
+        <result property="loginType" column="logintype"/>
+        <result property="phone" column="phone"/>
+        <result property="openId" column="openid"/>
+
+        <result property="alipay" column="alipay"/>
+        <result property="wxId" column="wxid"/>
+        <result property="bankAccount" column="bankaccount"/>
+        <result property="bankUser" column="bankuser"/>
+        <result property="bankAddress" column="bankaddress"/>
+        <result property="personName" column="personname"/>
+        <result property="permission" column="permission"/>
+        <result property="datetime" column="datetime"/>
+    </resultMap>
+
+    <select id="getBussinessInfo" resultMap="businessInfo">
+		select * from bussiness_info where id = #{id}
+	</select>
+
+    <resultMap id="businessMessage" type="com.qinzi123.happiness.domain.BussinessMessage">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="readNum" column="readnumber"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="createtime"/>
+        <result property="bussinessId" column="bussinessid"/>
+        <association property="bussinessInfo" javaType="com.qinzi123.happiness.domain.BussinessInfo"
+                     column="bussinessId" select="getBussinessInfo">
+
+        </association>
+    </resultMap>
+
+    <select id="getAllBussinesseMessages" resultMap="businessMessage">
+		select * from bussiness_message order by id desc  limit #{start}, #{pageSize}
+	</select>
+
+    <select id="getAllBusMesTotalRecords" resultType="java.lang.Integer">
+		select count(*) from bussiness_message
+	</select>
+
+    <resultMap id="businessLeagueInfo" type="com.qinzi123.happiness.domain.BussLeagueInfo">
+        <id property="id" column="id"/>
+        <result property="leagueType" column="leaguetype"/>
+        <result property="companyDesc" column="companydesc"/>
+        <result property="company" column="company"/>
+        <result property="logoPic" column="logopic"/>
+        <result property="foundTime" column="foundtime"/>
+        <result property="members" column="members"/>
+        <result property="companyAddr" column="companyaddr"/>
+        <result property="companyTel" column="companytel"/>
+        <result property="companyWeb" column="companyweb"/>
+        <result property="industry" column="industry"/>
+        <result property="mainBussiness" column="mainbussiness"/>
+        <result property="mainDemand" column="maindemand"/>
+        <result property="licensePic" column="licensepic"/>
+        <result property="contactName" column="contactname"/>
+        <result property="contactDuty" column="contactduty"/>
+        <result property="contactTel" column="contacttel"/>
+        <result property="contactWX" column="contactwx"/>
+        <result property="submitTime" column="submittime"/>
+        <result property="updateTime" column="updatetime"/>
+        <result property="contactOpenId" column="contactopenid"/>
+
+    </resultMap>
+
+
+    <select id="getBussLeagues" resultMap="businessLeagueInfo">
+		select * from buss_league_info order by leaguetype desc, submittime desc  limit #{start}, #{pageSize}
+	</select>
+
+    <select id="getBussLeaguesTotalRecords" resultType="java.lang.Integer">
+		select count(*) from buss_league_info
+	</select>
+
+    <select id="getLeaguers" resultMap="businessLeagueInfo">
+		select * from buss_league_info where leagueType=2 limit #{start}, #{pageSize}
+	</select>
+
+    <select id="getLeaguersTotalRecords" resultType="java.lang.Integer">
+		select count(*) from buss_league_info where leagueType=2
+	</select>
+
+    <resultMap id="campaignPcShowInfo" type="com.qinzi123.happiness.domain.CampaignPcshowInfo">
+        <id property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="imagepath" column="imagepath"/>
+        <result property="peopleNumber" column="peoplenumber"/>
+        <result property="amendSignup" column="amendsignup"/>
+        <result property="agemin" column="agemin"/>
+        <result property="agemax" column="agemax"/>
+        <result property="cost" column="cost"/>
+        <result property="childCost" column="child_cost"/>
+        <result property="address" column="address"/>
+
+        <result property="phone" column="phone"/>
+        <result property="datetime" column="datetime"/>
+        <result property="endDatetime" column="enddatetime"/>
+
+        <result property="signupStartTime" column="signupstarttime"/>
+        <result property="signupEndTime" column="signupendtime"/>
+        <result property="organizationName" column="organizationname"/>
+        <result property="organizationPhone" column="organizationphone"/>
+
+
+    </resultMap>
+
+
+    <select id="getBussinessCampaignsById" resultMap="campaignPcShowInfo">
+		select * from campaign_info a, campaign_condition b WHERE a.id=b.id and a.id= #{id}
+	</select>
+
+    <select id="getMapLeaguersById" resultMap="businessLeagueInfo">
+		select * from buss_league_info  where id = #{id}
+	</select>
+
+    <select id="queryCardInfos" resultMap="cardInfo">
+		select * from card_info order by datetime desc
+	</select>
+
+    <resultMap id="businessLeagueCooperate" type="com.qinzi123.happiness.domain.BussLeagueCooperate">
+        <id property="id" column="id"/>
+        <result property="bussLeagueId" column="bussleagueid"/>
+        <result property="datetime" column="datetime"/>
+        <result property="purposeOpenId" column="purposeopenid"/>
+        <result property="agreed" column="agreed"/>
+    </resultMap>
+
+    <select id="getBussLeagueCooperateById" resultMap="businessLeagueCooperate">
+		select * from buss_league_cooperate where bussLeagueId = #{id}
+	</select>
+
+    <select id="searchCampaigns" resultMap="businessPcShowCampaigns">
+		select a.id,a.title,a.imagepath,b.url,c.datetime,c.enddatetime,c.cost,c.child_cost,c.agemin,c.agemax,c.address,c.peopleNumber,c.amendSignup from campaign_info a,campaign_type b, campaign_condition c
+		where a.status = 0 and a.campaigntype != 4  and a.campaigntype=b.id and a.id=c.id and a.title like '%#{str}%'
+		order by a.publishdatetime desc
+		limit #{start}, #{pageSize}
+	</select>
+
+    <select id="getSearCampTotalRecords" resultType="java.lang.Integer">
+		select count(*) from campaign_info a,campaign_type b, campaign_condition c
+				where a.status = 0 and a.campaigntype != 4  and a.campaigntype=b.id and a.id=c.id and a.title like '%#{json}%'
+	</select>
+
+    <select id="searchBussinesseMessages" resultMap="businessMessage">
+		select * from bussiness_message where title like '%#{str}%'
+		limit #{start}, #{pageSize}
+	</select>
+
+    <select id="getSearBusMesTotalRecords" resultType="java.lang.Integer">
+		select count(*) from bussiness_message where title like '%#{str}%'
+	</select>
+
+    <select id="searchVipLeaguers" resultMap="businessLeagueInfo">
+		select * from buss_league_info where  companydesc like '%#{str}%' or company like '%#{str}%'
+		limit #{start}, #{pageSize}
+	</select>
+
+    <select id="getSearLeaguesTotalRecords" resultType="java.lang.Integer">
+		select count(*) from buss_league_info where  companydesc like '%#{str}%' or company like '%#{str}%'
+	</select>
+</mapper>

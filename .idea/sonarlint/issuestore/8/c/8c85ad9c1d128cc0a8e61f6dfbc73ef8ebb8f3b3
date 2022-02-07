@@ -1,0 +1,8 @@
+
+]squid:S1854/":Remove this useless assignment to local variable "result".(¦ªçîøÿÿÿÿ8Š’Î€™-
+Msquid:S1068"*Remove this unused "logger" private field.(ˆ‚ïâúÿÿÿÿ8Ô†ßñÕ-
+gsquid:CallToDeprecatedMethod"3Remove this use of "description"; it is deprecated.(¤Î¸Úÿÿÿÿÿ8éñıÜ-
+msquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(¿Í„Íıÿÿÿÿ8 ´˜ìİ-
+hsquid:S4488-"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ğñŸ‰8æâÒó˜-
+fsquid:S4488'"HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(¤¯ÖÕ8 ´˜ìİ-
+]squid:S1854!":Remove this useless assignment to local variable "result".(¦ªçîøÿÿÿÿ8 ´˜ìİ-

@@ -1,0 +1,69 @@
+.main {
+    padding: 20px;
+    background-image: url("./img/luck_draw_back.jpg");
+    color: white;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-repeat: repeat-x;
+    background-size: 100% 100%;
+}
+
+.title {
+    font-size: 47px;
+    text-align: center;
+    margin-top: 15px;
+    color: #f7f700;
+    font-weight: bold;
+}
+
+.join-member-list {
+    padding: 20px;
+    min-height: 432px;
+    margin-top: 10px;
+}
+
+.join-member-item {
+    display: inline-block;
+    width: 12%;
+    height: 110px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+    padding: 5px 0;
+    text-align: center;
+    border: 3px solid transparent;
+}
+
+.join-member-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.join-member-name {
+    font-size: 16px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 120px;
+    margin: 0 auto;
+}
+
+.btn-area {
+    text-align: center;
+}
+
+.luck-draw-btn {
+    width: 300px;
+    height: 100px;
+    font-size: 40px;
+    background-color: #f1bd72;
+    border: none;
+    border-radius: 50%;
+    color: #725023;
+}
+
+.selected {
+    border: 3px solid gold;
+    border-radius: 25px;
+}

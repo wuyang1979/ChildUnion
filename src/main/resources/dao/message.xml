@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qinzi123.dao.MessageDao">
+
+    <resultMap type="com.qinzi123.dto.CardMessage" id="cardMessage">
+        <id property="id" column="id"/>
+        <result property="cardId" column="card_id"/>
+        <result property="formId" column="form_id"/>
+        <result property="title" column="title"/>
+        <result property="message" column="message"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="last" column="last"/>
+        <result property="readCount" column="read_count"/>
+        <result property="giveLike" column="give_like"/>
+        <result property="messageType" column="message_type"/>
+        <result property="sourceType" column="source_type"/>
+        <result property="sourcePath" column="source_path"/>
+        <association property="cardInfo" javaType="com.qinzi123.dto.CardInfo">
+            <id property="id" column="bid"/>
+            <result property="openid" column="openid"/>
+            <result property="phone" column="phone"/>
+            <result property="realname" column="realname"/>
+            <result property="company" column="company"/>
+            <result property="job" column="job"/>
+            <result property="headimgurl" column="headimgurl"/>
+        </association>
+    </resultMap>
+
+    <select id="getMessageList" resultType="java.util.LinkedHashMap">
+		select id, message_behavior, card_message_id , send_person_card,send_person_name, date_format(create_time,'%Y-%m-%d') as createTime, read_status
+		from message_info where receive_person_card = #{receiveCard} and message_type = #{messageType} order by read_status, create_time desc limit #{start}, #{num}
+    </select>
+
+    <select id="getCardMessageInfoById" resultMap="cardMessage">
+		select a.id, a.card_id, a.title, a.message, TIMESTAMPDIFF(MINUTE, a.update_time, sysdate()) as last,
+		a.read_count, a.give_like, b.phone, b.realname, b.company, b.job, b.headimgurl, a.message_type,
+		 a.source_type, a.source_path
+			from card_message a, card_info b where a.card_id = b.id and a.verify = 1 and a.id = #{cardMessageId}
+    </select>
+
+    <select id="getUnreadMessageCountByCard" resultType="integer">
+        select count(*) from message_info where read_status = 0 and receive_person_card = #{card}
+    </select>
+
+    <update id="updateReadStatus" parameterType="int">
+        update message_info set read_status = 1 where id = #{messageId}
+    </update>
+
+</mapper>

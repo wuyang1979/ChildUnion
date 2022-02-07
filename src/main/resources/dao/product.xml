@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qinzi123.dao.ProductDao">
+
+    <insert id="addProduct" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.qinzi123.dto.ProductInfo">
+        insert into product_info(status,card_id,company_id,name,type,main_image,original_price,present_price,inventory,repeat_purchase,once_max_purchase_count,phone,introduce,vedio_path,instruction,create_time,deadline_time)
+                            values(#{status},#{cardId},(select company_id from card_info where id = #{cardId}),#{name},#{type},#{mainImage},#{originalPrice},#{presentPrice},#{inventory},#{repeatPurchase},#{onceMaxPurchaseCount},#{phone},#{introduce},#{videoPath},#{instruction},#{createTime},#{deadlineTime})
+    </insert>
+
+    <update id="updateProduct" parameterType="com.qinzi123.dto.ProductInfo">
+    	update product_info
+		set name = #{name}, main_image = #{mainImage}, original_price = #{originalPrice}, present_price=#{presentPrice}, inventory=#{inventory},
+		repeat_purchase = #{repeatPurchase}, once_max_purchase_count = #{onceMaxPurchaseCount}, phone = #{phone}, introduce = #{introduce}, vedio_path = #{videoPath}, instruction = #{instruction}, deadline_time = #{deadlineTime}
+		where id = #{id}
+	</update>
+
+    <insert id="addOtherImagesToProduct" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into product_picture(product_id, picture_address) values(#{productId},#{url})
+    </insert>
+
+    <select id="listProduct" resultType="java.util.LinkedHashMap">
+		select id, card_id,name,main_image,  original_price, present_price, inventory,repeat_purchase,once_max_purchase_count,phone,introduce,vedio_path,instruction,date_format(create_time,'%Y-%m-%d') as create_time,date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
+		where card_id = #{card} order by create_time desc limit #{start}, #{num}
+    </select>
+
+    <select id="getOtherImagesById" resultType="java.util.LinkedHashMap">
+		select picture_address as url from product_picture where product_id = #{productId}
+    </select>
+
+    <select id="getReleaseCompanyInfoByCardId" resultType="java.util.Map">
+		select id,logopic,company from buss_league_info where id = (select company_id from card_info where id = #{card})
+    </select>
+
+    <select id="getReleaseCompanyInfoByCompanyId" resultType="java.util.LinkedHashMap">
+		select * from buss_league_info where id = #{companyId}
+    </select>
+
+    <delete id="deleteProductById">
+        delete from product_info where id = #{productId}
+    </delete>
+
+</mapper>

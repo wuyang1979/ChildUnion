@@ -1,0 +1,6 @@
+
+Vsquid:S1118":Add a private constructor to hide the implicit public one.(¦É­ úÿÿÿÿ
+Gsquid:S1444O"0Make this "public static weidianURL" field final(¯Ö®¼
+„"squid:ClassVariableVisibilityCheckO"VMake weidianURL a static final constant or non-public and provide accessors if needed.(¯Ö®¼
+psquid:S2293O"YReplace the type specification in this constructor call with the diamond operator ("<>").(¯Ö®¼
+4squid:S2386O"Make this member "protected".(¯Ö®¼

@@ -1,0 +1,10 @@
+
+wsquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(šÅ¦¡8‘¦»ß˜-
+Usquid:S2629R"7Use the built-in formatting to construct this argument.(ê„¦Æ8¾¼’ïÕ-
+Gsquid:S2629]"$Invoke method(s) only conditionally.(È¸‰øÿÿÿÿ8‘¦»ß˜-
+Wsquid:S3400/"9Remove this method and declare a constant for this value.(‹ä—ø8¾ÁßÒã-
+\squid:S34001"9Remove this method and declare a constant for this value.(ÕŸŞüÿÿÿÿ8¾ÁßÒã-
+\squid:S1155C">Use isEmpty() to check whether the collection is empty or not.(¿ˆñ¡8ç¦İÚ-
+esquid:S1192O"GDefine a constant instead of duplicating this literal "openid" 5 times.(ëóè‚8—ØïÕ-
+_squid:S3457R"AFormat specifiers should be used instead of string concatenation.(ê„¦Æ8¾¼’ïÕ-
+Ysquid:S1068"6Remove this unused "SEND_SUBSCRIBE_URL" private field.(×ë†²ùÿÿÿÿ8ÒÎ¬ü‡.

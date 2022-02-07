@@ -1,0 +1,4 @@
+
+|squid:S1171"YMove the contents of this initializer to a standard constructor or to field initializers.(æ±ðæýÿÿÿÿ8Í˜îôË-
+ysquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¤«¥æ8¨úÓÑã-
+Osquid:S3599",Use another way to initialize this instance.(æ±ðæýÿÿÿÿ8Í˜îôË-

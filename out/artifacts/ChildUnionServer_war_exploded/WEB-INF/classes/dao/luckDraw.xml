@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qinzi123.dao.LuckDrawDao">
+
+    <select id="getJoinerInfoById" resultType="java.util.Map">
+		select headimgurl, realname from card_info where id = #{card}
+    </select>
+
+    <insert id="joinLuckDraw" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into luck_draw(name, headimgurl,create_time,type)
+		values(#{realname}, #{headimgurl},#{createTime},#{type})
+	</insert>
+
+</mapper>

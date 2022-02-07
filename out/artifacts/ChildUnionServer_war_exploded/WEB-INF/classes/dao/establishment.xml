@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qinzi123.dao.EstablishmentDao">
+
+    <select id="listEstablishment" resultType="java.util.LinkedHashMap">
+		select * from buss_league_info order by leaguetype desc, submittime desc limit #{start}, #{num}
+    </select>
+
+    <select id="getEstablishmentInfoById" resultType="java.util.LinkedHashMap">
+		select * from buss_league_info where id = #{establishmentId}
+    </select>
+
+    <select id="getMainMember" resultType="java.util.LinkedHashMap">
+		select c.id as cardId, c.headimgurl, c.realname, c.job from card_info c LEFT JOIN buss_league_info b on c.phone = b.contacttel and c.realname = b.contactname where company_id = #{establishmentId}
+    </select>
+
+    <select id="getMemberList" resultType="java.util.LinkedHashMap">
+		select id as cardId, headimgurl, realname, job from card_info where company_id = #{establishmentId}
+    </select>
+
+    <select id="listSearchEstablishment" resultType="java.util.LinkedHashMap">
+		select * from buss_league_info where company like concat('%',#{searchValue},'%') order by submittime desc
+    </select>
+
+    <select id="listScreenEstablishment" resultType="java.util.LinkedHashMap">
+		select * from buss_league_info where industry = #{industry} order by submittime desc limit #{start}, #{num}
+    </select>
+
+    <select id="getCardInfo" resultType="java.util.LinkedHashMap">
+		select realname, phone, weixincode, job, openid as openId from card_info where id = #{cardId}
+    </select>
+
+    <select id="getEstablishmentListByCompany" resultType="java.util.LinkedHashMap">
+		select * from buss_league_info where company = #{company}
+    </select>
+
+    <select id="getEstablishmentInfoByCompanyId" resultType="java.util.LinkedHashMap">
+		select * from buss_league_info where id = #{companyId}
+    </select>
+
+    <select id="getAdminName" resultType="string">
+		select contactname from buss_league_info where id = #{companyId}
+    </select>
+
+    <select id="isExistEstablishmentMember" resultType="string">
+		select company_id from card_info where id = #{card}
+    </select>
+
+    <select id="isSelfEstablishmentLeague" resultType="string">
+		select leaguetype from buss_league_info where id = #{companyId}
+    </select>
+
+    <insert id="addEstablishment" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.qinzi123.dto.EstablishmentInfo">
+		insert into buss_league_info(leaguetype, companydesc,company,logopic,members,companyaddr,companytel, companyweb,industry,mainbussiness,maindemand,contactname,contactduty,contacttel,contactwx,submittime,updatetime,contactopenid,email,licensepic)
+		values(#{leaguetype}, #{introduce},#{company},#{mainImage},#{scope},#{address},#{companyTel},#{companyWeb},#{industry},#{mainBusiness},#{mainDemand},#{contactname},#{contactduty},#{contacttel},#{contactwx},#{submittime},#{updatetime},#{contactopenid},#{email},#{licensepic})
+	</insert>
+
+    <update id="updateEstablishment" parameterType="java.util.Map">
+    	update buss_league_info set logopic = #{mainImage},licensePic = #{licensePic},company = #{company},industry = #{industry},members = #{scope},companyaddr = #{address},companytel = #{companyTel},companyweb = #{companyWeb},email = #{email},companydesc = #{introduce},mainbussiness = #{mainBusiness},maindemand = #{mainDemand} where id = #{companyId}
+	</update>
+
+    <update id="updateCompanyIdByCardId" parameterType="java.util.Map">
+    	update card_info set company_id = #{companyId} where id = #{cardId}
+	</update>
+</mapper>

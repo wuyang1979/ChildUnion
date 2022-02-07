@@ -1,0 +1,8 @@
+
+hsquid:S4488&"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(âÀı»8¬¢‡Û–-
+msquid:S44881"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ï“ÿÿÿÿÿ8‹°Û–-
+hsquid:S4488="JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ù¹—Â8­Àç©É-
+msquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(÷æÔºÿÿÿÿÿ8˜Ö÷Ú–-
+gsquid:S4488 "JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ıÅğ\8’½ıÚ–-
+msquid:S4488,"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(©º÷Ìşÿÿÿÿ8†Ô‰Û–-
+~squid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ûìÊ şÿÿÿÿ8Ê‹ú¡§.

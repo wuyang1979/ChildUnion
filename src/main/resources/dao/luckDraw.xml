@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qinzi123.dao.LuckDrawDao">
+
+    <select id="getJoinerInfoById" resultType="java.util.Map">
+		select headimgurl, realname from card_info where id = #{card}
+    </select>
+
+    <insert id="joinLuckDraw" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into luck_draw(card_id,name, headimgurl,create_time,type)
+		values(#{cardId}, #{realname}, #{headimgurl},#{createTime},#{type})
+	</insert>
+
+    <insert id="joinOutsideLuckDraw" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into luck_draw_outside(name, headimgurl,open_id,create_time)
+		values(#{name}, #{headimgurl},#{openId},#{createTime})
+	</insert>
+
+    <select id="getJoinInfoByCardAndType" resultType="java.util.LinkedHashMap">
+		select * from luck_draw where card_id = #{card} and type = #{type}
+    </select>
+
+    <select id="getOutsideJoinInfoByOpenId" resultType="java.util.LinkedHashMap">
+		select * from luck_draw_outside where open_id = #{openId}
+    </select>
+</mapper>

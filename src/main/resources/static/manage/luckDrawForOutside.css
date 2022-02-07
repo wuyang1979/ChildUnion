@@ -1,0 +1,141 @@
+.main {
+    padding: 20px;
+    background-image: url("./img/luck_draw_back.jpg");
+    color: white;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-repeat: repeat-x;
+    background-size: 100% 100%;
+}
+
+.title {
+    font-size: 47px;
+    text-align: center;
+    margin-top: 15px;
+    color: #f7f700;
+    font-weight: bold;
+}
+
+.join-member-list {
+    padding: 20px;
+    min-height: 432px;
+    margin-top: 10px;
+}
+
+.join-member-item {
+    display: inline-block;
+    width: 12%;
+    height: 110px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+    padding: 5px 0;
+    text-align: center;
+    border: 3px solid transparent;
+}
+
+.join-member-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.join-member-name {
+    font-size: 16px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 120px;
+    margin: 0 auto;
+}
+
+.btn-area {
+    text-align: center;
+    position: relative;
+}
+
+.luck-draw-btn {
+    width: 300px;
+    height: 100px;
+    font-size: 40px;
+    background-color: #f1bd72;
+    border: none;
+    border-radius: 50%;
+    color: #725023;
+}
+
+.clear-joiner-btn{
+    width: 200px;
+    height: 80px;
+    font-size: 25px;
+    background-color: #f1bd72;
+    border: none;
+    border-radius: 50%;
+    color: #725023;
+    position: absolute;
+    top: 10px;
+    right: 300px;
+}
+
+.selected {
+    border: 3px solid gold;
+    border-radius: 25px;
+}
+
+.cover-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.confirm-area {
+    position: fixed;
+    width: 30%;
+    height: 230px;
+    top: 170px;
+    left: 550px;
+    background-color: #f8f8f8;
+    border: 1px solid #d0d0d0;
+    border-radius: 10px;
+    z-index: 20;
+    color: black;
+}
+
+.confirm-area-tip {
+    height: 50px;
+    font-size: 22px;
+    padding-left: 85px;
+    padding-top: 70px;
+}
+
+
+.confirm-area-bottom {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    border-top: 1px solid #d8d8d8;
+}
+
+.deny,
+.confirm {
+    display: inline-block;
+    width: 44%;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.deny {
+    border-right: 1px solid #d8d8d8;
+}
+
+.confirm {
+    color: #6483c3;
+}

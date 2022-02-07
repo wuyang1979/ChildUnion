@@ -1,0 +1,9 @@
+
+?squid:S1148>"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+csquid:CommentedOutCodeLineâ"<This block of commented-out lines of code should be removed.(”©’
+hsquid:CommentedOutCodeLineà"<This block of commented-out lines of code should be removed.(ÄÔ÷‰ùÿÿÿÿ
+]squid:S2259@"AA "NullPointerException" could be thrown; "dt2" is nullable here.(÷ý¿ßûÿÿÿÿ
+fsquid:S001003"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æ¶ë€
+hsquid:CommentedOutCodeLineç"<This block of commented-out lines of code should be removed.(Þšééúÿÿÿÿ
+hsquid:CommentedOutCodeLineä"<This block of commented-out lines of code should be removed.(¼ÕÓúÿÿÿÿ
+ysquid:S1488@"]Immediately return this expression instead of assigning it to the temporary variable "lTime".(÷ý¿ßûÿÿÿÿ

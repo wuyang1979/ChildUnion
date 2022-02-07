@@ -1,0 +1,5 @@
+
+fsquid:S4488!"HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(£¢°Å8™ß—üØ-
+msquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ÓÏï×úÿÿÿÿ8™ß—üØ-
+msquid:S4488'"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(éÙÀÉıÿÿÿÿ8™ß—üØ-
+asquid:CallToDeprecatedMethod"3Remove this use of "description"; it is deprecated.(Àş¹t8¿è–üØ-

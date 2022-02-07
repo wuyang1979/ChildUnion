@@ -1,0 +1,4 @@
+
+Nsquid:S1068"+Remove this unused "dataMap" private field.(Òõ¥ïøÿÿÿÿ8±ò¶ÜÇ-
+ysquid:S1450"VRemove the "dataMap" field and declare it as a local variable in the relevant methods.(Òõ¥ïøÿÿÿÿ8±ò¶ÜÇ-
+isquid:CommentedOutCodeLine,"<This block of commented-out lines of code should be removed.(Ò¡¶ò8ØÎÙÕÇ-

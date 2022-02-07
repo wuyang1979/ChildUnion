@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Generator | Hack Club ITER</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://assets.hackclub.com/favicons/favicon-32x32.png">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+<div class="container">
+    <!-- Headers -->
+    <div class="brand-logo"></div>
+    <div class="brand-title">Hack Club ITER.</div>
+    <!--    <div class="brand-title-small">Certificate Generator</div>-->
+    <div class="inputs">
+
+        <!-- User Name -->
+        <label>姓名</label>
+
+        <input type="text" class="question" placeholder="输入您的姓名" id="name" required autocomplete="off"/>
+
+        <!-- Validation Code -->
+        <label>验证码</label>
+        <input type="text" placeholder="输入验证码" id="validation" required autocomplete="off"/>
+        <p id="alert"></p>
+        <button type="submit" id="submitBtn">下载证书</button>
+        <!--        <p>Download your 7 Days of Web Development Certificate.</p>-->
+    </div>
+
+</div>
+<script>
+
+</script>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
+<script src="./assets/js/filesaver.js"></script>
+<script src="./assets/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+
+^squid:S00112&"FDefine and throw a dedicated exception instead of using a generic one.(ÆÔÜ
+csquid:HiddenFieldChecky"<Rename "signType" which hides the field declared at line 11.(úÓ»üÿÿÿÿ
+^squid:S00112F"FDefine and throw a dedicated exception instead of using a generic one.(‚Ğ’
+_squid:UnusedPrivateMethod4"5Remove this unused private "checkWXPayConfig" method.(³™îÿÿÿÿÿ
+tsquid:S1488±"\Immediately return this expression instead of assigning it to the temporary variable "resp".(†¾¿õ
+]squid:S001126"FDefine and throw a dedicated exception instead of using a generic one.(ıùù
+csquid:S00112?"FDefine and throw a dedicated exception instead of using a generic one.(áƒ¬ïúÿÿÿÿ
+csquid:S00112B"FDefine and throw a dedicated exception instead of using a generic one.(¼¸çşÿÿÿÿ
+dsquid:S00112Ã"FDefine and throw a dedicated exception instead of using a generic one.(ëŠ“ ıÿÿÿÿ
+^squid:S00112I"FDefine and throw a dedicated exception instead of using a generic one.(ÈÂØÊ
+3squid:S3626¬"Remove this redundant jump.(ÉŠ©ƒ
+dsquid:S00112Î"FDefine and throw a dedicated exception instead of using a generic one.(…ÃÑ¡ùÿÿÿÿ
+isquid:S00117¼"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(âø¬k
+^squid:S00112<"FDefine and throw a dedicated exception instead of using a generic one.(Âö¦Ş
+u
+squid:S135"YReduce the total number of break and continue statements in this loop to use at most one.(˜ïˆÿÿÿÿÿ
+csquid:S3027¿"FPut single-quotes around '<' to use the faster "indexOf(char)" method.(î½æÙşÿÿÿÿ
+fsquid:S1192Y"JDefine a constant instead of duplicating this literal "nonce_str" 3 times.(¤ŠíÙşÿÿÿÿ
+qsquid:S2293Ä"YReplace the type specification in this constructor call with the diamond operator ("<>").(³Í¸
+dsquid:S00112Ò"FDefine and throw a dedicated exception instead of using a generic one.(ûÙÎÛüÿÿÿÿ
+^squid:S001129"FDefine and throw a dedicated exception instead of using a generic one.(Âö¦Ş
+osquid:S3776Š"RRefactor this method to reduce its Cognitive Complexity from 40 to the 15 allowed.(‰Ë†™úÿÿÿÿ
+osquid:S00117½"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•´—äıÿÿÿÿ
+ysquid:S1488"\Immediately return this expression instead of assigning it to the temporary variable "resp".(­¦Ùüÿÿÿÿ
+csquid:S2184§"FCast one of the operands of this multiplication operation to a "long".(Şàà·şÿÿÿÿ
+csquid:S2184ª"FCast one of the operands of this multiplication operation to a "long".(ÍÁ”ëøÿÿÿÿ
+csquid:S1192¼"LDefine a constant instead of duplicating this literal "return_code" 3 times.(âø¬k
+csquid:S001124"FDefine and throw a dedicated exception instead of using a generic one.(³™îÿÿÿÿÿ
+dsquid:S00112‰"FDefine and throw a dedicated exception instead of using a generic one.(¡ñçúıÿÿÿÿ

@@ -1,0 +1,1287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="ChildUnionServer:war exploded" />
+    </artifacts-to-build>
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="793ea66d-21f0-4942-8b9e-fe5e590e2ed9" name="Default" comment="新版本代码迭代上传-漏传文件">
+      <change beforePath="$PROJECT_DIR$/target/childunion-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/childunion-1.0-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application-dev.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application-prod.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/wxpay/sdk/IWXPayDomain$DomainInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/wxpay/sdk/IWXPayDomain.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/wxpay/sdk/WXPay.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/wxpay/sdk/WXPayConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/wxpay/sdk/WXPayConstants$SignType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/wxpay/sdk/WXPayConstants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/wxpay/sdk/WXPayReport$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/wxpay/sdk/WXPayReport$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/wxpay/sdk/WXPayReport$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/wxpay/sdk/WXPayReport$ReportInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/wxpay/sdk/WXPayReport.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/wxpay/sdk/WXPayRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/wxpay/sdk/WXPayUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/wxpay/sdk/WXPayXmlUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/QinziApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/config/HttpsConfig$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/config/HttpsConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/config/RestTemplateConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/config/SwaggerConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/config/TransactionConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/config/WxMappingJackson2HttpMessageConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/HomeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/BannerController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/BaseController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/BusinessController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/CampaignController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/CooperateController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/EnterpriseController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/EstablishmentController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/KonwledgeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/LuckDrawController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/MessageController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/MiniFileController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/OrderController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/PayController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/ProductController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/PushController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/RechargeOrderController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/micro/StartUpController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/web/EntityController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/web/FileController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/web/LoginController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/web/LoginFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/web/MicroController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/controller/web/PCShowController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/BannerDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/BaseDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/CampaignDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/CardDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/CooperateDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/DaoScan.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/EnterpriseDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/EntityDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/EstablishmentDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/KnowledgeDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/LuckDrawDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/MessageDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/PCShowDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/ProductDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/PushDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/StartUpDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/TableConfigDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dao/TokenDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/BaseMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/BaseParam.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/CardInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/CardInfoSend.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/CardMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/CardMessageReply.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/CardMessageSend.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/Column.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/EnterpriseInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/Establishment$Industry.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/Establishment$Scope.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/Establishment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/EstablishmentInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/FollowMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/Follower.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/LoginUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/OrderType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/ProductInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/ScoreType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/TableConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/TemplateData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/TokenType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/Use.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/WxCitys.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/WxMssVo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/WxOneCity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/WxSmallFormId.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/WxSmallToken.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/AbstractPushHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/Keyword.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/MessageTools$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/MessageTools$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/MessageTools.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/message/CooperateMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/message/CooperateMessageHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/message/CooperateMessageReplySubmitHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/message/CooperateMessageSubmitHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/message/CooperateReplyMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/message/FollowMessageHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/message/FollowTempMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/message/MessageSendObject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/template/MiniProgramSendObject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/template/OfficialAccountSendObject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/template/miniProgram/CardInfoTemplate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/template/miniProgram/CardInfoTemplateHelper$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/template/miniProgram/CardInfoTemplateHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/template/miniProgram/CooperateMessageReplyTemplateHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/template/miniProgram/CooperateMessageTemplateHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/template/miniProgram/CooperateTemplate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/template/miniProgram/MiniProgramTemplateHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/template/officialAccount/First.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/template/officialAccount/OACooperateMessageReplyTemplateHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/template/officialAccount/OACooperateMessageTemplateHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/template/officialAccount/OACooperateTemplate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/template/officialAccount/OATemplateHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/dto/push/template/officialAccount/Remark.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/exception/Error.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/exception/GlobalProcessException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/domain/BussLeagueCooperate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/domain/BussLeagueInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/domain/BussinessInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/domain/BussinessMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/domain/BussinessPcShowCampaigns.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/domain/CampaignPcshowInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/domain/CardInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/domain/CardScope.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/service/PCShowService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/service/impl/PCShowServiceImpl$Request.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/service/impl/PCShowServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/util/CalendarUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/util/CommConstant.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/util/Constants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/util/FormatConstant.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/util/HttpResponseUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/happiness/util/StringUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/BannerService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/BaseService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/BusinessWeixinService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/CampaignService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/CooperateWeixinService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/EnterpriseService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/EntityService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/EstablishmentService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/FileService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/KnowledgeService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/LuckDrawService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/MessageService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/PayScoreService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/ProductService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/PushMiniProgramService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/PushOfficialAccountService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/RechargeMoneyService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/ScoreService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/StartUpService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/TokenService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/AbstractWechatMiniProgramService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/AbstractWechatOfficialAccountService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/AbstractWechatService$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/AbstractWechatService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/BannerServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/BaseServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/BusinessWeixinServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/CampaignServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/CooperateWeixinServiceImpl$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/CooperateWeixinServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/EnterpriseServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/EntityServiceImpl$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/EntityServiceImpl$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/EntityServiceImpl$Loop.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/EntityServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/EstablishmentServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/FileServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/KnowledgeServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/LuckDrawServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/MessageServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/PayScoreServiceImpl$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/PayScoreServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/ProductServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/PushMiniProgramServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/PushOfficialAccountServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/RechargeMoneyServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/ScoreServiceImpl$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/ScoreServiceImpl$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/ScoreServiceImpl$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/ScoreServiceImpl$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/ScoreServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/ServiceHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/StartUpServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/impl/TokenServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/service/official/OfficialService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/util/DateUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/util/Utils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/util/WeChatUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/web/ResponseBodyHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/web/Result$Page.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/web/Result.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/qinzi123/web/ServerExceptionHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/banner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/base.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/campaign.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/card.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/config.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/cooperate.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/enterprise.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/entity.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/establishment.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/knowledge.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/luckDraw.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/message.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/pcshow.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/product.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/push.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/startUp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/token.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/campaign.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/certificateGenerator/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/certificateGenerator/assets/certificate/CER-HCI-CM-2021-01-P.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/certificateGenerator/assets/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/certificateGenerator/assets/js/filesaver.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/certificateGenerator/assets/js/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/certificateGenerator/assets/ttf/Montserrat-ExtraLight.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/certificateGenerator/assets/ttf/Sanchez-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/certificateGenerator/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/left.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/login.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/control.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/function.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/home.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/home.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/img/delete.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/img/luck_draw_back.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/lib/home.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/lib/vue-resource.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/lib/vue.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/luckDrawForOutside.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/luckDrawForOutside.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/luckDrawForOutside.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/luck_draw.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/luck_draw.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/luck_draw.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/menu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/model.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/template/activity_base.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/template/activity_base_reserve.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/template/buss_league_info.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/template/card_info.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/template/card_message.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/template/card_message_reply.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/template/enterprise_comment.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/template/enterprise_consulting.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/template/enterprise_info.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/template/meta.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/template/order_view.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/template/product_info.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/template/recharge_view.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/template/wx_banner.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/manage/template/wx_product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/create.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/css/poster.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/dialog/css/dialog.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/dialog/css/tmpl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/dialog/images/icon/fail.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/dialog/images/icon/loading.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/dialog/images/icon/success.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/dialog/js/dialog.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/dialog/js/example.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/dialog/js/ripple.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/dialog/js/tapEvent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/dialog/js/zepto.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/img/loading.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/img/posterBg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/js/html2canvas/html2canvas.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/js/html2canvas/html2canvas.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/js/jquery-2.1.3.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/js/qrcode/qrcode.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/js/qrcode/qrcode.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/shares/js/rem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/test.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/www.qinzi123.com.jks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.qinzi123.BusinessWeixinServiceTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.qinzi123.LocalTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.qinzi123.PayServiceTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.qinzi123.PushServiceTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.qinzi123.BusinessWeixinServiceTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.qinzi123.LocalTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.qinzi123.PayServiceTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.qinzi123.PushServiceTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/qinzi123/BusinessWeixinServiceTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/qinzi123/LocalTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/qinzi123/PayServiceTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/qinzi123/PushServiceTest.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\maven\apache-maven-3.6.3\LocalMaven" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../../maven/apache-maven-3.6.3" />
+        <option name="userSettingsFile" value="D:\maven\apache-maven-3.6.3\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1wdCfAykxHgSYiCd4wiH3psxbPf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="添加" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://F:/workspace/git/wuyang/ChildUnionServer/src/main/java/com/qinzi123/service/impl/PayServiceImpl.java" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/static/manage/template" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Java\Project\ChildUnionServer\trunk\src\main\resources\static" />
+      <recent name="D:\Java\Project\ChildUnionServer\trunk\src\main\resources\static\manage" />
+      <recent name="D:\Java\Project\ChildUnionServer\trunk\src\main\resources\static\manage\img" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.qinzi123" />
+      <recent name="com.qinzi123.service" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.qinzi123.dao" />
+      <recent name="com.qinzi123.dto" />
+      <recent name="com.qinzi123.config" />
+      <recent name="com.qinzi123.service.impl" />
+      <recent name="com.qinzi123.service" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Java\Project\ChildUnionServer\trunk\src\main\resources\static\manage\template" />
+      <recent name="D:\Java\Project\ChildUnionServer\trunk\src\main\resources\dao" />
+      <recent name="D:\Java\Project\ChildUnionServer\trunk\src\main\resources\static\manage" />
+      <recent name="D:\Java\Project\ChildUnionServer\trunk\src\main\java\com" />
+      <recent name="F:\workspace\git\wuyang\ChildUnionServer\src\main\resources\dao" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Tomcat Server.QinZiApplication">
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnitTestDiscovery" factoryName="JUnit Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNGTestDiscovery" factoryName="TestNG Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="passParentEnv" value="true" />
+      <setting name="grailsApplicationRoot" value="" />
+      <setting name="launchBrowser" value="true" />
+      <setting name="launchBrowserUrl" value="" />
+      <setting name="depsClasspath" value="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="ChildUnion" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <module name="" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="QinziApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="ChildUnionServer" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.qinzi123.QinziApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="QinZiApplication" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.37" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="BROWSER_ID" value="4480a54a-8fb0-46f1-a955-7c5be6d18c88" />
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
+      <deployment>
+        <artifact name="ChildUnionServer:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_trunk" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="61847" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="ChildUnionServer:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.QinziApplication" />
+      <item itemvalue="Tomcat Server.QinZiApplication" />
+    </list>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="793ea66d-21f0-4942-8b9e-fe5e590e2ed9" name="Default" comment="" />
+      <created>1538292104719</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1538292104719</updated>
+      <workItem from="1538292107788" duration="934000" />
+      <workItem from="1538644721864" duration="1235000" />
+      <workItem from="1538705347276" duration="14472000" />
+      <workItem from="1538880060264" duration="5286000" />
+      <workItem from="1538985342962" duration="143000" />
+      <workItem from="1538985500345" duration="30000" />
+      <workItem from="1539180506202" duration="825000" />
+      <workItem from="1539313642394" duration="611000" />
+      <workItem from="1539392972599" duration="165000" />
+      <workItem from="1539440931230" duration="1569000" />
+      <workItem from="1539482852334" duration="13318000" />
+      <workItem from="1539578665832" duration="8248000" />
+      <workItem from="1539650911728" duration="3958000" />
+      <workItem from="1539951728755" duration="72000" />
+      <workItem from="1539954046488" duration="1172000" />
+      <workItem from="1540014696601" duration="1219000" />
+      <workItem from="1540082913477" duration="12000" />
+      <workItem from="1540121295428" duration="2063000" />
+      <workItem from="1540437702594" duration="2428000" />
+      <workItem from="1540457904823" duration="662000" />
+      <workItem from="1540514965238" duration="1131000" />
+      <workItem from="1540634743349" duration="369000" />
+      <workItem from="1540642404879" duration="60000" />
+      <workItem from="1540800335566" duration="2598000" />
+      <workItem from="1540992137023" duration="219000" />
+      <workItem from="1541766433135" duration="4636000" />
+      <workItem from="1541818105775" duration="59000" />
+      <workItem from="1541851709343" duration="594000" />
+      <workItem from="1542017838043" duration="802000" />
+      <workItem from="1542459174298" duration="3789000" />
+      <workItem from="1542464678426" duration="98000" />
+      <workItem from="1542507255545" duration="4904000" />
+      <workItem from="1542539914197" duration="2192000" />
+      <workItem from="1542629853992" duration="5280000" />
+      <workItem from="1542673796798" duration="25361000" />
+      <workItem from="1542766659145" duration="5538000" />
+      <workItem from="1542804909688" duration="98000" />
+      <workItem from="1542890291019" duration="4268000" />
+      <workItem from="1542933287648" duration="1475000" />
+      <workItem from="1542935446003" duration="439000" />
+      <workItem from="1542975044091" duration="2318000" />
+      <workItem from="1543025481508" duration="21920000" />
+      <workItem from="1543116581207" duration="84000" />
+      <workItem from="1543150042587" duration="168000" />
+      <workItem from="1543150379993" duration="483000" />
+      <workItem from="1543209801285" duration="101000" />
+      <workItem from="1543235256838" duration="133000" />
+      <workItem from="1543451459497" duration="1790000" />
+      <workItem from="1543466785753" duration="2136000" />
+      <workItem from="1543499326708" duration="682000" />
+      <workItem from="1543923997829" duration="1874000" />
+      <workItem from="1544018409322" duration="1080000" />
+      <workItem from="1544057167315" duration="38000" />
+      <workItem from="1545872510488" duration="9079000" />
+      <workItem from="1545975526467" duration="1770000" />
+      <workItem from="1546228320678" duration="2119000" />
+      <workItem from="1546262828167" duration="1199000" />
+      <workItem from="1546519122059" duration="8000" />
+      <workItem from="1546849295666" duration="1092000" />
+      <workItem from="1546869082511" duration="850000" />
+      <workItem from="1547086633886" duration="23000" />
+      <workItem from="1547715533080" duration="685000" />
+      <workItem from="1547781748079" duration="32000" />
+      <workItem from="1550753879001" duration="2512000" />
+      <workItem from="1550795613541" duration="4741000" />
+      <workItem from="1550838837873" duration="1066000" />
+      <workItem from="1550923460939" duration="1322000" />
+      <workItem from="1551055008043" duration="2938000" />
+      <workItem from="1551161983471" duration="1934000" />
+      <workItem from="1552098057242" duration="1264000" />
+      <workItem from="1552219866119" duration="4338000" />
+      <workItem from="1552265990292" duration="6353000" />
+      <workItem from="1552551577256" duration="4889000" />
+      <workItem from="1552619750938" duration="1232000" />
+      <workItem from="1552698455359" duration="17052000" />
+      <workItem from="1552824619384" duration="4076000" />
+      <workItem from="1552872484092" duration="23094000" />
+      <workItem from="1552956431396" duration="4753000" />
+      <workItem from="1553042686300" duration="16581000" />
+      <workItem from="1553779646279" duration="337000" />
+      <workItem from="1553822945818" duration="342000" />
+      <workItem from="1565180872625" duration="2252000" />
+      <workItem from="1565313543628" duration="27000" />
+      <workItem from="1218262364095" duration="20000" />
+      <workItem from="1565424332753" duration="16356000" />
+      <workItem from="1565572877024" duration="17000" />
+      <workItem from="1565615291798" duration="793000" />
+      <workItem from="1565702237465" duration="1169000" />
+      <workItem from="1565858109427" duration="1808000" />
+      <workItem from="1565870714841" duration="5344000" />
+      <workItem from="1565916507305" duration="6401000" />
+      <workItem from="1566006391913" duration="6281000" />
+      <workItem from="1566095248059" duration="92000" />
+      <workItem from="1566373009892" duration="469000" />
+      <workItem from="1566545378223" duration="2658000" />
+      <workItem from="1566565647058" duration="3024000" />
+      <workItem from="1566613372864" duration="3867000" />
+      <workItem from="1566649284568" duration="4887000" />
+      <workItem from="1566733077263" duration="2317000" />
+      <workItem from="1566782041566" duration="15000" />
+      <workItem from="1567135246432" duration="3151000" />
+      <workItem from="1567215261390" duration="762000" />
+      <workItem from="1567233072010" duration="9666000" />
+      <workItem from="1567249798953" duration="2833000" />
+      <workItem from="1567309835997" duration="656000" />
+      <workItem from="1567336425274" duration="79000" />
+      <workItem from="1567398668083" duration="2390000" />
+      <workItem from="1567406166370" duration="15000" />
+      <workItem from="1567938298725" duration="1156000" />
+      <workItem from="1568026956103" duration="1359000" />
+      <workItem from="1568200712652" duration="695000" />
+      <workItem from="1568270278825" duration="20000" />
+      <workItem from="1568701098664" duration="1085000" />
+      <workItem from="1568798990454" duration="4159000" />
+      <workItem from="1568853505379" duration="1359000" />
+      <workItem from="1568944207163" duration="702000" />
+      <workItem from="1568969383092" duration="76000" />
+      <workItem from="1569199720993" duration="16755000" />
+      <workItem from="1569284929637" duration="6859000" />
+      <workItem from="1569375885326" duration="3294000" />
+      <workItem from="1569403423615" duration="2882000" />
+      <workItem from="1569467841796" duration="5716000" />
+      <workItem from="1569631161997" duration="5129000" />
+      <workItem from="1569803368817" duration="1343000" />
+      <workItem from="1569923810176" duration="3797000" />
+      <workItem from="1570069260936" duration="4638000" />
+      <workItem from="1570106978303" duration="2245000" />
+      <workItem from="1570248444379" duration="47000" />
+      <workItem from="1570526819842" duration="7545000" />
+      <workItem from="1570542874008" duration="521000" />
+      <workItem from="1570687022933" duration="1309000" />
+      <workItem from="1570866028448" duration="463000" />
+      <workItem from="1570967656146" duration="1726000" />
+      <workItem from="1571104301377" duration="703000" />
+      <workItem from="1571127366497" duration="4883000" />
+      <workItem from="1571186579884" duration="5527000" />
+      <workItem from="1571296746852" duration="1923000" />
+      <workItem from="1571365320362" duration="8920000" />
+      <workItem from="1571404037291" duration="1495000" />
+      <workItem from="1571534475388" duration="2429000" />
+      <workItem from="1571798921946" duration="2886000" />
+      <workItem from="1571820307792" duration="18000" />
+      <workItem from="1571902391713" duration="1149000" />
+      <workItem from="1572172108888" duration="2062000" />
+      <workItem from="1572244682471" duration="2651000" />
+      <workItem from="1572607265153" duration="15000" />
+      <workItem from="1572868140384" duration="1866000" />
+      <workItem from="1572916011439" duration="13116000" />
+      <workItem from="1573036763422" duration="9143000" />
+      <workItem from="1573089308865" duration="6156000" />
+      <workItem from="1573114449744" duration="858000" />
+      <workItem from="1573193447242" duration="78000" />
+      <workItem from="1573697412660" duration="318000" />
+      <workItem from="1573701539114" duration="4079000" />
+      <workItem from="1573805581312" duration="408000" />
+      <workItem from="1573806346398" duration="937000" />
+      <workItem from="1574844767253" duration="6602000" />
+      <workItem from="1575536840602" duration="866000" />
+      <workItem from="1575983051889" duration="1007000" />
+      <workItem from="1576152914280" duration="2173000" />
+      <workItem from="1577944783904" duration="1557000" />
+      <workItem from="1578041149904" duration="598000" />
+      <workItem from="1579360348972" duration="13000" />
+      <workItem from="1579598158524" duration="1565000" />
+      <workItem from="1579603876511" duration="4464000" />
+      <workItem from="1580186067419" duration="6742000" />
+      <workItem from="1580616562511" duration="658000" />
+      <workItem from="1580902409650" duration="315000" />
+      <workItem from="1582631152133" duration="1013000" />
+      <workItem from="1582680722407" duration="6913000" />
+      <workItem from="1583287284638" duration="221000" />
+      <workItem from="1585235857613" duration="752000" />
+      <workItem from="1585290120993" duration="14000" />
+      <workItem from="1590126468641" duration="770000" />
+      <workItem from="1591085982244" duration="2996000" />
+      <workItem from="1591195054525" duration="464000" />
+      <workItem from="1591349923807" duration="31000" />
+      <workItem from="1592036861767" duration="2474000" />
+      <workItem from="1592361866084" duration="18000" />
+      <workItem from="1597634361664" duration="207000" />
+      <workItem from="1609036213422" duration="638000" />
+      <workItem from="1609038398542" duration="6732000" />
+      <workItem from="1609073908846" duration="4684000" />
+      <workItem from="1610073617349" duration="2368000" />
+      <workItem from="1611372473864" duration="260000" />
+      <workItem from="1611462199379" duration="1164000" />
+      <workItem from="1628779180098" duration="709000" />
+      <workItem from="1632911266751" duration="144000" />
+      <workItem from="1632963787215" duration="1146000" />
+      <workItem from="1633660405501" duration="1589000" />
+      <workItem from="1633677602807" duration="648000" />
+      <workItem from="1633937205138" duration="5513000" />
+      <workItem from="1634003158724" duration="5600000" />
+      <workItem from="1634026939464" duration="595000" />
+      <workItem from="1634175097158" duration="8495000" />
+      <workItem from="1634203827141" duration="3209000" />
+      <workItem from="1634280327299" duration="595000" />
+      <workItem from="1634545770552" duration="1367000" />
+      <workItem from="1634628026823" duration="6094000" />
+      <workItem from="1634701455329" duration="2175000" />
+      <workItem from="1634786000536" duration="6169000" />
+      <workItem from="1634866809952" duration="4520000" />
+      <workItem from="1635125914322" duration="594000" />
+      <workItem from="1635127192054" duration="10246000" />
+      <workItem from="1635215745712" duration="1937000" />
+      <workItem from="1635306689009" duration="3332000" />
+      <workItem from="1635471827793" duration="14944000" />
+      <workItem from="1635730301794" duration="28294000" />
+      <workItem from="1635816944785" duration="14081000" />
+      <workItem from="1635991476529" duration="4914000" />
+      <workItem from="1636075709825" duration="10373000" />
+      <workItem from="1636335339517" duration="11306000" />
+      <workItem from="1636422238180" duration="7324000" />
+      <workItem from="1636508726364" duration="15081000" />
+      <workItem from="1636595031255" duration="9479000" />
+      <workItem from="1636680570148" duration="7817000" />
+      <workItem from="1636943509280" duration="24146000" />
+      <workItem from="1637026812574" duration="20065000" />
+      <workItem from="1637113540351" duration="6948000" />
+      <workItem from="1637200145102" duration="13354000" />
+      <workItem from="1637572522911" duration="594000" />
+      <workItem from="1637631708504" duration="11027000" />
+      <workItem from="1637824100815" duration="5182000" />
+      <workItem from="1637890253893" duration="11213000" />
+      <workItem from="1638149789674" duration="15432000" />
+      <workItem from="1638236464427" duration="1136000" />
+      <workItem from="1638322812181" duration="3432000" />
+      <workItem from="1638415227713" duration="4845000" />
+      <workItem from="1638495606404" duration="1907000" />
+      <workItem from="1638503329620" duration="8316000" />
+      <workItem from="1638754549884" duration="12934000" />
+      <workItem from="1638840864111" duration="7469000" />
+      <workItem from="1638855099656" duration="5467000" />
+      <workItem from="1638933415972" duration="10101000" />
+      <workItem from="1639013652330" duration="15186000" />
+      <workItem from="1639100037804" duration="7883000" />
+      <workItem from="1639359364887" duration="5542000" />
+      <workItem from="1639375113916" duration="4290000" />
+      <workItem from="1639446431194" duration="2105000" />
+      <workItem from="1639620329762" duration="4634000" />
+      <workItem from="1639705389326" duration="2786000" />
+      <workItem from="1639964396260" duration="10168000" />
+      <workItem from="1640050344922" duration="2640000" />
+      <workItem from="1640136954146" duration="8461000" />
+      <workItem from="1640223863600" duration="2760000" />
+      <workItem from="1640312514658" duration="12364000" />
+      <workItem from="1640568632112" duration="20114000" />
+      <workItem from="1640655737091" duration="3327000" />
+      <workItem from="1640742949611" duration="1151000" />
+      <workItem from="1640832249430" duration="15523000" />
+      <workItem from="1640914669944" duration="15078000" />
+      <workItem from="1641260064327" duration="7747000" />
+      <workItem from="1641346502179" duration="13445000" />
+      <workItem from="1641433039599" duration="9022000" />
+      <workItem from="1641519436303" duration="24663000" />
+      <workItem from="1641778883905" duration="1264000" />
+      <workItem from="1641864733346" duration="4409000" />
+      <workItem from="1641951102584" duration="1870000" />
+      <workItem from="1642040660675" duration="3887000" />
+      <workItem from="1642124663211" duration="5813000" />
+      <workItem from="1642469728123" duration="593000" />
+      <workItem from="1642555483662" duration="2412000" />
+      <workItem from="1642644010232" duration="615000" />
+      <workItem from="1642647428679" duration="2810000" />
+      <workItem from="1642730027923" duration="639000" />
+      <workItem from="1642821226967" duration="6794000" />
+      <workItem from="1642988086960" duration="10777000" />
+      <workItem from="1643075981789" duration="10544000" />
+      <workItem from="1643161221830" duration="4483000" />
+      <workItem from="1643256481138" duration="1251000" />
+      <workItem from="1643333380053" duration="3777000" />
+      <workItem from="1644199935450" duration="2993000" />
+    </task>
+    <task id="LOCAL-00001" summary="新版本代码迭代上传">
+      <created>1638418438430</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1638418438430</updated>
+    </task>
+    <task id="LOCAL-00002" summary="新版本代码迭代上传">
+      <created>1638418642646</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1638418642646</updated>
+    </task>
+    <task id="LOCAL-00003" summary="新版本代码迭代上传">
+      <created>1638418897234</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1638418897234</updated>
+    </task>
+    <task id="LOCAL-00004" summary="新版本代码迭代上传-漏传文件">
+      <created>1638419378130</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1638419378130</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="LocalTest_testRatio - 2019.09.02 at 12h 42m 02s.xml">
+      <configuration name="LocalTest.testRatio" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LocalTest_testRatio - 2019.09.02 at 12h 42m 22s.xml">
+      <configuration name="LocalTest.testRatio" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LocalTest_testRatio - 2019.09.02 at 12h 42m 52s.xml">
+      <configuration name="LocalTest.testRatio" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LocalTest_testRatio - 2019.09.02 at 12h 43m 43s.xml">
+      <configuration name="LocalTest.testRatio" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LocalTest_testRatio - 2019.09.02 at 12h 44m 02s.xml">
+      <configuration name="LocalTest.testRatio" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LocalTest_testRatio - 2019.09.02 at 12h 44m 21s.xml">
+      <configuration name="LocalTest.testRatio" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PushServiceTest_testPushReplyMessage - 2018.11.24 at 17h 27m 11s.xml">
+      <configuration name="PushServiceTest.testPushReplyMessage" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PushServiceTest_testPushService - 2018.11.20 at 15h 55m 23s.xml">
+      <configuration name="PushServiceTest.testPushService" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PushServiceTest_testPushService - 2018.11.20 at 16h 21m 00s.xml">
+      <configuration name="PushServiceTest.testPushService" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PushServiceTest_testPushService - 2018.11.20 at 16h 22m 06s.xml">
+      <configuration name="PushServiceTest.testPushService" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="新版本代码迭代上传" />
+    <MESSAGE value="新版本代码迭代上传-漏传文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="新版本代码迭代上传-漏传文件" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="223" y="67" width="1164" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1642822974087">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="223" y="67" width="1164" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1642822974087" />
+    <state x="570" y="212" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1639967288986">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="570" y="212" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1639967288986" />
+    <state x="574" y="117" key="#com.intellij.ide.util.MemberChooser" timestamp="1642822514514">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="574" y="117" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1642822514514" />
+    <state x="548" y="279" width="457" height="273" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1639968782493">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="548" y="279" width="457" height="273" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1639968782493" />
+    <state x="499" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1637027732597">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1637027732597" />
+    <state x="230" y="0" key="CommitChangelistDialog2" timestamp="1638517550928">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="230" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1638517550928" />
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1639975096881">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1639975096881" />
+    <state x="549" y="166" key="FileChooserDialogImpl" timestamp="1643268046606">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="166" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1643268046606" />
+    <state width="1493" height="147" key="GridCell.Tab.0.bottom" timestamp="1644213370586">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="147" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1644213370586" />
+    <state width="1493" height="147" key="GridCell.Tab.0.center" timestamp="1644213370586">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="147" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1644213370586" />
+    <state width="1493" height="147" key="GridCell.Tab.0.left" timestamp="1644213370586">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="147" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1644213370586" />
+    <state width="1493" height="147" key="GridCell.Tab.0.right" timestamp="1644213370586">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="147" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1644213370586" />
+    <state width="1024" height="183" key="GridCell.Tab.1.bottom" timestamp="1640569582297">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1024" height="183" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1640569582297" />
+    <state width="1024" height="183" key="GridCell.Tab.1.center" timestamp="1640569582297">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1024" height="183" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1640569582297" />
+    <state width="1024" height="183" key="GridCell.Tab.1.left" timestamp="1640569582297">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1024" height="183" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1640569582297" />
+    <state width="1024" height="183" key="GridCell.Tab.1.right" timestamp="1640569582297">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1024" height="183" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1640569582297" />
+    <state width="1024" height="183" key="GridCell.Tab.2.bottom" timestamp="1640569582297">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1024" height="183" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1640569582297" />
+    <state width="1024" height="183" key="GridCell.Tab.2.center" timestamp="1640569582297">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1024" height="183" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1640569582297" />
+    <state width="1024" height="183" key="GridCell.Tab.2.left" timestamp="1640569582297">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1024" height="183" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1640569582297" />
+    <state width="1024" height="183" key="GridCell.Tab.2.right" timestamp="1640569582297">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1024" height="183" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1640569582297" />
+    <state width="1024" height="183" key="GridCell.Tab.3.bottom" timestamp="1640569582298">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1024" height="183" key="GridCell.Tab.3.bottom/0.0.1536.824@0.0.1536.824" timestamp="1640569582298" />
+    <state width="1024" height="183" key="GridCell.Tab.3.center" timestamp="1640569582298">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1024" height="183" key="GridCell.Tab.3.center/0.0.1536.824@0.0.1536.824" timestamp="1640569582298" />
+    <state width="1024" height="183" key="GridCell.Tab.3.left" timestamp="1640569582298">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1024" height="183" key="GridCell.Tab.3.left/0.0.1536.824@0.0.1536.824" timestamp="1640569582298" />
+    <state width="1024" height="183" key="GridCell.Tab.3.right" timestamp="1640569582298">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1024" height="183" key="GridCell.Tab.3.right/0.0.1536.824@0.0.1536.824" timestamp="1640569582298" />
+    <state x="270" y="0" key="SettingsEditor" timestamp="1642822720176">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="270" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1642822720176" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1638419384102">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1638419384102" />
+    <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1637140452820">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1637140452820" />
+    <state x="109" y="72" width="1350" height="638" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1639728191975">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="109" y="72" width="1350" height="638" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1639728191975" />
+    <state x="563" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1638422822650">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="563" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1638422822650" />
+    <state x="291" y="20" width="977" height="804" key="find.popup" timestamp="1644213081460">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="291" y="20" width="977" height="804" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1644213081460" />
+    <state x="548" y="311" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1638429805841">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="548" y="311" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1536.824@0.0.1536.824" timestamp="1638429805841" />
+    <state x="530" y="285" width="627" height="284" key="org.intellij.images.editor.actions.BackgroundImageDialog" timestamp="1640224019127">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="530" y="285" width="627" height="284" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1536.824@0.0.1536.824" timestamp="1640224019127" />
+    <state x="425" y="187" key="run.anything.popup" timestamp="1643336881230">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1643336881230" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1644200890012">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1644200890012" />
+    <state x="491" y="323" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1641524234027">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="491" y="323" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.0.1536.824@0.0.1536.824" timestamp="1641524234027" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/qinzi123/service/impl/BusinessWeixinServiceImpl.java</url>
+          <line>468</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="pushMessage2OneUser(openid, cardMessage)" />
+        <watch expression="openid" />
+        <watch expression="logger" />
+        <watch expression="openIdList" />
+      </configuration>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="weixinDao.updateCardInfo(map)" language="JAVA" custom="" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+</project>

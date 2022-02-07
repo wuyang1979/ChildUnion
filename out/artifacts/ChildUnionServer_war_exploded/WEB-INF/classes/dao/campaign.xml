@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qinzi123.dao.CampaignDao">
+
+    <select id="listCampaign" resultType="java.util.LinkedHashMap">
+		select id, main_image, name, date_format(create_time,'%Y-%m-%d %H:%i:%s') as create_time, deadline_time as deadline, currency, read_count, give_like from wx_product
+		where product_type = 0 and status = 1
+		order by create_time desc, id desc limit #{start}, #{num}
+    </select>
+
+    <select id="oneCampaign" resultType="java.util.LinkedHashMap">
+		select id, main_image, name, channel_price, price, limit_stock, stock, remain_stock, detail, company
+ 		from wx_product where id = #{id}
+	</select>
+
+    <sql id="order">
+		select o.id, p.`name`, p.company, p.main_image, i.price, i.num, i.total, o.`status`, o.order_no,o.order_type,
+		o.phone, o.wx_code, o.card_id, date_format(o.create_time,'%Y-%m-%d %H:%i:%s') as create_time
+ 		from wx_order o, wx_product p, wx_order_item i
+		where o.id = i.order_id and i.product_id = p.id and o.order_type in (0,1)
+	</sql>
+
+    <sql id="listOrder">
+		select o.id, p.`name`, p.company, p.main_image, i.price, i.num, i.total, o.`status`, o.order_no,o.order_type,
+		o.phone, o.wx_code, o.card_id, date_format(o.create_time,'%Y-%m-%d %H:%i:%s') as create_time
+ 		from wx_order o, wx_product p, wx_order_item i
+		where o.id = i.order_id and o.order_type in (0,1)
+	</sql>
+
+    <sql id="oneOrder">
+		select o.id, p.`name`, p.company, p.main_image, i.price, i.num, i.total, o.`status`, o.order_no,o.order_type,
+		o.phone, o.wx_code, o.card_id, date_format(o.create_time,'%Y-%m-%d %H:%i:%s') as create_time
+ 		from wx_order o, wx_product p, wx_order_item i
+		where o.id = i.order_id and i.product_id = p.id
+	</sql>
+
+    <select id="listOrder" resultType="java.util.LinkedHashMap">
+        <include refid="order"/>
+        and o.card_id = ${cardId} GROUP BY o.id
+        order by o.create_time desc
+    </select>
+
+    <select id="listAllOrder" resultType="java.util.LinkedHashMap">
+		select o.id, i.message as name, c.realname as company, i.price, i.num, i.total,i.message, o.`status`, o.order_no,o.order_type,
+		o.phone, o.wx_code, o.card_id, date_format(o.create_time,'%Y-%m-%d %H:%i:%s') as create_time
+ 		from wx_order o, wx_product p, wx_order_item i, card_info c
+		where o.id = i.order_id and o.order_type in (0,1) and o.card_id = ${cardId} and c.id = ${cardId} GROUP BY o.id
+		order by o.create_time desc
+	</select>
+
+    <select id="oneOrder" resultType="java.util.LinkedHashMap">
+        <include refid="order"/>
+        and o.id = ${id}
+    </select>
+
+    <select id="getOneOrder" resultType="java.util.LinkedHashMap">
+        <include refid="oneOrder"/>
+        and o.id = ${id}
+    </select>
+
+    <select id="getOneOrder2" resultType="java.util.LinkedHashMap">
+		select o.id, c.realname as company,i.message as name,  i.price, i.num, i.total, o.`status`, o.order_no,o.order_type,
+		o.phone, o.wx_code, o.card_id, date_format(o.create_time,'%Y-%m-%d %H:%i:%s') as create_time
+		from wx_order o, wx_product p, wx_order_item i,card_info c
+		where o.id = i.order_id  and o.id = ${id} and c.id = o.card_id GROUP BY o.id
+	</select>
+
+    <select id="getOneKnowledgeOrder" resultType="java.util.LinkedHashMap">
+		select o.id, i.price, i.num, i.total, o.`status`, o.order_no,o.order_type,
+		o.phone, o.wx_code, o.card_id, date_format(o.create_time,'%Y-%m-%d %H:%i:%s') as create_time
+ 		from wx_order o,  wx_order_item i
+		where o.id = i.order_id and o.id = ${id}
+	</select>
+
+    <sql id="rechargeOrder">
+		select o.id, p.`name`, p.company, p.main_image, i.price, i.num, i.total, o.`status`, o.order_no,o.order_type,
+		o.phone, o.wx_code, o.card_id, date_format(o.create_time,'%Y-%m-%d %H:%i:%s') as create_time
+		from wx_order o, wx_product_recharge p, wx_order_item i
+		where o.id = i.order_id and i.product_id = p.id and o.order_type = 1
+	</sql>
+
+    <select id="listRechargeOrder" resultType="java.util.LinkedHashMap">
+        <include refid="rechargeOrder"/>
+        and o.card_id = ${cardId}
+        order by o.create_time desc limit #{start}, #{num}
+    </select>
+
+    <select id="oneRechargeOrder" resultType="java.util.LinkedHashMap">
+        <include refid="rechargeOrder"/>
+        and o.id = ${id}
+    </select>
+
+
+    <insert id="addOrder" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into wx_order(order_no, payment, card_id, status, create_time, order_type)
+		values(#{orderNo}, #{total}, #{cardId}, 0, #{createTime}, #{order_type})
+	</insert>
+
+    <insert id="addOrderItem" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into wx_order_item(order_id, product_id, price, num, total, create_time,message)
+		values(#{orderId}, #{productId}, #{price}, #{num}, #{total}, #{createTime},#{body})
+	</insert>
+
+    <insert id="addPayment" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into wx_order_pay(order_id, order_no, payment, message)
+		values(#{orderId}, #{orderNo}, #{payment}, #{message})
+	</insert>
+
+    <insert id="addPaymentScore" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into wx_order_pay_score(order_id, order_no, payment, message)
+		values(#{orderId}, #{orderNo}, #{payment}, #{message})
+	</insert>
+
+    <update id="updateOrder" parameterType="java.util.Map">
+		update wx_order set status = 1 where id = #{id}
+	</update>
+
+    <update id="updateMessageRead" parameterType="java.util.Map">
+		update wx_product set read_count = read_count + 1 where id =#{id}
+	</update>
+
+    <update id="updateMessageLike" parameterType="java.util.Map">
+		update wx_product set give_like = give_like + 1 where id =#{id}
+	</update>
+
+    <select id="pictureList" resultType="java.util.LinkedHashMap">
+		select url from wx_product_picture where product_id = #{productId}
+    </select>
+
+</mapper>

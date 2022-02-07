@@ -1,0 +1,6 @@
+
+ksquid:S4488&"HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(›¿””øÿÿÿÿ8ä§ÎÚ–-
+msquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(øÊÒÈúÿÿÿÿ8ä§ÎÚ–-
+|squid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(™ºöºýÿÿÿÿ8ä§ÎÚ–-
+U
+squid:S106"9Replace this use of System.out or System.err by a logger.(Í§Ž\8ä§ÎÚ–-

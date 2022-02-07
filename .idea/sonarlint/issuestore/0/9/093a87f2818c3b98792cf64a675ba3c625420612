@@ -1,0 +1,14 @@
+
+=squid:S1168K"&Return an empty array instead of null.(¥¹ï
+wsquid:S1149Ù"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(í…Ò‰
+Vsquid:S1118":Add a private constructor to hide the implicit public one.(Æ‘ÿâÿÿÿÿÿ
+Zsquid:S1155I">Use isEmpty() to check whether the collection is empty or not.(ëµüîúÿÿÿÿ
+wsquid:S1149•"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(­§·
+]squid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(¾Óºd
+|squid:S1149¬"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(åûÒ¸ûÿÿÿÿ
+wsquid:S1488B"[Immediately return this expression instead of assigning it to the temporary variable "ret".(¯³ãùÿÿÿÿ
+Msquid:S1153&"1Directly append the argument of String.valueOf().(şƒä·ùÿÿÿÿ
+asquid:S3358”"DExtract this nested ternary operation into an independent statement.(áà†şÿÿÿÿ
+Isquid:S1172f"-Remove this unused method parameter "format".(«Ğ–ïıÿÿÿÿ
+wsquid:S1149Î"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(í…Ò‰
+ksquid:S00100f"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«Ğ–ïıÿÿÿÿ
