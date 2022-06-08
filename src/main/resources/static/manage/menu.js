@@ -28,6 +28,14 @@
                     desc: "产品信息"
                 },
                 {
+                    index: "template/c_end_order",
+                    desc: "成长GO订单"
+                },
+                {
+                    index: "template/shop_info",
+                    desc: "小店信息"
+                },
+                {
                     index: "template/order_view",
                     desc: "订单查询"
                 },

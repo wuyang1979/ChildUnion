@@ -2,10 +2,12 @@ package com.qinzi123.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.qinzi123.dao.IndexDao;
 import com.qinzi123.exception.GlobalProcessException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -135,6 +137,36 @@ public class Utils {
         Map<String, String> params = new HashMap<>();
         params.put("APPID", "wx2f3e800fce3fd438");
         params.put("APPSECRET", "52ae70bbe182e47bbeec03d9825deb96");
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(
+                "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={APPID}&secret={APPSECRET}", String.class, params);
+        String body = responseEntity.getBody();
+        JSONObject object = JSON.parseObject(body);
+        String Access_Token = object.getString("access_token");
+        String expires_in = object.getString("expires_in");
+        System.out.println("有效时长expires_in：" + expires_in);
+        return Access_Token;
+    }
+
+    public static String getWxChengZhangGoAccessToken() {
+        RestTemplate restTemplate = new RestTemplate();
+        Map<String, String> params = new HashMap<>();
+        params.put("APPID", "wx830f64ad127bbcb1");
+        params.put("APPSECRET", "3badec74ec40e8d5911a439f9734e5f5");
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(
+                "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={APPID}&secret={APPSECRET}", String.class, params);
+        String body = responseEntity.getBody();
+        JSONObject object = JSON.parseObject(body);
+        String Access_Token = object.getString("access_token");
+        String expires_in = object.getString("expires_in");
+        System.out.println("有效时长expires_in：" + expires_in);
+        return Access_Token;
+    }
+
+    public static String getIndependentAppletAccessToken(String appId, String appSecret) {
+        RestTemplate restTemplate = new RestTemplate();
+        Map<String, String> params = new HashMap<>();
+        params.put("APPID", appId);
+        params.put("APPSECRET", appSecret);
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(
                 "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={APPID}&secret={APPSECRET}", String.class, params);
         String body = responseEntity.getBody();

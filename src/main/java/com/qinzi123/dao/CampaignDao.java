@@ -46,6 +46,8 @@ public interface CampaignDao {
 
     int addPayment(Map map);
 
+    int addClientEndPayment(Map map);
+
     int addPaymentScore(Map map);
 
     int updateOrder(Map map);

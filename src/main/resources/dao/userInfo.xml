@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qinzi123.dao.UserInfoDao">
+
+    <update id="updateBirthdayById" parameterType="java.util.Map">
+    	update c_end_user_info set birthday = #{birthday} where id = #{id}
+	</update>
+
+    <update id="updateGenderById" parameterType="java.util.Map">
+    	update c_end_user_info set gender = #{gender} where id = #{id}
+	</update>
+
+    <select id="getReceiveAddressListById" resultType="java.util.LinkedHashMap">
+		select * from c_end_receive_address where user_id = #{userId}
+    </select>
+
+    <select id="getBabyListById" resultType="java.util.LinkedHashMap">
+		select id,name,gender,date_format(birthday,'%Y-%m-%d') as birthday,identity_card from c_end_baby_info where parent_id = #{userId} order by create_time DESC
+    </select>
+
+    <insert id="addReceiveAddress" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into c_end_receive_address(user_id, receive_name,receive_phone,province,city,area,address,create_time)
+		                        values(#{userId}, #{name},#{phone},#{province},#{city},#{area},#{address},#{createTime})
+	</insert>
+
+    <update id="updateReceiveAddress" parameterType="java.util.Map">
+    	update c_end_receive_address set receive_name = #{name},receive_phone=#{phone},province=#{province},city=#{city},area=#{area},address=#{address} where user_id = #{userId}
+	</update>
+
+    <insert id="addBabyInfo" parameterType="java.util.Map">
+		insert into c_end_baby_info(id, parent_id,name,gender,birthday,identity_card,create_time)
+		                        values(#{id}, #{parent_id},#{name},#{gender},#{birthday},#{identity_card},#{createTime})
+	</insert>
+
+	<update id="updateBabyInfo" parameterType="java.util.Map">
+    	update c_end_baby_info set name = #{name},gender=#{gender},birthday=#{birthday},identity_card=#{identity_card} where id = #{babyId}
+	</update>
+
+	<select id="getBaseName" resultType="string">
+		select nick_name from c_end_user_info where id = #{userId}
+    </select>
+
+	<select id="getProductList" resultType="java.util.Map">
+		select * from product_info where id = #{produtcId}
+    </select>
+</mapper>

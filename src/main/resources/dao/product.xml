@@ -4,14 +4,41 @@
 
     <insert id="addProduct" useGeneratedKeys="true" keyProperty="id"
             parameterType="com.qinzi123.dto.ProductInfo">
-        insert into product_info(status,card_id,company_id,name,type,main_image,original_price,present_price,inventory,repeat_purchase,once_max_purchase_count,phone,introduce,vedio_path,instruction,create_time,deadline_time)
-                            values(#{status},#{cardId},(select company_id from card_info where id = #{cardId}),#{name},#{type},#{mainImage},#{originalPrice},#{presentPrice},#{inventory},#{repeatPurchase},#{onceMaxPurchaseCount},#{phone},#{introduce},#{videoPath},#{instruction},#{createTime},#{deadlineTime})
+        insert into product_info(status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,
+                                 product_style,wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,
+                                 instruction,buy_count,create_time,deadline_time,qr_image)
+                            values(#{status},#{isHot},#{cardId},(select id from shop_info where card_id = #{cardId}),#{name},
+                                   #{address},#{addressName},#{longitude},#{latitude},#{type},#{productType},#{productStyle},
+                                   #{wuyuType},#{mainImage},#{isAllowDistribution},#{repeatPurchase},#{phone},#{introduce},#{videoPath},
+                                   #{instruction},#{buyCount},#{createTime},#{deadlineTime},#{qrImage})
+    </insert>
+
+    <insert id="addActivity" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.qinzi123.dto.ProductInfo">
+        insert into product_info(status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,product_type,
+                                 wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,instruction,
+                                 buy_count,create_time,deadline_time,qr_image)
+                            values(#{status},#{isHot},#{cardId},(select id from shop_info where card_id = #{cardId}),#{name},
+                                   #{address},#{addressName},#{longitude},#{latitude},#{productType},#{wuyuType},#{mainImage},
+                                   #{isAllowDistribution},#{repeatPurchase},#{phone},#{introduce},#{videoPath},#{instruction},
+                                   #{buyCount},#{createTime},#{deadlineTime},#{qrImage})
     </insert>
 
     <update id="updateProduct" parameterType="com.qinzi123.dto.ProductInfo">
     	update product_info
-		set name = #{name}, main_image = #{mainImage}, original_price = #{originalPrice}, present_price=#{presentPrice}, inventory=#{inventory},
-		repeat_purchase = #{repeatPurchase}, once_max_purchase_count = #{onceMaxPurchaseCount}, phone = #{phone}, introduce = #{introduce}, vedio_path = #{videoPath}, instruction = #{instruction}, deadline_time = #{deadlineTime}
+		set name=#{name},address=#{address},address_name=#{addressName},longitude=#{longitude},latitude=#{latitude},
+		product_style=#{productStyle},wuyu_type=#{wuyuType},main_image=#{mainImage},is_allow_distribution=#{isAllowDistribution},
+		repeat_purchase = #{repeatPurchase},phone=#{phone},introduce=#{introduce},vedio_path=#{videoPath},
+		instruction=#{instruction},deadline_time=#{deadlineTime},qr_image=#{qrImage}
+		where id = #{id}
+	</update>
+
+    <update id="updateActivity" parameterType="com.qinzi123.dto.ProductInfo">
+    	update product_info
+		set name=#{name},address=#{address},address_name=#{addressName},longitude=#{longitude},latitude=#{latitude},
+		    wuyu_type=#{wuyuType},main_image=#{mainImage},is_allow_distribution=#{isAllowDistribution},repeat_purchase=#{repeatPurchase},
+		    phone=#{phone},introduce=#{introduce},vedio_path=#{videoPath},instruction=#{instruction},
+		    deadline_time=#{deadlineTime},qr_image=#{qrImage}
 		where id = #{id}
 	</update>
 
@@ -19,25 +46,461 @@
         insert into product_picture(product_id, picture_address) values(#{productId},#{url})
     </insert>
 
+    <insert id="addActivityStandards" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into c_end_activity_standards(product_id,adults_num,children_num,price,distribution,inventory,
+                                             once_max_purchase_count,once_min_purchase_count,standard_desc,create_time)
+                                    values(#{productId},#{adultsNum},#{childrenNum},#{price},#{distribution},#{inventory},
+                                           #{onceMaxPurchaseCount},#{onceMinPurchaseCount},CONCAT(#{productId},'-',#{productName},'-',#{adultsNum},'大',#{childrenNum},'小'),#{createTime})
+    </insert>
+
+    <update id="updateActivityStandards" parameterType="java.util.Map">
+    	update c_end_activity_standards
+    	set product_id = #{productId},adults_num = #{adultsNum},children_num = #{childrenNum},price = #{price},
+    	    distribution = #{distribution},inventory = #{inventory},once_max_purchase_count = #{onceMaxPurchaseCount},
+    	    once_min_purchase_count = #{onceMinPurchaseCount},standard_desc = CONCAT(#{productId},'-',#{productName},'-',#{adultsNum},'大',#{childrenNum},'小')
+    	    where id = #{standardId}
+	</update>
+
+    <insert id="addProductStandards" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into c_end_product_standards(product_id,name,price,distribution,inventory,once_max_purchase_count,
+                                            once_min_purchase_count,create_time)
+                                    values(#{productId},#{name},#{price},#{distribution},#{inventory},#{onceMaxPurchaseCount},
+                                           #{onceMinPurchaseCount},#{createTime})
+    </insert>
+
+    <update id="updateProductStandards" parameterType="java.util.Map">
+    	update c_end_product_standards
+    	set product_id = #{productId},name = #{name},price = #{price},distribution = #{distribution},inventory = #{inventory},
+    	    once_max_purchase_count = #{onceMaxPurchaseCount},once_min_purchase_count = #{onceMinPurchaseCount}
+    	    where id = #{standardId}
+	</update>
+
     <select id="listProduct" resultType="java.util.LinkedHashMap">
-		select id, card_id,name,main_image,  original_price, present_price, inventory,repeat_purchase,once_max_purchase_count,phone,introduce,vedio_path,instruction,date_format(create_time,'%Y-%m-%d') as create_time,date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
-		where card_id = #{card} order by create_time desc limit #{start}, #{num}
+		select id, status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,main_image,  original_price, present_price, inventory,repeat_purchase,once_max_purchase_count,phone,introduce,vedio_path,instruction,buy_count,date_format(create_time,'%Y-%m-%d') as create_time,date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
+		where card_id = #{card} and product_type = 0 order by is_hot desc, create_time desc limit #{start}, #{num}
+    </select>
+
+    <select id="listActivity" resultType="java.util.LinkedHashMap">
+		select id, status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,main_image,inventory,repeat_purchase,once_max_purchase_count,phone,introduce,vedio_path,instruction,buy_count,date_format(create_time,'%Y-%m-%d') as create_time,date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
+		where card_id = #{card} and product_type = 1 order by is_hot desc, create_time desc limit #{start}, #{num}
+    </select>
+
+    <select id="listReleasedProduct" resultType="java.util.LinkedHashMap">
+		select id, status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
+		wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
+		date_format(create_time,'%Y-%m-%d') as create_time,
+		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time,qr_image from product_info
+		where card_id = #{card} order by is_hot desc, create_time desc limit #{start}, #{num}
+    </select>
+
+    <select id="getShopFormByShopId" resultType="int">
+		select type from shop_info where id = #{shopId}
+    </select>
+
+    <select id="listDistributionProduct" resultType="java.util.LinkedHashMap">
+		select p.id, p.status,p.is_hot,p.card_id,p.shop_id,p.name,p.address,p.address_name,p.longitude,p.latitude,
+		p.type,p.product_type,p.product_style,p.wuyu_type,p.main_image,p.is_allow_distribution,p.repeat_purchase,p.phone,p.introduce,
+		p.vedio_path,p.instruction,p.buy_count,date_format(p.create_time,'%Y-%m-%d') as create_time,
+		date_format(p.deadline_time,'%Y-%m-%d %H:%i') as deadline_time,p.qr_image from product_info p
+		left join distribution_record d on p.id = d.product_id
+		where d.primary_shop_id = (select id from shop_info where card_id = #{card})
+		order by p.is_hot desc, p.create_time desc limit #{start}, #{num}
+    </select>
+
+    <select id="listSearchDistributionProduct" resultType="java.util.LinkedHashMap">
+		select p.id, p.status,p.is_hot,p.card_id,p.shop_id,p.name,p.address,p.address_name,p.longitude,p.latitude,p.type,
+		p.product_type,p.product_style,p.wuyu_type,p.main_image,p.is_allow_distribution,p.repeat_purchase,p.phone,p.introduce,
+		p.vedio_path,p.instruction,p.buy_count,date_format(p.create_time,'%Y-%m-%d') as create_time,
+		date_format(p.deadline_time,'%Y-%m-%d %H:%i') as deadline_time,p.qr_image from product_info p
+		left join distribution_record d on p.id = d.product_id
+		where d.primary_shop_id = (select id from shop_info where card_id = #{card}) and name like concat('%',#{searchValue},'%')
+		order by p.is_hot desc, p.create_time desc limit #{start}, #{num}
+    </select>
+
+    <select id="listSearchReleasedProduct" resultType="java.util.LinkedHashMap">
+		select id,status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
+		wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
+		date_format(create_time,'%Y-%m-%d') as create_time,
+		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time,qr_image from product_info
+		where card_id = #{card} and name like concat('%',#{searchValue},'%') order by is_hot desc, create_time desc limit #{start}, #{num}
+    </select>
+
+    <select id="getPictureCountByProductId" resultType="int">
+		select count(*) from activity_picture where product_id = #{id}
+    </select>
+
+    <select id="getAllListProduct" resultType="java.util.LinkedHashMap">
+		select id,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
+		wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
+		date_format(create_time,'%Y-%m-%d') as create_time,
+		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
+		where status = 1 and product_type = #{type} order by is_hot desc, create_time desc limit #{start}, #{num}
+    </select>
+
+    <select id="getExclusiveAllList" resultType="java.util.LinkedHashMap">
+		select DISTINCT p.id,p.is_hot,p.card_id,p.shop_id,p.name,p.address,p.address_name,p.longitude,p.latitude,p.type,p.product_type,
+	    p.product_style,p.wuyu_type,p.main_image,p.is_allow_distribution,p.repeat_purchase,p.phone,p.introduce,p.vedio_path,p.instruction,p.buy_count,
+	    date_format(p.create_time,'%Y-%m-%d') as create_time,
+	    date_format(p.deadline_time,'%Y-%m-%d %H:%i') as deadline_time
+	    from product_info p left join distribution_record d on p.id = d.product_id
+		where (p.shop_id = #{shopId} or d.primary_shop_id = #{shopId}) and p.status = 1 and product_type = #{type} order by p.is_hot desc, p.create_time desc limit #{start}, #{num}
+    </select>
+
+    <select id="getAllAllianceProductList" resultType="java.util.LinkedHashMap">
+		select id,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
+		main_image,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
+		date_format(create_time,'%Y-%m-%d') as create_time,
+		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
+		where status = 1 and is_allow_distribution = 1 order by is_hot desc, create_time desc limit #{start}, #{num}
+    </select>
+
+    <select id="getSearchAllianceProductList" resultType="java.util.LinkedHashMap">
+		select id,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
+		main_image,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
+		date_format(create_time,'%Y-%m-%d') as create_time,
+		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
+		where status = 1 and is_allow_distribution = 1 and name like concat('%',#{searchValue},'%') order by is_hot desc, create_time desc limit #{start}, #{num}
+    </select>
+
+    <select id="getSearchAllianceProductListOrderByBuyCount" resultType="java.util.LinkedHashMap">
+		select id,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
+		main_image,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
+		date_format(create_time,'%Y-%m-%d') as create_time,
+		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
+		where status = 1 and is_allow_distribution = 1 and name like concat('%',#{searchValue},'%') order by CAST(buy_count AS DECIMAL) desc limit #{start}, #{num}
+    </select>
+
+    <select id="getAllianceProductListOrderByBuyCount" resultType="java.util.LinkedHashMap">
+		select id,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
+		main_image,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
+		date_format(create_time,'%Y-%m-%d') as create_time,
+		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
+		where status = 1 and is_allow_distribution = 1 order by CAST(buy_count AS DECIMAL) desc limit #{start}, #{num}
+    </select>
+
+    <select id="loadProductInfoById" resultType="java.util.Map">
+		select id,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
+		wuyu_type,main_image,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
+		date_format(create_time,'%Y-%m-%d') as create_time,
+		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
+		where status = 1 and id = #{productId}
+    </select>
+
+    <select id="getIssuerShopIdByProductId" resultType="int">
+		select shop_id from product_info where id = #{productId}
+    </select>
+
+    <select id="getIssuerShopInfoByProductId" resultType="java.util.Map">
+		select type,app_id,app_secret from shop_info where id = (select shop_id from product_info where id = #{productId})
+    </select>
+
+    <select id="getMyShopIdByCard" resultType="int">
+		select id from shop_info where card_id = #{card}
+    </select>
+
+    <select id="getPhoneByUserId" resultType="string">
+		select phone from c_end_user_info where id = #{userId}
+    </select>
+
+    <select id="getCompanyNameByCompanyId" resultType="string">
+        select company from buss_league_info where id = #{company_id}
+    </select>
+
+    <select id="getShopIdByCard" resultType="int">
+        select id from shop_info where card_id = #{card}
+    </select>
+
+    <select id="getSearchList" resultType="java.util.LinkedHashMap">
+		select id,is_hot,card_id,shop_id,name,address,longitude,latitude,type,product_type,product_style,wuyu_type,
+		main_image,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
+		date_format(create_time,'%Y-%m-%d') as create_time,
+		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
+		where status = 1 and product_type = #{type} and name like concat('%',#{searchValue},'%') order by is_hot desc, create_time desc limit #{start}, #{num}
+    </select>
+
+    <select id="getExclusiveSearchList" resultType="java.util.LinkedHashMap">
+        select DISTINCT p.id,p.is_hot,p.card_id,p.shop_id,p.name,p.address,p.address_name,p.longitude,p.latitude,p.type,p.product_type,
+	    p.product_style,p.wuyu_type,p.main_image,p.is_allow_distribution,p.repeat_purchase,p.phone,p.introduce,p.vedio_path,p.instruction,p.buy_count,
+	    date_format(p.create_time,'%Y-%m-%d') as create_time,
+	    date_format(p.deadline_time,'%Y-%m-%d %H:%i') as deadline_time
+	    from product_info p left join distribution_record d on p.id = d.product_id
+		where (p.shop_id = #{shopId} or d.primary_shop_id = #{shopId}) and p.status = 1 and product_type = #{type} and name like concat('%',#{searchValue},'%') order by p.is_hot desc, p.create_time desc limit #{start}, #{num}
     </select>
 
     <select id="getOtherImagesById" resultType="java.util.LinkedHashMap">
 		select picture_address as url from product_picture where product_id = #{productId}
     </select>
 
-    <select id="getReleaseCompanyInfoByCardId" resultType="java.util.Map">
-		select id,logopic,company from buss_league_info where id = (select company_id from card_info where id = #{card})
+    <select id="getReleaseShopInfoByShopId" resultType="java.util.Map">
+		select name from shop_info where id = #{shopId}
     </select>
 
     <select id="getReleaseCompanyInfoByCompanyId" resultType="java.util.LinkedHashMap">
 		select * from buss_league_info where id = #{companyId}
     </select>
 
+    <select id="getStandardListByProductId" resultType="java.util.LinkedHashMap">
+		select id,adults_num as adultsNum,children_num as childrenNum,price,distribution,inventory,
+		       once_max_purchase_count as onceMaxPurchaseCount,once_min_purchase_count as onceMinPurchaseCount
+		       from c_end_activity_standards where product_id = #{productId}
+    </select>
+
+    <select id="getProductOrderCountByStandardId" resultType="int">
+		select count(*) from c_end_order where order_type = 0 and standard_id = #{standardId}
+    </select>
+
+    <select id="getActivityOrderCountByStandardId" resultType="int">
+		select count(*) from c_end_order where order_type = 1 and standard_id = #{standardId}
+    </select>
+
+    <select id="getOrderCountByproductId" resultType="int">
+		select count(*) from c_end_order where product_id = #{productId}
+    </select>
+
+    <select id="getProductStandardListByProductId" resultType="java.util.LinkedHashMap">
+		select id,name,price,distribution,inventory,once_max_purchase_count as onceMaxPurchaseCount,
+		       once_min_purchase_count as onceMinPurchaseCount
+		       from c_end_product_standards where product_id = #{productId}
+    </select>
+
+    <select id="getStandardsList" resultType="java.util.LinkedHashMap">
+		select * from c_end_activity_standards where product_id = #{id} ORDER BY CAST(price AS DECIMAL)
+    </select>
+
+    <select id="getStandardsListOrderByDistribution" resultType="java.util.LinkedHashMap">
+		select * from c_end_activity_standards where product_id = #{id} ORDER BY CAST(distribution AS DECIMAL) desc
+    </select>
+
+    <select id="getStandardsListOrderByDistributionMin" resultType="java.util.LinkedHashMap">
+		select * from c_end_activity_standards where product_id = #{id} ORDER BY CAST(distribution AS DECIMAL)
+    </select>
+
+    <select id="getProductStandardsList" resultType="java.util.LinkedHashMap">
+		select * from c_end_product_standards where product_id = #{id} ORDER BY CAST(price AS DECIMAL)
+    </select>
+
+    <select id="getShopNameByShopId" resultType="string">
+		select name from shop_info where id = #{shopId}
+    </select>
+
+    <select id="getProductStandardsListOrderByDistribution" resultType="java.util.LinkedHashMap">
+		select * from c_end_product_standards where product_id = #{id} ORDER BY CAST(distribution AS DECIMAL) desc
+    </select>
+
+    <select id="getProductStandardsListOrderByDistributionMin" resultType="java.util.LinkedHashMap">
+		select * from c_end_product_standards where product_id = #{id} ORDER BY CAST(distribution AS DECIMAL)
+    </select>
+
+    <select id="getDistributionProductListByShopId" resultType="java.util.LinkedHashMap">
+		select * from distribution_record where primary_shop_id = #{shopId}
+    </select>
+
     <delete id="deleteProductById">
         delete from product_info where id = #{productId}
+    </delete>
+
+    <update id="upProduct" parameterType="java.util.Map">
+    	update product_info set status = 2 where id = #{productId}
+	</update>
+
+    <update id="upActivity" parameterType="java.util.Map">
+    	update product_info set status = 2 where id = #{productId}
+	</update>
+
+    <update id="downProduct" parameterType="java.util.Map">
+    	update product_info set status = 0 where id = #{productId}
+	</update>
+
+    <update id="downActivity" parameterType="java.util.Map">
+    	update product_info set status = 0 where id = #{productId}
+	</update>
+
+    <delete id="deleteStandardByStandardId">
+        delete from c_end_activity_standards where id = #{standardId}
+    </delete>
+
+    <delete id="deleteProductStandardByStandardId">
+        delete from c_end_product_standards where id = #{standardId}
+    </delete>
+
+    <select id="getWriteOffListByCard" resultType="java.util.LinkedHashMap">
+		select * from c_end_write_off_info where open_id = (select openid from card_info where id = #{cardId})
+    </select>
+
+    <select id="getAllDistributionShopList" resultType="java.util.LinkedHashMap">
+		select * from shop_info where shop_type = 1
+    </select>
+
+    <select id="getOldStandardListByProductId" resultType="java.util.LinkedHashMap">
+		select * from c_end_product_standards where product_id = #{productId}
+    </select>
+
+    <select id="getOldActivityStandardListByProductId" resultType="java.util.LinkedHashMap">
+		select * from c_end_activity_standards where product_id = #{productId}
+    </select>
+
+    <select id="getReleaserShopIdByProductId" resultType="int">
+		select shop_id from product_info where id = #{productId}
+    </select>
+
+    <select id="getUserInfoById" resultType="java.util.Map">
+		select openid,company_id,realname,headimgurl from card_info where id = #{cardId}
+    </select>
+
+    <select id="getProductInventoryByStandardId" resultType="string">
+		select inventory from c_end_product_standards where id = #{standardId}
+    </select>
+
+    <select id="getActivityInventoryByStandardId" resultType="string">
+		select inventory from c_end_activity_standards where id = #{standardId}
+    </select>
+
+    <select id="getPeddingPayCouontByCardId" resultType="java.util.LinkedHashMap">
+        select DISTINCT o.id from c_end_order o
+		LEFT JOIN product_info p on o.product_id = p.id LEFT JOIN distribution_record d on o.product_id = d.product_id
+		where (p.shop_id = (select id from shop_info where card_id = #{card})
+		or o.primary_distribution_shop_id = (select id from shop_info where card_id = #{card}))
+		and o.status=0
+    </select>
+
+    <select id="getPeddingPayCouontByUserId" resultType="java.util.LinkedHashMap">
+        select DISTINCT o.id from c_end_order o
+		LEFT JOIN product_info p on o.product_id = p.id LEFT JOIN distribution_record d on o.product_id = d.product_id
+		where o.primary_distribution_shop_id = (select id from shop_info where card_id = #{card})
+		and o.status=0
+    </select>
+
+    <select id="getPeddingconfirmByCardId" resultType="java.util.LinkedHashMap">
+		select DISTINCT o.id from c_end_order o
+		LEFT JOIN product_info p on o.product_id = p.id LEFT JOIN distribution_record d on o.product_id = d.product_id
+		where (p.shop_id = (select id from shop_info where card_id = #{card})
+		or o.primary_distribution_shop_id = (select id from shop_info where card_id = #{card}))
+		and o.status=1
+    </select>
+
+    <select id="getPeddingconfirmByUserId" resultType="java.util.LinkedHashMap">
+		select DISTINCT o.id from c_end_order o
+		LEFT JOIN product_info p on o.product_id = p.id LEFT JOIN distribution_record d on o.product_id = d.product_id
+		where o.primary_distribution_shop_id = (select id from shop_info where card_id = #{card})
+		and o.status=1
+    </select>
+
+    <select id="getAllOrderList" resultType="java.util.LinkedHashMap">
+		select DISTINCT o.id,o.order_no,o.open_id,o.product_id,o.phone,p.name,p.card_id,p.phone as customer_service,p.product_style,o.status,
+		o.order_type,o.order_sale_type,p.main_image,p.introduce,date_format(o.create_time,'%Y-%m-%d %H:%i') as create_time,
+		date_format(o.pay_time,'%Y-%m-%d %H:%i') as pay_time,o.price,o.num,o.total,o.retail_commission,
+		o.retail_commission_income,o.platform_service_fee,o.standard_id from c_end_order o
+		LEFT JOIN product_info p on o.product_id = p.id LEFT JOIN distribution_record d on o.product_id = d.product_id
+		where p.shop_id = (select id from shop_info where card_id = #{card})
+		or o.primary_distribution_shop_id = (select id from shop_info where card_id = #{card})
+		order by o.status , o.create_time desc limit #{start}, #{num};
+    </select>
+
+    <select id="getAllDistributionOrderList" resultType="java.util.LinkedHashMap">
+		select DISTINCT o.id,o.order_no,o.open_id,o.product_id,o.phone,p.name,p.card_id,p.phone as customer_service,p.product_style,o.status,
+		o.order_type,o.order_sale_type,p.main_image,p.introduce,date_format(o.create_time,'%Y-%m-%d %H:%i') as create_time,
+		date_format(o.pay_time,'%Y-%m-%d %H:%i') as pay_time,o.price,o.num,o.total,o.retail_commission,
+		o.retail_commission_income,o.platform_service_fee,o.standard_id from c_end_order o
+		LEFT JOIN product_info p on o.product_id = p.id LEFT JOIN distribution_record d on o.product_id = d.product_id
+		where o.primary_distribution_shop_id = (select id from shop_info where card_id = #{card})
+		order by o.status , o.create_time desc limit #{start}, #{num};
+    </select>
+
+    <select id="getSelectedOrderList" resultType="java.util.LinkedHashMap">
+		select DISTINCT o.id,o.order_no,o.open_id,o.product_id,o.phone,p.name,p.card_id,p.phone as customer_service,p.product_style,o.status,
+		o.order_type,o.order_sale_type,p.main_image,p.introduce,date_format(o.create_time,'%Y-%m-%d %H:%i') as create_time,
+		date_format(o.pay_time,'%Y-%m-%d %H:%i') as pay_time,o.price,o.num,o.total,o.retail_commission,
+		o.retail_commission_income,o.platform_service_fee,o.standard_id from c_end_order o
+		LEFT JOIN product_info p on o.product_id = p.id LEFT JOIN distribution_record d on o.product_id = d.product_id
+		where (p.shop_id = (select id from shop_info where card_id = #{card})
+		or o.primary_distribution_shop_id = (select id from shop_info where card_id = #{card}))
+		and o.status=#{selectType}
+		order by o.create_time desc limit #{start}, #{num};
+    </select>
+
+    <select id="getSelectedDistributionOrderList" resultType="java.util.LinkedHashMap">
+		select DISTINCT o.id,o.order_no,o.open_id,o.product_id,o.phone,p.name,p.card_id,p.phone as customer_service,p.product_style,o.status,
+		o.order_type,o.order_sale_type,p.main_image,p.introduce,date_format(o.create_time,'%Y-%m-%d %H:%i') as create_time,
+		date_format(o.pay_time,'%Y-%m-%d %H:%i') as pay_time,o.price,o.num,o.total,o.retail_commission,
+		o.retail_commission_income,o.platform_service_fee,o.standard_id from c_end_order o
+		LEFT JOIN product_info p on o.product_id = p.id LEFT JOIN distribution_record d on o.product_id = d.product_id
+		where o.primary_distribution_shop_id = (select id from shop_info where card_id = #{card})
+		and o.status=#{selectType}
+		order by o.create_time desc limit #{start}, #{num};
+    </select>
+
+    <select id="getCardByUserId" resultType="int">
+		select id from card_info where phone = (select phone from c_end_user_info where id = #{userId})
+    </select>
+
+    <select id="getBuyCountById" resultType="java.util.Map">
+		select buy_count from product_info where id = #{id}
+    </select>
+
+    <select id="getProductInfoByID" resultType="java.util.Map">
+        select * from product_info where id = #{productId}
+    </select>
+
+    <select id="getUserInfoByOpenID" resultType="java.util.Map">
+        select nick_name,head_img_url,phone from c_end_user_info where open_id = #{openId}
+    </select>
+
+    <select id="getProductInfoByOrderId" resultType="java.util.Map">
+        select * from product_info where id = (select product_id from c_end_order where id = #{orderId})
+    </select>
+
+    <select id="getAllActivityList" resultType="java.util.LinkedHashMap">
+		select id,name from product_info where product_type = 1 and status = 1
+    </select>
+
+    <select id="getSearchActivityList" resultType="java.util.LinkedHashMap">
+		select id,name from product_info where product_type = 1 and status = 1 and name like concat('%',#{searchValue},'%')
+    </select>
+
+    <select id="checkProductStatus" resultType="int">
+        select status from product_info where id = #{productId}
+    </select>
+
+    <select id="getRecommendProductList" resultType="java.util.LinkedHashMap">
+        select id,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
+		main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
+		date_format(create_time,'%Y-%m-%d') as create_time,
+		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
+		where status = 1 and product_type = 1 and id != #{productId} ORDER BY RAND() LIMIT 5
+    </select>
+
+    <select id="getRecommendProductListByShopId" resultType="java.util.LinkedHashMap">
+        select id,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
+		main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
+		date_format(create_time,'%Y-%m-%d') as create_time,
+		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
+		where status = 1 and product_type = 1 and shop_id = #{shopId} and id != #{productId} ORDER BY RAND() LIMIT 5
+    </select>
+
+    <select id="getActivityPictureByProductId" resultType="java.util.LinkedHashMap">
+		select url from activity_picture where product_id = #{productId}
+    </select>
+
+    <delete id="deleteAitivityPictureByProductId">
+        delete from activity_picture where product_id = #{productId}
+    </delete>
+
+    <insert id="addWriteOffClerk" useGeneratedKeys="true" keyProperty="id"
+            parameterType="java.util.Map">
+		insert into c_end_write_off_info(open_id, company_id,nick_name,head_img_url,create_time)
+		                        values(#{open_id}, #{company_id},#{nick_name},#{head_img_url},#{createTime})
+	</insert>
+
+    <insert id="addAvtivityPicture" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into activity_picture(product_id, url) values(#{productId},#{url})
+    </insert>
+
+    <insert id="addDistributionRecord" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into distribution_record(product_id, releaser_shop_id,primary_shop_id,create_time) values(#{productId},#{releaser_shop_id},#{primary_shop_id},#{create_time})
+    </insert>
+
+    <delete id="deleteDistributionRecord">
+        delete from distribution_record where product_id = #{productId} and primary_shop_id = (select id from shop_info where card_id = #{card})
     </delete>
 
 </mapper>

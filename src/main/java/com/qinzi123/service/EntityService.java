@@ -39,6 +39,8 @@ public interface EntityService {
 
     int addProductInfoService(Map<String, Object> map);
 
+    int addCEndOrderService(Map<String, Object> map);
+
     int addOtherImagesToProduct(Map<String, Object> map);
 
     int deleteBasePicList(Map<String, Object> map);
@@ -61,6 +63,8 @@ public interface EntityService {
 
     int updateProductInfoService(Map<String, Object> map);
 
+    int updateCEndOrderService(Map<String, Object> map);
+
     int deleteService(String tableName, List<Map<String, Object>> list);
 
     int deleteBaseService(List<Map<String, Object>> list);
@@ -76,6 +80,8 @@ public interface EntityService {
     int deleteEstablishmentService(List<Map<String, Object>> list);
 
     int deleteProductInfoService(List<Map<String, Object>> list);
+
+    int deleteCEndOrderService(List<Map<String, Object>> list);
 
     List<LinkedHashMap> showService(String tableName, Map<String, Object> map);
 

@@ -38,6 +38,7 @@ public class EntityController {
     private static final String ENTERPRISE_COMMENT = "enterprise_comment";
     private static final String BUSS_LEAGUE_INFO = "buss_league_info";
     private static final String PRODUCT_INFO = "product_info";
+    private static final String C_END_ORDER = "c_end_order";
 
     @RequestMapping(value = "/{tableName}/addEntity", method = RequestMethod.POST)
     public int addService(@PathVariable("tableName") String tableName,
@@ -148,6 +149,8 @@ public class EntityController {
             return entityService.addEstablishmentService(map);
         } else if (PRODUCT_INFO.equals(tableName)) {
             return entityService.addProductInfoService(map);
+        } else if (C_END_ORDER.equals(tableName)) {
+            return entityService.addCEndOrderService(map);
         } else {
             return entityService.addService(tableName, map);
         }
@@ -165,7 +168,10 @@ public class EntityController {
             return entityService.updateEstablishmentService(map);
         } else if (PRODUCT_INFO.equals(tableName)) {
             return entityService.updateProductInfoService(map);
-        } else {
+        }else if(C_END_ORDER.equals(tableName)){
+            return entityService.updateCEndOrderService(map);
+        }
+        else {
             return entityService.updateService(tableName, map);
         }
     }
@@ -186,6 +192,8 @@ public class EntityController {
             return entityService.deleteEstablishmentService(list);
         } else if (PRODUCT_INFO.equals(tableName)) {
             return entityService.deleteProductInfoService(list);
+        } else if (C_END_ORDER.equals(tableName)) {
+            return entityService.deleteCEndOrderService(list);
         } else {
             return entityService.deleteService(tableName, list);
         }

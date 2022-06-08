@@ -94,6 +94,20 @@ public class EstablishmentServiceImpl extends AbstractWechatMiniProgramService i
     }
 
     @Override
+    public Map<String, Object> addWriteOffClerk(Map map) throws Exception {
+        List<LinkedHashMap> clerkList = establishmentDao.getWriteOffClerkByOpenId(map);
+        Map<String, Object> resultMap = new HashMap<>();
+        if (clerkList.size() > 0) {
+            resultMap.put("result", -1);
+            return resultMap;
+        }
+        map.put("createTime", DateUtils.getAccurateDate());
+        int rows = establishmentDao.addWriteOffClerk(map);
+        resultMap.put("result", rows);
+        return resultMap;
+    }
+
+    @Override
     public Map<String, Object> getAdminName(Map<String, Object> map) {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("adminName", establishmentDao.getAdminName(map));
@@ -115,12 +129,18 @@ public class EstablishmentServiceImpl extends AbstractWechatMiniProgramService i
     }
 
     @Override
+    public List<LinkedHashMap> getAllWriteOffClerkListByCompanyId(Map map) {
+        return establishmentDao.getAllWriteOffClerkListByCompanyId(map);
+    }
+
+    @Override
     public int addEstablishment(Map map) {
         LinkedHashMap<String, Object> cardInfoMap = establishmentDao.getCardInfo(map.get("cardId").toString());
         EstablishmentInfo establishmentInfo = new EstablishmentInfo();
         establishmentInfo.setCardId(map.get("cardId").toString());
         establishmentInfo.setMainImage(map.get("mainImage").toString());
         establishmentInfo.setCompany(map.get("company").toString());
+        establishmentInfo.setAbbreviation(map.get("abbreviation").toString());
         establishmentInfo.setIndustry(map.get("industry").toString());
         establishmentInfo.setScope(map.get("scope").toString());
         establishmentInfo.setAddress(map.get("address").toString());
@@ -155,5 +175,10 @@ public class EstablishmentServiceImpl extends AbstractWechatMiniProgramService i
     @Override
     public int updateEstablishment(Map map) {
         return establishmentDao.updateEstablishment(map);
+    }
+
+    @Override
+    public int deleteWriteOffClerkById(Map map) {
+        return establishmentDao.deleteWriteOffClerkById(map);
     }
 }

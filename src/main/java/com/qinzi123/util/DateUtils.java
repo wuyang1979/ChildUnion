@@ -24,9 +24,17 @@ public class DateUtils {
      */
     public static final String DATE_FORMAT = "yyyy-MM-dd";
     /**
+     * 仅显示年月，例如 2015-08.
+     */
+    public static final String DATE_FORMAT_MONTH = "yyyy-MM";
+    /**
      * 显示年月日时分秒，例如 2015-08-11 09:51:53.
      */
     public static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    /**
+     * 显示年月日时分秒，例如 2015-08-11 09:51.
+     */
+    public static final String DATETIME_FORMAT2 = "yyyy-MM-dd HH:mm";
 
     /**
      * 仅显示时分秒，例如 09:51:53.
@@ -97,6 +105,26 @@ public class DateUtils {
      */
     public static String getAccurateDate() {
         return getDate(DateUtils.DATETIME_FORMAT);
+    }
+
+    /**
+     * 得到当前日期字符串.
+     *
+     * @return String 日期字符串，例如2015-08-11
+     * @since 1.0
+     */
+    public static String getAccurateDay() {
+        return getDate(DateUtils.DATE_FORMAT);
+    }
+
+    /**
+     * 得到当前日期字符串.
+     *
+     * @return String 日期字符串，例如2015-08-11
+     * @since 1.0
+     */
+    public static String getAccurateMonth() {
+        return getDate(DateUtils.DATE_FORMAT_MONTH);
     }
 
     /**
@@ -249,6 +277,19 @@ public class DateUtils {
     public static Date nextDay(int num) {
         Calendar curr = Calendar.getInstance();
         curr.set(Calendar.DAY_OF_MONTH, curr.get(Calendar.DAY_OF_MONTH) + num);
+        return curr.getTime();
+    }
+
+    /**
+     * 获取当前日期指定天数之前的日期.
+     *
+     * @param num 相隔天数
+     * @return Date 日期
+     * @since 1.0
+     */
+    public static Date beforeDay(int num) {
+        Calendar curr = Calendar.getInstance();
+        curr.set(Calendar.DAY_OF_MONTH, curr.get(Calendar.DAY_OF_MONTH) - num);
         return curr.getTime();
     }
 
@@ -540,5 +581,33 @@ public class DateUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 比较两个时间的大小 true:，格式为"yyyy-MM-dd HH:mm"
+     * 如果起始时间小于截止时间，返回true
+     * 如果起始时间大于截止时间，返回false
+     *
+     * @return
+     */
+    public static boolean compareDate(String beginDate, String endDate) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date nowBegin = sdf.parse(beginDate);
+        Date nowEnd = sdf.parse(endDate);
+        if (nowBegin.getTime() < nowEnd.getTime()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 获取指定时间后？分钟的时间:，格式为"yyyy-MM-dd HH:mm:ss"
+     *
+     * @return
+     */
+    public static String minuteAfter(String d, int minute) {
+        Date date = parseDate(d);
+        return formatDate(new Date(date.getTime() + minute * 60 * 1000), DATETIME_FORMAT2);
     }
 }

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +34,9 @@ public abstract class AbstractWechatMiniProgramService extends AbstractWechatSer
     protected static final String PREPAY_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
     protected static final String NOTIFY_URL = "https://www.qinzi123.com/order/callback";
     protected static final String LEAGUE_NOTIFY_URL = "https://www.qinzi123.com/leagueOrder/callback";
+    protected static final String C_END_NOTIFY_URL = "https://www.qinzi123.com/userOrder/callback";
+    protected static final String DISTRIBUTION_PARTNER_URL = "https://www.qinzi123.com/userOrder/distributionPartnerCallback";
+
 
     private Logger logger = LoggerFactory.getLogger(AbstractWechatMiniProgramService.class);
 
@@ -46,6 +50,14 @@ public abstract class AbstractWechatMiniProgramService extends AbstractWechatSer
         return "wx2f3e800fce3fd438";
     }
 
+    protected String getChengZhangGoAppId() {
+        return "wx830f64ad127bbcb1";
+    }
+
+    protected String getLeDuoDuoAppId() {
+        return "wx0f28986faa9f81a8";
+    }
+
     protected String getSecret() {
         return "52ae70bbe182e47bbeec03d9825deb96";
     }
@@ -57,6 +69,14 @@ public abstract class AbstractWechatMiniProgramService extends AbstractWechatSer
 
     protected String getMchId() {
         return "1527081391";
+    }
+
+    protected String getChengZhangGoMchId() {
+        return "1255306301";
+    }
+
+    protected String getLeDuoDuoMchId() {
+        return "1626125973";
     }
 
     protected String getLocalIp() {
@@ -99,6 +119,44 @@ public abstract class AbstractWechatMiniProgramService extends AbstractWechatSer
         String openid = cardMap.get("openid").toString();
         logger.info("openid 为 " + openid);
         map.put("openid", openid);
+        return map;
+    }
+
+    /**
+     * 检查c端支付的用户是否存在
+     *
+     * @param map
+     */
+    protected Map checkUserForClientEnd(Map map) {
+        logger.info("检查用户是否存在, 如果存在则取出openid ");
+        String id = map.get("userId").toString();
+        Map userMap = indexDao.getUserInfoById(id).get(0);
+        if (userMap == null || userMap.size() == 0 || userMap.get("open_id") == null)
+            throw new GlobalProcessException("用户不存在");
+        String openid = userMap.get("open_id").toString();
+        String order = indexDao.getOrderNoById(map);
+        logger.info("openid 为 " + openid);
+        map.put("openid", openid);
+        map.put("order", order);
+        return map;
+    }
+
+    /**
+     * 检查c端支付的用户是否存在
+     *
+     * @param map
+     */
+    protected Map checkUserForDistributionPartner(Map map) {
+        logger.info("检查用户是否存在, 如果存在则取出openid ");
+        String id = map.get("userId").toString();
+        Map userMap = indexDao.getUserInfoById(id).get(0);
+        if (userMap == null || userMap.size() == 0 || userMap.get("open_id") == null)
+            throw new GlobalProcessException("用户不存在");
+        String openid = userMap.get("open_id").toString();
+        String order = indexDao.getDistributionPartnerOrderNoById(map);
+        logger.info("openid 为 " + openid);
+        map.put("openid", openid);
+        map.put("order", order);
         return map;
     }
 

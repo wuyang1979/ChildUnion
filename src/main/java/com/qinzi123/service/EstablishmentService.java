@@ -35,6 +35,8 @@ public interface EstablishmentService {
 
     int updateEstablishment(Map map);
 
+    int deleteWriteOffClerkById(Map map);
+
     List<LinkedHashMap> getEstablishmentInfoByCompanyId(Map map);
 
     Map<String, Object> isExistEstablishmentMember(Map map);
@@ -42,4 +44,8 @@ public interface EstablishmentService {
     Map<String, Object> isSelfEstablishmentLeague(Map map);
 
     List<LinkedHashMap> getLatestEstablishmentList(Map map);
+
+    List<LinkedHashMap> getAllWriteOffClerkListByCompanyId(Map map);
+
+    Map<String, Object> addWriteOffClerk(Map map) throws Exception;
 }

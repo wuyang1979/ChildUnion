@@ -1,11 +1,0 @@
-
-Qsquid:S1118":Add a private constructor to hide the implicit public one.(¼Øûì
-Qsquid:S2885".Make "EMPTY_TIME_FORMAT" an instance variable.(ÁÄ‰äşÿÿÿÿ8š©ò¨˜-
-5squid:S2153="Remove the boxing to "Double".(œÂ»°
-Ysquid:S2184="BCast one of the operands of this division operation to a "double".(œÂ»°
-4squid:S21539"Remove the boxing to "Double".(‚ú
-=squid:S2185="&Remove this silly call to "Math.floor"(œÂ»°
-<squid:S21859"&Remove this silly call to "Math.floor"(‚ú
-jsquid:S00112c"FDefine and throw a dedicated exception instead of using a generic one.(ûí˜ûÿÿÿÿ8ÆäËÕ–-
-Xsquid:S21849"BCast one of the operands of this division operation to a "double".(‚ú
-Lsquid:S2885"0Make "DEFAULT_TIME_FORMAT" an instance variable.(ú‹Î·üÿÿÿÿ

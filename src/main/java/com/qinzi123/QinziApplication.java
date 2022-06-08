@@ -2,6 +2,7 @@ package com.qinzi123;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @title: QinziApplication
@@ -13,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 注意:该代码仅为中企云服科技传阅，严禁其他商业用途！
  */
 @SpringBootApplication
+@EnableScheduling
 public class QinziApplication {
     public static void main(String[] args) {
         SpringApplication.run(QinziApplication.class, args);

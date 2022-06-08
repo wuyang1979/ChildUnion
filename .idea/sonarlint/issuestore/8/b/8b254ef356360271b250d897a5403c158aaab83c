@@ -1,8 +1,0 @@
-
-„squid:S3457a"aNo need to call "toString()" method as formatting and string conversion is done by the Formatter.(€ú»©ıÿÿÿÿ8É²éıÜ-
-€squid:S14889"iImmediately return this expression instead of assigning it to the temporary variable "wxSmallFormIdList".(ãÀÏ„
-Gsquid:S2629a"$Invoke method(s) only conditionally.(€ú»©ıÿÿÿÿ8É²éıÜ-
-Csquid:S2629"$Invoke method(s) only conditionally.(şÈµ’8É²éıÜ-
-Csquid:S35999",Use another way to initialize this instance.(ãÀÏ„
-psquid:S11719"YMove the contents of this initializer to a standard constructor or to field initializers.(ãÀÏ„
-€squid:S3457"aNo need to call "toString()" method as formatting and string conversion is done by the Formatter.(şÈµ’8É²éıÜ-

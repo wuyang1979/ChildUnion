@@ -14,6 +14,7 @@ import com.qinzi123.service.ScoreService;
 import com.qinzi123.util.DateUtils;
 import com.qinzi123.util.Utils;
 import com.qinzi123.util.WeChatUtil;
+import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,6 +112,7 @@ public class BusinessWeixinServiceImpl extends AbstractWechatMiniProgramService 
      * @param id 商户ID
      * @return
      */
+    @Override
     public List<LinkedHashMap> oneBusiness(String id) {
         return cardDao.oneBusiness(id);
     }
@@ -131,6 +133,7 @@ public class BusinessWeixinServiceImpl extends AbstractWechatMiniProgramService 
      * @param code
      * @return
      */
+    @Override
     public int getIdByCode(String code) {
         String openid = getWxOpenId(code);
         return getIdByOpenId(openid);
@@ -140,6 +143,145 @@ public class BusinessWeixinServiceImpl extends AbstractWechatMiniProgramService 
     public int getIdByOpen(String openId) {
         return getIdByOpenId(openId);
     }
+
+    @Override
+    public Map<String, Object> getCendIdByCode(Map map) {
+        List<LinkedHashMap> openidList = cardDao.getCendIdByOpenId(map);
+        Map<String, Object> resultMap = new HashMap<>();
+        if (openidList.size() > 1) {
+            throw new GlobalProcessException("用户已经注册过");
+        }
+        if (openidList.size() == 0) {
+            resultMap.put("id", "-1");
+            return resultMap;
+        }
+        resultMap.put("id", openidList.get(0).get("id").toString());
+        return resultMap;
+    }
+
+    @Override
+    public Map<String, Object> getSessionKeyAndOpenIdByCode(Map map) {
+        if (map.get("code") != null) {
+            String code = map.get("code").toString();
+            Map<String, Object> resultMap = getSessionKeyAndOpenIdByCode(code);
+            return resultMap;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Map<String, Object> getIndependentSessionKeyAndOpenIdByCode(Map map) {
+        if (map.get("code") != null) {
+            String code = map.get("code").toString();
+            String appName = map.get("appName").toString();
+            Map<String, Object> resultMap = getIndependentSessionKeyAndOpenIdByCode(code, appName);
+            return resultMap;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Map<String, Object> getBEndSessionKeyAndOpenIdByCode(Map map) {
+        if (map.get("code") != null) {
+            String code = map.get("code").toString();
+            Map<String, Object> resultMap = getBEndSessionKeyAndOpenIdByCode(code);
+            return resultMap;
+        } else {
+            return null;
+        }
+    }
+
+    public Map<String, Object> getIndependentSessionKeyAndOpenIdByCode(String code, String appName) {
+        Map<String,Object> appMap = cardDao.getAppInfoByAppName(appName);
+        String appid = appMap.get("app_id").toString();
+        String secret = appMap.get("app_secret").toString();
+        // 根据小程序穿过来的code想这个url发送请求
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code=" + code + "&grant_type=authorization_code";
+        // 发送请求，返回Json字符串
+        String str = WeChatUtil.httpRequest(url, "GET", null);
+        // 转成Json对象 获取openid
+        JSONObject jsonObject = JSONObject.parseObject(str);
+
+        // 然后书写自己的处理逻辑即可
+        String sessionKey = jsonObject.get("session_key").toString();
+        String openId = jsonObject.get("openid").toString();
+        if (StringUtil.isEmpty(sessionKey)) {
+            throw new GlobalProcessException("session_key为空");
+        }
+        if (StringUtil.isEmpty(openId)) {
+            throw new GlobalProcessException("openid为空");
+        }
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("sessionKey", sessionKey);
+        resultMap.put("openId", openId);
+
+        return resultMap;
+    }
+
+    public Map<String, Object> getSessionKeyAndOpenIdByCode(String code) {
+        // 微信小程序ID--成长GO
+        String appid = "wx830f64ad127bbcb1";
+        // 微信小程序秘钥
+        String secret = "3badec74ec40e8d5911a439f9734e5f5";
+
+        // 根据小程序穿过来的code想这个url发送请求
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code=" + code + "&grant_type=authorization_code";
+        // 发送请求，返回Json字符串
+        String str = WeChatUtil.httpRequest(url, "GET", null);
+        // 转成Json对象 获取openid
+        JSONObject jsonObject = JSONObject.parseObject(str);
+
+        // 然后书写自己的处理逻辑即可
+        String sessionKey = jsonObject.get("session_key").toString();
+        String openId = jsonObject.get("openid").toString();
+        if (StringUtil.isEmpty(sessionKey)) {
+            throw new GlobalProcessException("session_key为空");
+        }
+        if (StringUtil.isEmpty(openId)) {
+            throw new GlobalProcessException("openid为空");
+        }
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("sessionKey", sessionKey);
+        resultMap.put("openId", openId);
+
+        return resultMap;
+    }
+
+    public Map<String, Object> getBEndSessionKeyAndOpenIdByCode(String code) {
+
+        // 微信小程序ID--亲子云商
+        String appid = "wx2f3e800fce3fd438";
+        // 微信小程序秘钥
+        String secret = "52ae70bbe182e47bbeec03d9825deb96";
+
+        // 根据小程序穿过来的code想这个url发送请求
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code=" + code + "&grant_type=authorization_code";
+        // 发送请求，返回Json字符串
+        String str = WeChatUtil.httpRequest(url, "GET", null);
+        // 转成Json对象 获取openid
+        JSONObject jsonObject = JSONObject.parseObject(str);
+
+        // 然后书写自己的处理逻辑即可
+        String sessionKey = jsonObject.get("session_key").toString();
+        String openId = jsonObject.get("openid").toString();
+        if (StringUtil.isEmpty(sessionKey)) {
+            throw new GlobalProcessException("session_key为空");
+        }
+        if (StringUtil.isEmpty(openId)) {
+            throw new GlobalProcessException("openid为空");
+        }
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("sessionKey", sessionKey);
+        resultMap.put("openId", openId);
+
+        return resultMap;
+    }
+
 
     @Override
     public Map<String, Object> getOpenIdByCode(String code) {
@@ -169,19 +311,6 @@ public class BusinessWeixinServiceImpl extends AbstractWechatMiniProgramService 
             throw new GlobalProcessException("openid为空");
         }
 
-//        String result = sendGet("https://api.weixin.qq.com/sns/jscode2session",
-//                "appid=wx2f3e800fce3fd438" +//小程序APPID
-//                        "&secret=52ae70bbe182e47bbeec03d9825deb96" + //小程序秘钥
-//                        "&js_code=" + code + //前端传来的code
-//                        "&grant_type=authorization_code");
-//        JSONObject jsonObject = JSONObject.parseObject(result);
-//        if (jsonObject.containsKey("errcode")) {
-//            throw new GlobalProcessException(jsonObject.get("errcode").toString());
-//        }
-//        String openId = jsonObject.get("openid").toString();
-//        if (StringUtils.isNullOrEmpty(openId)) {
-//            throw new GlobalProcessException("openid为空");
-//        }
         return openId;
     }
 
@@ -409,6 +538,11 @@ public class BusinessWeixinServiceImpl extends AbstractWechatMiniProgramService 
     }
 
     @Override
+    public int updateCendHeadingImgUrl(Map map) {
+        return cardDao.updateCendHeadingImgUrl(map);
+    }
+
+    @Override
     public int addSeeCardRecord(Map map) {
         //查看人cardId
         int seeCardId = Integer.parseInt(map.get("seeCardId").toString());
@@ -519,5 +653,10 @@ public class BusinessWeixinServiceImpl extends AbstractWechatMiniProgramService 
             list.add(cardDao.getTagName(tag3));
         }
         return list;
+    }
+
+    @Override
+    public int updateOpenIdByCard(Map map) {
+        return cardDao.updateOpenIdByCard(map);
     }
 }

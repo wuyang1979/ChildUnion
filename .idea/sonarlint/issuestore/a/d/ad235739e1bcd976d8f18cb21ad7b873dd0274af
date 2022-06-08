@@ -1,19 +1,0 @@
-
-lsquid:S00100‚"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò¡‚Ôýÿÿÿÿ
-osquid:S00117ƒ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÕøÄøÿÿÿÿ
-osquid:S00117„"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£ÿ…’øÿÿÿÿ
-Asquid:S00108c")Either remove or fill this block of code.(…‰”Ï
-Ksquid:S2864M"4Iterate over the "entrySet" instead of the "keySet".(á«ûÀ
-psquid:S2293("YReplace the type specification in this constructor call with the diamond operator ("<>").(øóŒö
-_squid:S00112Ø"FDefine and throw a dedicated exception instead of using a generic one.(ªòáš
-dsquid:S00112‚"FDefine and throw a dedicated exception instead of using a generic one.(ò¡‚Ôýÿÿÿÿ
-csquid:S00112&"FDefine and throw a dedicated exception instead of using a generic one.(¡Öðìþÿÿÿÿ
-Vsquid:S1118":Add a private constructor to hide the implicit public one.(õõúÍøÿÿÿÿ
-_squid:S00112ñ"FDefine and throw a dedicated exception instead of using a generic one.(Æô¢õ
-bsquid:S1192*"FDefine a constant instead of duplicating this literal "UTF-8" 5 times.(ÉœòÔýÿÿÿÿ
-vsquid:S4435W"ZSecure this "Transformer" by either disabling external DTDs or enabling secure processing.(ƒ¶ŠÊûÿÿÿÿ
-^squid:S00112I"FDefine and throw a dedicated exception instead of using a generic one.(»°ÅÃ
-bsquid:CommentedOutCodeLine_"<This block of commented-out lines of code should be removed.(›„ÿ
-Qsquid:S11415"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
-vsquid:S1488“"^Immediately return this expression instead of assigning it to the temporary variable "logger".(âçÃ‚
-gsquid:S00100ñ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æô¢õ

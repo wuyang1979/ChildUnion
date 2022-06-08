@@ -1,4 +1,0 @@
-
-ksquid:S4488 "HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(Íï§Âÿÿÿÿÿ8£ùä´ß-
-ksquid:S4488"HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(“ì¿êúÿÿÿÿ8£ùä´ß-
-gsquid:CallToDeprecatedMethod"3Remove this use of "description"; it is deprecated.(œÿý‡ýÿÿÿÿ8Œ´Ê´ß-

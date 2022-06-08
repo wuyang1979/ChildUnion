@@ -15,13 +15,11 @@ public interface Establishment {
      * 机构规模枚举
      */
     public enum Scope {
-        scope1("1~10", "0"),
-        scope2("11~50", "1"),
-        scope3("51~100", "2"),
-        scope4("101~500", "3"),
-        scope5("501~1000", "4"),
-        scope6("1001~10000", "5"),
-        scope7("10000+", "6");
+        scope1("1~5", "0"),
+        scope2("6~10", "1"),
+        scope3("11~30", "2"),
+        scope4("31~100", "3"),
+        scope5("100+", "4");
 
 
         private String value;

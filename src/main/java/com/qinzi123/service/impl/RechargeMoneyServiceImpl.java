@@ -4,6 +4,7 @@ import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.qinzi123.dao.CampaignDao;
 import com.qinzi123.dao.CardDao;
+import com.qinzi123.dao.UserOrderDao;
 import com.qinzi123.exception.GlobalProcessException;
 import com.qinzi123.service.RechargeMoneyService;
 import com.qinzi123.service.ScoreService;
@@ -35,12 +36,15 @@ public class RechargeMoneyServiceImpl extends AbstractWechatMiniProgramService i
 
     private static final String TRADE_TYPE = "JSAPI";
 
-    private static final String KEY = "555006250b4c09247ec02edce69f6a2d";
+    private static final String KEY = "Qinzi01234567890Qinzi01234567890";//555006250b4c09247ec02edce69f6a2d
 
     private Logger log = LoggerFactory.getLogger(RechargeMoneyServiceImpl.class);
 
     @Autowired
     CampaignDao campaignDao;
+
+    @Autowired
+    UserOrderDao userOrderDao;
 
     @Autowired
     CardDao cardDao;
@@ -275,12 +279,49 @@ public class RechargeMoneyServiceImpl extends AbstractWechatMiniProgramService i
         return addId;
     }
 
+    private int addClientEndPayment(String id, String total_fee, String orderNo, String result) {
+        Map pay = new HashMap<>();
+        pay.put("orderId", id);
+        pay.put("orderNo", orderNo);
+        pay.put("payment", total_fee);
+        pay.put("message", result);
+        pay.put("createTime", DateUtils.getAccurateDate());
+        int addId = campaignDao.addClientEndPayment(pay);
+        log.info("增加订单{} 的支付记录 {}, 支付金额 {}", id, addId, total_fee);
+        return addId;
+    }
+
     private int updateOrder(String id) {
         Map order = new HashMap<>();
         order.put("id", id);
         int updateId = campaignDao.updateOrder(order);
         log.info("更新订单{} 的支付结果", id);
         return updateId;
+    }
+
+    private int updateClientEndOrder(String id) {
+        Map order = new HashMap<>();
+        order.put("id", id);
+        order.put("payTime", DateUtils.getAccurateDate());
+        int updateId = userOrderDao.updateClientEndOrder(order);
+        log.info("更新订单{} 的支付结果", id);
+        return updateId;
+    }
+
+    private int updateClientEndDistributionPartnerOrder(String id) {
+        Map order = new HashMap<>();
+        order.put("id", id);
+        order.put("payTime", DateUtils.getAccurateDate());
+        int updateId = userOrderDao.updateClientEndDistributionPartnerOrder(order);
+        log.info("更新订单{} 的支付结果", id);
+        return updateId;
+    }
+
+    private int updateProductInfoById(String id) {
+        Map<String, Object> paramMap = new HashMap();
+        paramMap.put("orderId", id);
+        Map<String, Object> orderMap = userOrderDao.getOrderInfoByOrderId(paramMap);
+        return userOrderDao.updateProductInfoById(orderMap);
     }
 
     private int addScore(String openid, String total_fee) {
@@ -338,4 +379,49 @@ public class RechargeMoneyServiceImpl extends AbstractWechatMiniProgramService i
         }
     }
 
+    @Override
+    public Map clientEndPayBack(String result) {
+        try {
+            log.info("微信回调函数入口 {}", result);
+            Map callBackMap = WXPayUtil.xmlToMap(result);
+            String result_code = callBackMap.get("result_code").toString();
+            boolean isPaySuccess = StringUtils.isNotBlank(result_code) && result_code.equals("SUCCESS");
+            if (!isPaySuccess) throw new GlobalProcessException("支付失败");
+
+            String id = callBackMap.get("attach").toString();
+            String total_fee = callBackMap.get("total_fee").toString();
+            String orderNo = callBackMap.get("out_trade_no").toString();
+            String openId = callBackMap.get("openid").toString();
+
+            addClientEndPayment(id, total_fee, orderNo, result);
+            updateClientEndOrder(id);
+            updateProductInfoById(id);
+
+            return callBackMap;
+        } catch (Exception e) {
+            throw new GlobalProcessException("回调接口失败", e.getMessage());
+        }
+    }
+
+    @Override
+    public Map clientEndDistributionPartnerPayBack(String result) {
+        try {
+            log.info("微信回调函数入口 {}", result);
+            Map callBackMap = WXPayUtil.xmlToMap(result);
+            String result_code = callBackMap.get("result_code").toString();
+            boolean isPaySuccess = StringUtils.isNotBlank(result_code) && result_code.equals("SUCCESS");
+            if (!isPaySuccess) throw new GlobalProcessException("支付失败");
+
+            String id = callBackMap.get("attach").toString();
+//            String total_fee = callBackMap.get("total_fee").toString();
+//            String orderNo = callBackMap.get("out_trade_no").toString();
+//            String openId = callBackMap.get("openid").toString();
+
+            updateClientEndDistributionPartnerOrder(id);
+
+            return callBackMap;
+        } catch (Exception e) {
+            throw new GlobalProcessException("回调接口失败", e.getMessage());
+        }
+    }
 }

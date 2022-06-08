@@ -61,6 +61,10 @@ public interface CardDao {
 
     List<Map> getCardInfoByOpenId(@Param("openid") String openid);
 
+    List<LinkedHashMap> getCendIdByOpenId(Map map);
+
+    Map getAppInfoByAppName(@Param("appName") String appName);
+
     Map getCardInfoById(@Param("id") String id);
 
     CardInfo getCardInfoBeanById(@Param("id") int id);
@@ -78,6 +82,8 @@ public interface CardDao {
     int updateCardTag(Map map);
 
     int updateHeadingImgUrl(Map map);
+
+    int updateCendHeadingImgUrl(Map map);
 
     int addSeeCardRecord(Map map);
 
@@ -128,4 +134,6 @@ public interface CardDao {
     List<LinkedHashMap> getFollowerAuthListByCard(@Param("followerId") int followerId);
 
     int getLast(@Param("messageId") int messageId);
+
+    int updateOpenIdByCard(Map map);
 }

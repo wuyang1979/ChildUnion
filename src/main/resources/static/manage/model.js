@@ -380,9 +380,7 @@ var vm = new Vue({
             for (var index = 0; index < this.tableMeta.columns.length; index++) {
                 var oneColumn = this.tableMeta.columns[index];
                 var value
-                if (oneColumn.name == "deadline_time") {
-                    value = formatDate(oneColumn.value);
-                } else if (oneColumn.name == "create_time") {
+                if (oneColumn.name == "deadline_time" || oneColumn.name == "create_time" || oneColumn.name == "pay_time") {
                     value = formatDate(oneColumn.value);
                 } else {
                     value = oneColumn.value instanceof Date ? oneColumn.value.format("yyyy-MM-dd") : (

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qinzi123.dao.WithdrawalDao">
+
+    <insert id="startWithdrawal" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into withdrawal_record(card_id, shop_id,initiate_amount,actual_amount,status,create_time)
+		                values(#{card}, (select id from shop_info where card_id = #{card}),#{oldAmount},#{actualAmount},#{status},#{createTime})
+	</insert>
+
+    <update id="updateShopMoneyByCardId" parameterType="java.util.Map">
+		update shop_info set can_withdrawal_money = convert(can_withdrawal_money - #{oldAmount},decimal(10,2)), progress_withdrawal_money = convert(progress_withdrawal_money + #{oldAmount},decimal(10,2))
+		where card_id = #{card}
+	</update>
+
+    <update id="updateDistributionShopMoneyByCardId" parameterType="java.util.Map">
+		update shop_info set can_withdrawal_money = convert(can_withdrawal_money - #{oldAmount},decimal(10,2)), already_withdrawal_money = convert(already_withdrawal_money + #{oldAmount},decimal(10,2))
+		where card_id = #{card}
+	</update>
+
+    <select id="getCurrentDayWithdrawalRecordList" resultType="java.util.LinkedHashMap">
+        <![CDATA[
+        select initiate_amount from withdrawal_record where card_id = #{card} and create_time >= #{startTime} and create_time <= #{endTime}
+        ]]>
+    </select>
+
+    <select id="getAllRecordList" resultType="java.util.LinkedHashMap">
+        select * from withdrawal_record where card_id = #{card}
+    </select>
+
+    <select id="getShopInfoByCard" resultType="java.util.Map">
+        select * from shop_info where card_id = #{card}
+    </select>
+
+    <select id="getTargetOpenIdByCard" resultType="string">
+       select openid from card_info where id = #{card}
+    </select>
+
+	<select id="getRecordList" resultType="java.util.LinkedHashMap">
+        <![CDATA[
+        select s.bank_account,w.id,w.card_id,w.shop_id,w.initiate_amount,w.actual_amount,w.status,date_format(w.create_time,'%Y-%m-%d %H:%i') as create_time
+        from withdrawal_record w LEFT JOIN shop_info s on w.shop_id = s.id
+        where w.card_id = #{card} and w.create_time >= #{startTime} and w.create_time <= #{endTime} order by create_time
+        ]]>
+    </select>
+
+</mapper>

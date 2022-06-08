@@ -42,6 +42,14 @@
 		select company as name, date_format(submittime,'%Y-%m-%d') as createTime from buss_league_info order by submittime desc limit #{start}, #{num}
     </select>
 
+    <select id="getWriteOffClerkByOpenId" resultType="java.util.LinkedHashMap">
+		select * from c_end_write_off_info where open_id = #{openId} and shop_id = #{shopId}
+    </select>
+
+    <select id="getAllWriteOffClerkListByCompanyId" resultType="java.util.LinkedHashMap">
+		select * from c_end_write_off_info where company_id = #{companyId}
+    </select>
+
     <select id="getAdminName" resultType="string">
 		select contactname from buss_league_info where id = #{companyId}
     </select>
@@ -56,15 +64,29 @@
 
     <insert id="addEstablishment" useGeneratedKeys="true" keyProperty="id"
             parameterType="com.qinzi123.dto.EstablishmentInfo">
-		insert into buss_league_info(leaguetype, companydesc,company,logopic,members,companyaddr,companytel, companyweb,industry,mainbussiness,maindemand,contactname,contactduty,contacttel,contactwx,submittime,updatetime,contactopenid,email,licensepic)
-		values(#{leaguetype}, #{introduce},#{company},#{mainImage},#{scope},#{address},#{companyTel},#{companyWeb},#{industry},#{mainBusiness},#{mainDemand},#{contactname},#{contactduty},#{contacttel},#{contactwx},#{submittime},#{updatetime},#{contactopenid},#{email},#{licensepic})
+		insert into buss_league_info(leaguetype, companydesc,company,abbreviation,logopic,members,companyaddr,companytel, companyweb,industry,mainbussiness,maindemand,contactname,contactduty,contacttel,contactwx,submittime,updatetime,contactopenid,email,licensepic)
+		values(#{leaguetype}, #{introduce},#{company},#{abbreviation},#{mainImage},#{scope},#{address},#{companyTel},#{companyWeb},#{industry},#{mainBusiness},#{mainDemand},#{contactname},#{contactduty},#{contacttel},#{contactwx},#{submittime},#{updatetime},#{contactopenid},#{email},#{licensepic})
+	</insert>
+
+    <insert id="addWriteOffClerk" useGeneratedKeys="true" keyProperty="id"
+            parameterType="java.util.Map">
+		insert into c_end_write_off_info(open_id, shop_id,nick_name,head_img_url,create_time)
+		                        values(#{openId}, #{shopId},#{nickName},#{headImgUrl},#{createTime})
 	</insert>
 
     <update id="updateEstablishment" parameterType="java.util.Map">
-    	update buss_league_info set logopic = #{mainImage},licensePic = #{licensePic},company = #{company},industry = #{industry},members = #{scope},companyaddr = #{address},companytel = #{companyTel},companyweb = #{companyWeb},email = #{email},companydesc = #{introduce},mainbussiness = #{mainBusiness},maindemand = #{mainDemand} where id = #{companyId}
+    	update buss_league_info set logopic = #{mainImage},licensePic = #{licensePic},company = #{company},abbreviation = #{abbreviation},industry = #{industry},members = #{scope},companyaddr = #{address},companytel = #{companyTel},companyweb = #{companyWeb},email = #{email},companydesc = #{introduce},mainbussiness = #{mainBusiness},maindemand = #{mainDemand} where id = #{companyId}
 	</update>
 
     <update id="updateCompanyIdByCardId" parameterType="java.util.Map">
     	update card_info set company_id = #{companyId} where id = #{cardId}
 	</update>
+
+    <delete id="deleteWriteOffClerkById">
+        delete from c_end_write_off_info where id = #{id}
+    </delete>
+
+    <select id="getLogoByShopId" resultType="string">
+		select logopic from shop_info where id = #{shopId}
+    </select>
 </mapper>

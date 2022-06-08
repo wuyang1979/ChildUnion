@@ -2,6 +2,7 @@ package com.qinzi123.service.impl;
 
 import com.qinzi123.dao.CardDao;
 import com.qinzi123.dao.CooperateDao;
+import com.qinzi123.dao.IndexDao;
 import com.qinzi123.dao.PushDao;
 import com.qinzi123.dto.TokenType;
 import com.qinzi123.dto.WxSmallToken;
@@ -42,6 +43,9 @@ public abstract class AbstractWechatService {
 
     @Autowired
     CardDao cardDao;
+
+    @Autowired
+    IndexDao indexDao;
 
     @Autowired
     CooperateDao cooperateDao;

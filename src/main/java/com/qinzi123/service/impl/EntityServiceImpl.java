@@ -223,41 +223,97 @@ public class EntityServiceImpl implements EntityService {
     // 新增产品信息
     @Override
     public int addProductInfoService(Map<String, Object> map) {
-        ProductInfo productInfo = new ProductInfo();
-        productInfo.setStatus(0);
-        productInfo.setType(0);
-        productInfo.setCardId(map.get("card_id").toString());
-        productInfo.setName(map.get("name").toString());
-        productInfo.setMainImage(map.get("main_image").toString());
-        productInfo.setOriginalPrice(map.get("original_price").toString());
-        productInfo.setPresentPrice(map.get("present_price").toString());
-        productInfo.setInventory(map.get("inventory").toString());
-        productInfo.setRepeatPurchase(Integer.parseInt(map.get("repeat_purchase").toString()));
-        productInfo.setOnceMaxPurchaseCount(Integer.parseInt(map.get("once_max_purchase_count").toString()));
-        productInfo.setPhone(map.get("phone").toString());
-        if (map.get("introduce") != null) {
-            productInfo.setIntroduce(map.get("introduce").toString());
-        }
-        if (map.get("vedio_path") != null) {
-            productInfo.setVideoPath(map.get("vedio_path").toString());
-        }
-        productInfo.setInstruction(map.get("instruction").toString());
-        productInfo.setCreateTime(DateUtils.getNow());
-        productInfo.setDeadlineTime(map.get("deadline_time").toString());
+//        ProductInfo productInfo = new ProductInfo();
+//        productInfo.setStatus(Integer.parseInt(map.get("status").toString()));
+//        productInfo.setIsHot(Integer.parseInt(map.get("is_hot").toString()));
+//        productInfo.setCardId(map.get("card_id").toString());
+//        productInfo.setName(map.get("name").toString());
+//        if (map.get("address") != null) {
+//            productInfo.setAddress(map.get("address").toString());
+//        } else {
+//            productInfo.setAddress("");
+//        }
+//        if (map.get("address_name") != null) {
+//            productInfo.setAddressName(map.get("address_name").toString());
+//        } else {
+//            productInfo.setAddressName("");
+//        }
+//        if (map.get("longitude") != null) {
+//            productInfo.setLongitude(map.get("longitude").toString());
+//        } else {
+//            productInfo.setLongitude("");
+//        }
+//        if (map.get("latitude") != null) {
+//            productInfo.setLatitude(map.get("latitude").toString());
+//        } else {
+//            productInfo.setLatitude("");
+//        }
+//        int product_type = Integer.parseInt(map.get("product_type").toString());
+//        productInfo.setProductType(product_type);
+//        productInfo.setMainImage(map.get("main_image").toString());
+//        if (map.get("original_price") != null) {
+//            productInfo.setOriginalPrice(map.get("original_price").toString());
+//        } else {
+//            productInfo.setOriginalPrice("");
+//        }
+//        if (map.get("present_price") != null) {
+//            productInfo.setPresentPrice(map.get("present_price").toString());
+//        } else {
+//            productInfo.setPresentPrice("");
+//        }
+//        productInfo.setInventory(map.get("inventory").toString());
+//        productInfo.setRepeatPurchase(Integer.parseInt(map.get("repeat_purchase").toString()));
+//        productInfo.setOnceMaxPurchaseCount(Integer.parseInt(map.get("once_max_purchase_count").toString()));
+//        productInfo.setPhone(map.get("phone").toString());
+//        if (map.get("introduce") != null) {
+//            productInfo.setIntroduce(map.get("introduce").toString());
+//        } else {
+//            productInfo.setIntroduce("");
+//        }
+//        if (map.get("vedio_path") != null) {
+//            productInfo.setVideoPath(map.get("vedio_path").toString());
+//        } else {
+//            productInfo.setVideoPath("");
+//        }
+//        if (map.get("instruction") != null) {
+//            productInfo.setInstruction(map.get("instruction").toString());
+//        } else {
+//            productInfo.setInstruction("");
+//        }
+//        productInfo.setBuyCount(map.get("buy_count").toString());
+//        productInfo.setCreateTime(DateUtils.getNow());
+//        productInfo.setDeadlineTime(map.get("deadline_time").toString());
+//        int rows;
+//        if (product_type == 0) {
+//            productInfo.setType(Integer.parseInt(map.get("type").toString()));
+//            productInfo.setProductStyle(Integer.parseInt(map.get("product_style").toString()));
+//            rows = entityDao.addProductInfoService(productInfo);
+//        } else {
+//            rows = entityDao.addActivityInfoService(productInfo);
+//        }
+//        int productId = productInfo.getId();
+//
+//        if (map.get("other_image") != null) {
+//            if (StringUtils.isNotEmpty(map.get("other_image").toString())) {
+//                Map<String, Object> picMap = new HashMap<>();
+//                picMap.put("productId", productId);
+//                picMap.put("other_image", map.get("other_image"));
+//                entityService.addOtherImagesToProductInfo(picMap);
+//            }
+//        }
 
-        int rows = entityDao.addProductInfoService(productInfo);
-        int productId = productInfo.getId();
+//        return rows;
+        return 0;
+    }
 
-        if (map.get("other_image") != null) {
-            if (StringUtils.isNotEmpty(map.get("other_image").toString())) {
-                Map<String, Object> picMap = new HashMap<>();
-                picMap.put("productId", productId);
-                picMap.put("other_image", map.get("other_image"));
-                entityService.addOtherImagesToProductInfo(picMap);
-            }
+    @Override
+    public int addCEndOrderService(Map<String, Object> map) {
+        map.put("orderNo", Utils.getCurrentDateNoFlag());
+        map.put("createTime", DateUtils.getAccurateDate());
+        if (map.get("open_id") == null) {
+            map.put("open_id", "");
         }
-
-        return rows;
+        return entityDao.addCEndOrderService(map);
     }
 
     // 插入其他图片到活动表
@@ -457,6 +513,11 @@ public class EntityServiceImpl implements EntityService {
         return entityDao.updateProductInfoService(map);
     }
 
+    @Override
+    public int updateCEndOrderService(Map<String, Object> map) {
+        return entityDao.updateCEndOrderService(map);
+    }
+
     // 删除数据
     @Override
     public int deleteService(String tableName, List<Map<String, Object>> list) {
@@ -562,6 +623,20 @@ public class EntityServiceImpl implements EntityService {
             Map<String, Object> map = new HashMap<>();
             map.put("id", item.get("id"));
             entityDao.deleteProductInfoService(map);
+            rows++;
+        }
+        return rows;
+    }
+
+    // 删除成长GO订单数据
+    @Override
+    public int deleteCEndOrderService(List<Map<String, Object>> list) {
+        int rows = 0;
+
+        for (Map<String, Object> item : list) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", item.get("id"));
+            entityDao.deleteCEndOrderService(map);
             rows++;
         }
         return rows;

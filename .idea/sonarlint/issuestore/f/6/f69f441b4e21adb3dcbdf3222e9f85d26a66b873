@@ -1,8 +1,0 @@
-
-|squid:S1192|"YDefine a constant instead of duplicating this literal "æ’å…¥å‘é€æˆåŠŸè®°å½•" 3 times.(¿›‚¾úÿÿÿÿ8âØƒõË-
-Gsquid:S2629L"$Invoke method(s) only conditionally.(±ÙÊ·ûÿÿÿÿ8ÕıâœÌ-
-Hsquid:S2629Ò"$Invoke method(s) only conditionally.(Ü—´œÿÿÿÿÿ8ÕıâœÌ-
-qsquid:S3973Ñ"YUse curly braces or indentation to denote the code conditionally executed by this "else".(ÔÍØ
-Gsquid:S2629Q"$Invoke method(s) only conditionally.(­€ºÉúÿÿÿÿ8ô‚ŒÌ-
-Bsquid:S26297"$Invoke method(s) only conditionally.(ºšÑÑ8şÏú§Ü-
-Gsquid:S2629E"$Invoke method(s) only conditionally.(¼Ş¬¤üÿÿÿÿ8‚ˆ®ù‡.

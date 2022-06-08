@@ -1,25 +1,0 @@
-
-_squid:S001071"BConstructor has 10 parameters, which is greater than 7 authorized.(öØ±›üÿÿÿÿ
-nsquid:S3776z"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(™®ëşÿÿÿÿ
-gsquid:CommentedOutCodeLinen"<This block of commented-out lines of code should be removed.(·©ı¼ùÿÿÿÿ
-wsquid:S1149"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(í…Ò‰
-Msquid:S1133Ñ"5Do not forget to remove this deprecated code someday.(ö”è©
-^squid:S00112Ö"FDefine and throw a dedicated exception instead of using a generic one.(ó–è
-@squid:S1604×"(Make this anonymous inner class a lambda(ÉãÃ®
-Lsquid:S1133Ö"5Do not forget to remove this deprecated code someday.(ó–è
-Esquid:S1604Š"(Make this anonymous inner class a lambda(á†áıÿÿÿÿ
-Qsquid:MissingDeprecatedCheckÑ"(Add the missing @deprecated Javadoc tag.(ö”è©
-psquid:S2293|"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ìğˆˆ
-wsquid:S1149"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(í…Ò‰
-osquid:S3008x"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(âÕ™üÿÿÿÿ
-Psquid:MissingDeprecatedCheckÖ"(Add the missing @deprecated Javadoc tag.(ó–è
-osquid:ModifiersOrderCheckx"EReorder the modifiers to comply with the Java Language Specification.(âÕ™üÿÿÿÿ
-Q
-squid:S899Ë":Do something with the "boolean" value returned by "offer".(®­Ş
-Usquid:S00107Á"<Method has 9 parameters, which is greater than 7 authorized.(Íº©‘
-%squid:RedundantThrowsDeclarationCheckÖ"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ó–è
-vsquid:S1149\"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(í…Ò‰
-?squid:S2189Œ""Add an end condition to this loop.(˜ïˆÿÿÿÿÿ
-dsquid:S00112ë"FDefine and throw a dedicated exception instead of using a generic one.(„ŸÌÕùÿÿÿÿ
-vsquid:S1149\"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(í…Ò‰
-Dsquid:S1604"(Make this anonymous inner class a lambda(ê…¶ùÿÿÿÿ

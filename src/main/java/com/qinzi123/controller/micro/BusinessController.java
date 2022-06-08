@@ -122,6 +122,12 @@ public class BusinessController {
         return businessWeixinService.updateHeadingImgUrl(map);
     }
 
+    @ApiOperation(value = "更新C端用户头像地址", notes = "更新C端用户头像地址")
+    @RequestMapping(value = "/business/updateCendHeadingImgUrl", method = RequestMethod.POST)
+    private int updateCendHeadingImgUrl(@RequestBody Map map) {
+        return businessWeixinService.updateCendHeadingImgUrl(map);
+    }
+
     @ApiOperation(value = "添加用户参看名片记录", notes = "添加用户参看名片记录")
     @RequestMapping(value = "/business/addSeeCardRecord", method = RequestMethod.POST)
     private int addSeeCardRecord(@RequestBody Map map) {
@@ -140,9 +146,33 @@ public class BusinessController {
         return businessWeixinService.getIdByOpen(openId);
     }
 
+    @ApiOperation(value = "根据openid获取C端用户id", notes = "根据openid获取用户id")
+    @RequestMapping(value = "/business/info/c_end_code", method = RequestMethod.POST)
+    private Map<String, Object> getCendIdByCode(@RequestBody Map map) {
+        return businessWeixinService.getCendIdByCode(map);
+    }
+
     @RequestMapping(value = "/business/info/getOpenId/{code}", method = RequestMethod.GET)
     private Map<String, Object> getOpenId(@PathVariable String code) {
         return businessWeixinService.getOpenIdByCode(code);
+    }
+
+    @ApiOperation(value = "获取成长GOsession_key和openid", notes = "获取成长GOsession_key和openid")
+    @RequestMapping(value = "/business/info/getSessionKeyAndOpenIdByCode", method = RequestMethod.POST)
+    private Map<String, Object> getSessionKeyAndOpenIdByCode(@RequestBody Map map) {
+        return businessWeixinService.getSessionKeyAndOpenIdByCode(map);
+    }
+
+    @ApiOperation(value = "获取独立小程序session_key和openid", notes = "获取独立小程序session_key和openid")
+    @RequestMapping(value = "/business/info/getIndependentSessionKeyAndOpenIdByCode", method = RequestMethod.POST)
+    private Map<String, Object> getIndependentSessionKeyAndOpenIdByCode(@RequestBody Map map) {
+        return businessWeixinService.getIndependentSessionKeyAndOpenIdByCode(map);
+    }
+
+    @ApiOperation(value = "获取亲子云商session_key和openid", notes = "获取亲子云商session_key和openid")
+    @RequestMapping(value = "/business/info/getBEndSessionKeyAndOpenIdByCode", method = RequestMethod.POST)
+    private Map<String, Object> getBEndSessionKeyAndOpenIdByCode(@RequestBody Map map) {
+        return businessWeixinService.getBEndSessionKeyAndOpenIdByCode(map);
     }
 
     @ApiOperation(value = "关注", notes = "关注")
@@ -242,4 +272,11 @@ public class BusinessController {
     private List<String> getTagNameList(@RequestBody Map map) {
         return businessWeixinService.getTagNameList(map);
     }
+
+    @ApiOperation(value = "更新openid", notes = "更新openid")
+    @RequestMapping(value = "/business/updateOpenIdByCard", method = RequestMethod.POST)
+    private int updateOpenIdByCard(@RequestBody Map map) {
+        return businessWeixinService.updateOpenIdByCard(map);
+    }
+
 }

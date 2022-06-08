@@ -39,7 +39,15 @@ public interface BusinessWeixinService {
 
     int getIdByOpen(String openId);
 
+    Map<String, Object> getCendIdByCode(Map map);
+
     Map<String, Object> getOpenIdByCode(String code);
+
+    Map<String, Object> getSessionKeyAndOpenIdByCode(Map map);
+
+    Map<String, Object> getIndependentSessionKeyAndOpenIdByCode(Map map);
+
+    Map<String, Object> getBEndSessionKeyAndOpenIdByCode(Map map);
 
     int addFollower(int userId, int followerId);
 
@@ -52,6 +60,8 @@ public interface BusinessWeixinService {
     int setUser(Map map);
 
     int updateHeadingImgUrl(Map map);
+
+    int updateCendHeadingImgUrl(Map map);
 
     int addSeeCardRecord(Map map);
 
@@ -76,4 +86,6 @@ public interface BusinessWeixinService {
     Map<String, Object> getUnreadNum();
 
     List<String> getTagNameList(Map map);
+
+    int updateOpenIdByCard(Map map);
 }

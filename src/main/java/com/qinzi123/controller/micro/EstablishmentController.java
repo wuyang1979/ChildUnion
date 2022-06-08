@@ -106,4 +106,22 @@ public class EstablishmentController {
     private List<LinkedHashMap> getLatestEstablishmentList(@RequestBody Map map) {
         return establishmentService.getLatestEstablishmentList(map);
     }
+
+    @ApiOperation(value = "新增核销人员", notes = "新增核销人员")
+    @RequestMapping(value = "/establishment/addWriteOffClerk", method = RequestMethod.POST)
+    private Map<String, Object> addWriteOffClerk(@RequestBody Map map) throws Exception {
+        return establishmentService.addWriteOffClerk(map);
+    }
+
+    @ApiOperation(value = "通过机构id查询所有核销人员", notes = "通过机构id查询所有核销人员")
+    @RequestMapping(value = "/establishment/getAllWriteOffClerkListByCompanyId", method = RequestMethod.POST)
+    private List<LinkedHashMap> getAllWriteOffClerkListByCompanyId(@RequestBody Map map) {
+        return establishmentService.getAllWriteOffClerkListByCompanyId(map);
+    }
+
+    @ApiOperation(value = "通过id删除核销员", notes = "通过id删除核销员")
+    @RequestMapping(value = "/establishment/deleteWriteOffClerkById", method = RequestMethod.POST)
+    private int deleteWriteOffClerkById(@RequestBody Map map) {
+        return establishmentService.deleteWriteOffClerkById(map);
+    }
 }

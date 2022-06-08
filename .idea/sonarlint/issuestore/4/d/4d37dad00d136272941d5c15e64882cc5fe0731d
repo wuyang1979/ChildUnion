@@ -1,15 +1,0 @@
-
-Bsquid:S2629t"$Invoke method(s) only conditionally.(´ÿİó8³ÄÃ‚ä-
-{squid:S1488@"]Immediately return this expression instead of assigning it to the temporary variable "token".(İŞÖ¤8´”¨Ìã-
-Psquid:S3599",Use another way to initialize this instance.(İÌê½ùÿÿÿÿ8¦Â¬Ìã-
-…squid:S3457“"aNo need to call "toString()" method as formatting and string conversion is done by the Formatter.(´ïŒ×ıÿÿÿÿ8¦Â¬Ìã-
-Hsquid:S2629“"$Invoke method(s) only conditionally.(´ïŒ×ıÿÿÿÿ8¦Â¬Ìã-
-Gsquid:S2629Z"$Invoke method(s) only conditionally.(³Õ±–ûÿÿÿÿ8¨‡ Ìã-
-Bsquid:S2629v"$Invoke method(s) only conditionally.(‚ìùÈ8³ÄÃ‚ä-
-osquid:CommentedOutCodeLine–"<This block of commented-out lines of code should be removed.(ºÀÖêüÿÿÿÿ8¦Â¬Ìã-
-Gsquid:S2629e"$Invoke method(s) only conditionally.(â¯—êşÿÿÿÿ8ô¤£Ìã-
-Asquid:S2629g"$Invoke method(s) only conditionally.(ÛÜ 8ô¤£Ìã-
-esquid:S1192w"HDefine a constant instead of duplicating this literal "errcode" 3 times.(±æçD8³ÄÃ‚ä-
-Gsquid:S2629V"$Invoke method(s) only conditionally.(ïÈ“¹ûÿÿÿÿ8¨‡ Ìã-
-Wsquid:S2589”"8Remove this expression which always evaluates to "false"(ü¾³À8¦Â¬Ìã-
-}squid:S1171"YMove the contents of this initializer to a standard constructor or to field initializers.(İÌê½ùÿÿÿÿ8¦Â¬Ìã-

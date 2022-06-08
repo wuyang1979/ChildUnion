@@ -18,19 +18,26 @@ public class ProductInfo {
 
     private int id;
     private int status;
+    private int isHot;
     private int type;
+    private int productType;
+    private int productStyle;
+    private String wuyuType;
     private String cardId;
     private String name;
+    private String address;
+    private String addressName;
+    private String longitude;
+    private String latitude;
     private String mainImage;
-    private String originalPrice;
-    private String presentPrice;
-    private String inventory;
     private int repeatPurchase;
-    private int onceMaxPurchaseCount;
     private String phone;
     private String introduce;
     private String videoPath;
     private String instruction;
+    private String buyCount;
     private Date createTime;
     private String deadlineTime;
+    private String qrImage;
+    private int isAllowDistribution;
 }

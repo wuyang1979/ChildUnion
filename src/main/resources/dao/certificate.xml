@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qinzi123.dao.CertificateDao">
+
+    <select id="getCertificateList" resultType="java.util.LinkedHashMap">
+		select id, user_id,name,activity_id,institution_id,date_format(certificate_time,'%Y-%m-%d') as certificate_time from c_end_certificate_info
+		where user_id = #{userId} order by create_time desc limit #{start}, #{num}
+    </select>
+
+    <select id="getProductInfoByProductId" resultType="java.util.Map">
+		select name, main_image from product_info where id = #{activity_id}
+    </select>
+
+    <select id="getChildrenNumById" resultType="int">
+		select count(1) from c_end_baby_info where parent_id = #{userId}
+    </select>
+
+    <select id="getCertificateInfoById" resultType="java.util.Map">
+		select activity_id,institution_id,date_format(certificate_time,'%Y-%m-%d') as certificate_time from c_end_certificate_info where id = #{id}
+    </select>
+
+    <select id="getActivityNameById" resultType="string">
+		select name from product_info where id = #{activity_id}
+    </select>
+
+    <select id="getInstitutionNameById" resultType="string">
+		select abbreviation from buss_league_info where id = #{institution_id}
+    </select>
+
+</mapper>

@@ -31,6 +31,8 @@ public interface EntityDao {
 
     int updateProductInfoService(Map<String, Object> map);
 
+    int updateCEndOrderService(Map<String, Object> map);
+
     int updateProductEntity(Map<String, Object> map);
 
     int deleteEntity(@Param("tableName") String tableName, @Param("keyColumns") String keyColumns);
@@ -48,6 +50,8 @@ public interface EntityDao {
     int deleteEstablishmentService(Map<String, Object> map);
 
     int deleteProductInfoService(Map<String, Object> map);
+
+    int deleteCEndOrderService(Map<String, Object> map);
 
     List<LinkedHashMap> findEntityByKey(@Param("tableName") String tableName, @Param("keyColumns") String keyColumns);
 
@@ -78,6 +82,10 @@ public interface EntityDao {
     int addEstablishmentService(Map<String, Object> map);
 
     int addProductInfoService(ProductInfo productInfo);
+
+    int addActivityInfoService(ProductInfo productInfo);
+
+    int addCEndOrderService(Map map);
 
     List<LinkedHashMap> pictureList(@Param("baseId") int baseId);
 

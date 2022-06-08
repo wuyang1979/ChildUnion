@@ -95,10 +95,12 @@
     <select id="oneBusiness" resultType="java.util.LinkedHashMap">
        SELECT
 	t.id,
+	t.openid,
 	headimgurl,
 	realname,
 	job,
 	t.company,
+	l.abbreviation,
 	phone,
 	workaddress,
 	introduce,
@@ -274,6 +276,14 @@ WHERE
         where openid = #{openid}
     </select>
 
+    <select id="getCendIdByOpenId" resultType="java.util.LinkedHashMap">
+      select * from c_end_user_info where open_id = #{openId}
+    </select>
+
+	<select id="getAppInfoByAppName" resultType="java.util.Map">
+      select * from app_info where app_name = #{appName}
+    </select>
+
     <select id="getCardInfoById" resultType="java.util.Map">
         <include refid="getCardInfo"/>
         where id = #{id}
@@ -319,6 +329,12 @@ WHERE
     <update id="updateHeadingImgUrl" parameterType="java.util.Map">
 		update card_info
 		set headimgurl = #{headingImgUrl}
+		where id = #{id}
+	</update>
+
+    <update id="updateCendHeadingImgUrl" parameterType="java.util.Map">
+		update c_end_user_info
+		set head_img_url = #{headingImgUrl}
 		where id = #{id}
 	</update>
 
@@ -438,4 +454,9 @@ WHERE
     <select id="getLast" resultType="int">
          select TIMESTAMPDIFF(MINUTE, update_time, sysdate()) as last from card_message where id = #{messageId}
     </select>
+
+	<update id="updateOpenIdByCard" parameterType="java.util.Map">
+		update card_info set openid = #{openId} where id = #{card}
+	</update>
+
 </mapper>

@@ -1,17 +1,0 @@
-
-squid:S2629N"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(Ò­Ö÷úÿÿÿÿ8 şÜïÕ-
-[squid:S1858t"="get" returns a string, there's no need to call "toString()".(—©éı8€ÌÉïÕ-
-|squid:S2293@"YReplace the type specification in this constructor call with the diamond operator ("<>").(¡ğÁŠÿÿÿÿÿ8€ÌÉïÕ-
-_squid:S3457c"AFormat specifiers should be used instead of string concatenation.( „Î•8œ¸ÜïÕ-
-psquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒ‚ìO8ĞøñÕ-
-vsquid:S00117¡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸¡²­ûÿÿÿÿ8Ó¨»ñÕ-
-qsquid:S00117®"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ø¡¬Ñ8ĞøñÕ-
-squid:S3457n"aNo need to call "toString()" method as formatting and string conversion is done by the Formatter.(Ş™éó8éœŞïÕ-
-jsquid:S1192G"GDefine a constant instead of duplicating this literal "openid" 3 times.(˜şé‹üÿÿÿÿ8³›ĞïÕ-
-vsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õƒÚ‡úÿÿÿÿ8Şú¬ñÕ-
-psquid:S00117o"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²ƒ¹8€ÌÉïÕ-
-zsquid:S2629c"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.( „Î•8´İÜïÕ-
-psquid:S00117r"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äê÷Ö8€ÌÉïÕ-
-gsquid:S1858n"I"result" is already a string, there's no need to call "toString()" on it.(Ş™éó8€ÌÉïÕ-
-Bsquid:S2629n"$Invoke method(s) only conditionally.(Ş™éó8€ÌÉïÕ-
-dsquid:S3457N"AFormat specifiers should be used instead of string concatenation.(Ò­Ö÷úÿÿÿÿ8§õÙïÕ-

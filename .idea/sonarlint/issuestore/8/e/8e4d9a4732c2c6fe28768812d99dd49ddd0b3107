@@ -1,9 +1,0 @@
-
-`squid:CallToDeprecatedMethod"3Remove this use of "description"; it is deprecated.(Ö”¢Öşÿÿÿÿ
-fsquid:S4488>"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(Ô‚›½ÿÿÿÿÿ
-fsquid:S4488!"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ö¨®ıÿÿÿÿ
-fsquid:S4488*"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(øÑùÿÿÿÿ
-dsquid:S44880"HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(êÊà‚úÿÿÿÿ
-dsquid:S44887"HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(…¹Ôüÿÿÿÿ
-`squid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(æ´§
-_squid:S4488D"HReplace "@RequestMapping(method = RequestMethod.GET)" with "@GetMapping"(Ì˜÷ñ

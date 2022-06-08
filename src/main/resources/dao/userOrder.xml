@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qinzi123.dao.UserOrderDao">
+
+    <select id="getUserInfoById" resultType="java.util.Map">
+		select open_id,phone from c_end_user_info where id = #{userId}
+    </select>
+
+    <select id="getProductInfoByProductId" resultType="java.util.Map">
+		select is_allow_distribution from product_info where id = #{productId}
+    </select>
+
+    <select id="getProductStandardInfoByStandardId" resultType="java.util.Map">
+		select * from c_end_product_standards where id = #{standardId}
+    </select>
+
+    <select id="getActivityStandardInfoByStandardId" resultType="java.util.Map">
+		select * from c_end_activity_standards where id = #{standardId}
+    </select>
+
+    <select id="getIssuerPhoneByProductId" resultType="string">
+		select phone from card_info where id = (select card_id from shop_info where id = (select shop_id from product_info where id = #{productId}))
+    </select>
+
+    <select id="getPrimaryDistributionShopIdByPhone" resultType="java.util.LinkedHashMap">
+		select id from shop_info where card_id = (select id from card_info where phone = #{phone})
+    </select>
+
+    <select id="getDistributionPartnerListByPhone" resultType="java.util.LinkedHashMap">
+		select * from distribution_partner_order where
+		    user_id = (select id from c_end_user_info where phone = #{phone} and belong = 0)
+		    and status = 1
+    </select>
+
+    <select id="getOpenIdByPhone" resultType="string">
+		select open_id from c_end_user_info where phone = #{posterSharerPhone} and belong = 0
+    </select>
+
+    <select id="getPhoneByUserId" resultType="string">
+		select phone from c_end_user_info where id = #{userId} and belong = 0
+    </select>
+
+    <select id="getReceiveAddress" resultType="java.util.LinkedHashMap">
+		select * from c_end_receive_address where user_id = #{userId}
+    </select>
+
+    <select id="getAllOrderList" resultType="java.util.LinkedHashMap">
+		select o.id,o.order_no,o.product_id,o.phone,p.name,p.product_style,p.phone as customer_service,o.status,o.order_type,p.main_image,p.introduce,date_format(o.create_time,'%Y-%m-%d %H:%i') as create_time,o.num,o.total from c_end_order o
+		LEFT JOIN product_info p on o.product_id = p.id where o.open_id = (select open_id FROM c_end_user_info where id = #{userId}) order by o.status , o.create_time desc limit #{start}, #{num};
+    </select>
+
+    <select id="getSelectedOrderList" resultType="java.util.LinkedHashMap">
+		select o.id,o.order_no,o.product_id,o.phone,p.name,p.product_style,p.phone as customer_service,o.status,o.order_type,p.main_image,p.introduce,date_format(o.create_time,'%Y-%m-%d %H:%i') as create_time,o.num,o.total from c_end_order o
+		LEFT JOIN product_info p on o.product_id = p.id where o.open_id = (select open_id FROM c_end_user_info where id = #{userId}) and o.status=#{selectType} order by o.create_time desc limit #{start}, #{num};
+    </select>
+
+    <select id="getReceiveAddressByUserId" resultType="java.util.Map">
+        select * from c_end_receive_address where user_id = #{userId}
+    </select>
+
+    <select id="getUserIdByOpenId" resultType="string">
+        select id from c_end_user_info where open_id = #{openId}
+    </select>
+
+    <select id="getWriteOffClerkByOpenId" resultType="java.util.LinkedHashMap">
+        select * from c_end_write_off_info where open_id = #{openId}
+    </select>
+
+    <select id="getOrderListByProductIdAndPhone" resultType="java.util.LinkedHashMap">
+        select * from c_end_order where product_id = #{productId} and phone = #{phone} and open_id = ''
+    </select>
+
+    <select id="getPendingPayList" resultType="java.util.LinkedHashMap">
+        select id,product_id,num,order_type,standard_id,status,date_format(create_time,'%Y-%m-%d %H:%i') as create_time from c_end_order where status = 0
+    </select>
+
+    <select id="getOrderListByUserIdAndProductId" resultType="java.util.LinkedHashMap">
+        select * from c_end_order where product_id=#{productId} and open_id=#{openId} and phone = #{phone}
+    </select>
+
+    <select id="getProductInfoByOrderId" resultType="java.util.Map">
+		select shop_id,main_image,name,product_style,introduce from product_info where id = (select product_id from c_end_order where id = #{orderId})
+    </select>
+
+    <select id="getOrderInfoByOrderId" resultType="java.util.Map">
+		select product_id,open_id,phone,num,total,order_type,order_sale_type,retail_commission,retail_commission_income,
+		 primary_distribution_shop_id,primary_distribution_open_id from c_end_order where id = #{orderId}
+    </select>
+
+    <select id="checkOrderStatus" resultType="int">
+		select status from c_end_order where id = #{orderId}
+    </select>
+
+    <select id="getShopIdByProductId" resultType="int">
+		select shop_id from product_info where id = #{product_id}
+    </select>
+
+    <select id="getTypeByShopId" resultType="int">
+		select type from shop_info where id = #{shopId}
+    </select>
+
+    <select id="getIssuerShopInfoByShopId" resultType="java.util.Map">
+		select * from shop_info where id = #{shopId}
+    </select>
+
+    <select id="getShopTypeByShopId" resultType="int">
+		select shop_type from shop_info where id = #{shopId}
+    </select>
+
+    <select id="getStandardInfoByOrderId" resultType="java.util.Map">
+		select * from c_end_activity_standards where id = (select standard_id from c_end_order where id = #{orderId})
+    </select>
+
+    <select id="getProductStandardInfoByOrderId" resultType="java.util.Map">
+		select * from c_end_product_standards where id = (select standard_id from c_end_order where id = #{orderId})
+    </select>
+
+    <select id="getOrderInfoById" resultType="java.util.Map">
+		select * from c_end_order where id = #{orderId}
+    </select>
+
+    <select id="getAddressInfoById" resultType="java.util.Map">
+		select province,city,area,address from c_end_receive_address where user_id = #{userId}
+    </select>
+
+    <select id="getProductNameByOrderId" resultType="java.util.Map">
+		select name from product_info where id = (select product_id from c_end_order where id = #{orderId})
+    </select>
+
+    <select id="getProductIdByOrderId" resultType="java.util.Map">
+	    select product_id from c_end_order where id = #{orderId}
+    </select>
+
+    <select id="getCompanyIdByOrderId" resultType="java.util.Map">
+		select company_id from card_info where id= (select card_id from shop_info where id = (select shop_id from product_info where id = (select product_id from c_end_order where id = #{orderId})))
+    </select>
+
+    <select id="getOpenIdByOrderId" resultType="string">
+		select open_id from c_end_order where id = #{orderId}
+    </select>
+
+    <select id="getStandardIdByOrderId" resultType="int">
+		select standard_id from c_end_order where id = #{orderId}
+    </select>
+
+    <select id="getShopIdByCard" resultType="int">
+		select id from shop_info where card_id = #{card}
+    </select>
+
+    <select id="getShopIdByOrderId" resultType="int">
+		select shop_id from product_info where id = (select product_id from c_end_order where id = #{orderId})
+    </select>
+
+    <select id="getUserIdByOrderId" resultType="string">
+		select id from c_end_user_info where open_id = (select open_id from c_end_order where id = #{orderId})
+    </select>
+
+    <select id="loadBuyerInfoByOpenId" resultType="java.util.Map">
+		select nick_name,head_img_url,phone from c_end_user_info where open_id = #{openId}
+    </select>
+
+    <select id="loadStandardByStandardId" resultType="java.util.Map">
+		select adults_num,children_num from c_end_activity_standards where id = #{standardId}
+    </select>
+
+    <select id="loadReceiveAddressByUserId" resultType="java.util.Map">
+		select receive_name,receive_phone,province,city,area,address from c_end_receive_address where user_id = #{userId}
+    </select>
+
+    <select id="getTargetOpenIdByPrimaryDistributionShopId" resultType="string">
+        select openid from card_info where id = (select card_id from shop_info where id = #{shopId})
+    </select>
+
+    <select id="getAllUnConfirmReceiveOrderList" resultType="java.util.LinkedHashMap">
+        <![CDATA[
+
+
+                            select * from c_end_order where order_type = 0 and status = 1 and pay_time <= #{currentTimeMinus7Days}
+
+
+
+        ]]>
+    </select>
+
+    <select id="getShopFormByOrderId" resultType="java.util.Map">
+        select type,app_id,mchid,api_key from shop_info where id = (select shop_id from product_info where id = (select product_id from c_end_order where id =#{orderId}))
+    </select>
+
+    <insert id="addUserOrder" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into c_end_order(order_no,product_id,open_id,phone,price,num,total,order_type,order_sale_type,
+		                        retail_commission,retail_commission_income,primary_distribution_shop_id,primary_distribution_open_id,
+		                        platform_service_fee,standard_id,status,receive_address,create_time)
+		       values(#{orderNo},#{productId},#{openId},#{phone},#{price},#{num},#{total},#{orderType},#{orderSaleType},
+		              #{retail_commission},#{retail_commission_income},#{primary_distribution_shop_id},#{primary_distribution_open_id},
+		              #{platform_service_fee},#{standardId},#{status},#{receiveAddress},#{createTime})
+	</insert>
+
+    <insert id="addUserFreeOrder" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into c_end_order(order_no,product_id,open_id,phone,price,num,total,order_type,order_sale_type,
+		                        retail_commission,retail_commission_income,primary_distribution_shop_id,primary_distribution_open_id,
+		                        platform_service_fee,standard_id,status,receive_address,create_time,pay_time)
+	           values(#{orderNo},#{productId},#{openId},#{phone},#{price},#{num},#{total},#{orderType},#{orderSaleType},
+	                  #{retail_commission},#{retail_commission_income},#{primary_distribution_shop_id},#{primary_distribution_open_id},
+	                  #{platform_service_fee},#{standardId},#{status},#{receiveAddress},#{createTime},#{payTime})
+	</insert>
+
+    <insert id="addUserActivityOrder" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into c_end_order(order_no,product_id,open_id,phone,price,num,total,order_type,order_sale_type,retail_commission,
+		                        retail_commission_income,primary_distribution_shop_id,primary_distribution_open_id,
+		                        platform_service_fee,standard_id,status,create_time)
+		       values(#{orderNo},#{productId},#{openId},#{phone},#{price},#{num},#{total},#{orderType},#{orderSaleType},
+		              #{retail_commission},#{retail_commission_income},#{primary_distribution_shop_id},#{primary_distribution_open_id},
+		              #{platform_service_fee},#{standardId},#{status},#{createTime})
+	</insert>
+
+    <insert id="addUserFreeActivityOrder" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into c_end_order(order_no,product_id,open_id,phone,price,num,total,order_type,order_sale_type,retail_commission,
+		                        retail_commission_income,primary_distribution_shop_id,primary_distribution_open_id,
+		                        platform_service_fee,standard_id,status,create_time,pay_time)
+		       values(#{orderNo},#{productId},#{openId},#{phone},#{price},#{num},#{total},#{orderType},#{orderSaleType},
+		              #{retail_commission},#{retail_commission_income},#{primary_distribution_shop_id},#{primary_distribution_open_id},
+		              #{platform_service_fee},#{standardId},#{status},#{createTime},#{payTime})
+	</insert>
+
+    <insert id="addCertificateInfo" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into c_end_certificate_info(user_id,activity_id,institution_id,certificate_time,create_time)
+		                values((select id from c_end_user_info where open_id = #{openId}), #{activity_id},#{institution_id},#{certificate_time},#{create_time})
+	</insert>
+
+    <insert id="addClientEndDistributorWithdrawalRecord" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into c_end_wx_withdrawal_record(open_id,amount,create_time)
+		                values(#{openId},#{amount},#{createTime})
+	</insert>
+
+    <update id="autoConfirmReceiveProductOrder" parameterType="java.util.Map">
+    	update c_end_order set status = 2,order_operator = 1 where id = #{id}
+	</update>
+
+    <update id="updateOrderInfoByProductIdAndPhone" parameterType="java.util.Map">
+    	update c_end_order set open_id = (select open_id from c_end_user_info where id = #{userId}), status = 2 where product_id = #{productId} and phone = #{phone} and open_id = ''
+	</update>
+
+    <update id="reduceProductInventory" parameterType="java.util.Map">
+    	update c_end_product_standards set inventory = inventory - #{num} where id = #{standardId}
+	</update>
+
+    <update id="reduceActivityInventory" parameterType="java.util.Map">
+    	update c_end_activity_standards set inventory = inventory - #{num} where id = #{standardId}
+	</update>
+
+    <update id="updateClientEndOrder" parameterType="java.util.Map">
+		update c_end_order set status = 1, pay_time=#{payTime} where id = #{id}
+	</update>
+
+    <update id="updateClientEndDistributionPartnerOrder" parameterType="java.util.Map">
+		update distribution_partner_order set status = 1, pay_time=#{payTime} where id = #{id}
+	</update>
+
+    <update id="updateProductInfoById" parameterType="java.util.Map">
+		update product_info set buy_count = buy_count+#{num} where id = #{product_id}
+	</update>
+
+    <update id="updateProductBuyCountById" parameterType="java.util.Map">
+		update product_info set buy_count = buy_count+#{num} where id = #{productId}
+	</update>
+
+    <update id="confirmReceipt" parameterType="java.util.Map">
+		update c_end_order set status = 2,order_operator = 0 where id = #{orderId}
+	</update>
+
+    <update id="writeOffUserOrder" parameterType="java.util.Map">
+		update c_end_order set status = 2 where id = #{orderId}
+	</update>
+
+    <update id="updateOrderStatusById" parameterType="java.util.Map">
+		update c_end_order set status = 3 where id = #{id}
+	</update>
+
+    <update id="updateProductInventoryByStandardId" parameterType="java.util.Map">
+		update c_end_product_standards set inventory = inventory + #{num} where id = #{standardId}
+	</update>
+
+    <update id="updateActivityInventoryByStandardId" parameterType="java.util.Map">
+		update c_end_activity_standards set inventory = inventory + #{num} where id = #{standardId}
+	</update>
+
+    <update id="updateIssuerShopWithdrawalAmount" parameterType="java.util.Map">
+		update shop_info set can_withdrawal_money = convert(can_withdrawal_money + #{issuerIncome},decimal(10,2)) where id = #{issuerShopId}
+	</update>
+
+    <update id="updateExclusiveIssuerShopWithdrawalAmount" parameterType="java.util.Map">
+		update shop_info set already_withdrawal_money = convert(already_withdrawal_money + #{issuerIncome},decimal(10,2)) where id = #{issuerShopId}
+	</update>
+
+    <update id="updateDistributorShopWithdrawalAmount" parameterType="java.util.Map">
+		update shop_info set can_withdrawal_money = convert(can_withdrawal_money + #{primaryDistributorIncome},decimal(10,2)) where id = #{primaryDistributionShopId}
+	</update>
+
+    <update id="updateDistributorShopWithdrawalAmountToAlready" parameterType="java.util.Map">
+		update shop_info set already_withdrawal_money = convert(already_withdrawal_money + #{primaryDistributorIncome},decimal(10,2)) where id = #{primaryDistributionShopId}
+	</update>
+
+    <update id="updateExclusiveDistributorShopWithdrawalAmount" parameterType="java.util.Map">
+		update shop_info set already_withdrawal_money = convert(already_withdrawal_money + #{primaryDistributorIncome},decimal(10,2)) where id = #{primaryDistributionShopId}
+	</update>
+</mapper>

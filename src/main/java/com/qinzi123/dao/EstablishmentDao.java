@@ -44,9 +44,19 @@ public interface EstablishmentDao {
 
     int updateEstablishment(Map map);
 
+    int deleteWriteOffClerkById(Map map);
+
     int updateCompanyIdByCardId(Map map);
 
     List<LinkedHashMap> getEstablishmentInfoByCompanyId(Map map);
 
     List<LinkedHashMap> getLatestEstablishmentList(Map map);
+
+    List<LinkedHashMap> getWriteOffClerkByOpenId(Map map);
+
+    List<LinkedHashMap> getAllWriteOffClerkListByCompanyId(Map map);
+
+    int addWriteOffClerk(Map map);
+
+    String getLogoByShopId(@Param("shopId") int shopId);
 }

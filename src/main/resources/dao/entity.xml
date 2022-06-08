@@ -40,9 +40,19 @@
           values(#{company},#{companyaddr},#{companydesc},#{companytel},#{companyweb},#{contactduty},#{contactname},#{contacttel},#{contactwx},#{email},#{industry},#{leaguetype},#{licensepic},#{logopic},#{mainbussiness},#{maindemand},#{members},#{submittime},#{updatetime})
     </insert>
 
+    <insert id="addCEndOrderService" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into c_end_order(order_no,product_id,open_id,phone,price,num,total,order_type,standard_id,status,receive_address,create_time,pay_time)
+          values(#{orderNo},#{product_id},#{open_id},#{phone},#{price},#{num},#{total},#{order_type},#{standard_id},#{status},#{receive_address},#{createTime},#{pay_time})
+    </insert>
+
     <insert id="addProductInfoService" useGeneratedKeys="true" keyProperty="id" parameterType="com.qinzi123.dto.ProductInfo">
-        insert into product_info(status,card_id,company_id,name,type,main_image,original_price,present_price,inventory,repeat_purchase,once_max_purchase_count,phone,introduce,vedio_path,instruction,create_time,deadline_time)
- values(#{status},#{cardId},(select company_id from card_info where id = #{cardId}),#{name},#{type},#{mainImage},#{originalPrice},#{presentPrice},#{inventory},#{repeatPurchase},#{onceMaxPurchaseCount},#{phone},#{introduce},#{videoPath},#{instruction},#{createTime},#{deadlineTime})
+        insert into product_info(status,is_hot,card_id,company_id,name,address,address_name,longitude,latitude,type,product_type,product_style,main_image,original_price,present_price,inventory,repeat_purchase,once_max_purchase_count,phone,introduce,vedio_path,instruction,buy_count,create_time,deadline_time)
+ values(#{status},#{isHot},#{cardId},(select company_id from card_info where id = #{cardId}),#{name},#{address},#{addressName},#{longitude},#{latitude},#{type},#{productType},#{productStyle},#{mainImage},#{originalPrice},#{presentPrice},#{inventory},#{repeatPurchase},#{onceMaxPurchaseCount},#{phone},#{introduce},#{videoPath},#{instruction},#{buyCount},#{createTime},#{deadlineTime})
+    </insert>
+
+    <insert id="addActivityInfoService" useGeneratedKeys="true" keyProperty="id" parameterType="com.qinzi123.dto.ProductInfo">
+        insert into product_info(status,is_hot,card_id,company_id,name,address,address_name,longitude,latitude,product_type,main_image,original_price,present_price,inventory,repeat_purchase,once_max_purchase_count,phone,introduce,vedio_path,instruction,buy_count,create_time,deadline_time)
+ values(#{status},#{isHot},#{cardId},(select company_id from card_info where id = #{cardId}),#{name},#{address},#{addressName},#{longitude},#{latitude},#{productType},#{mainImage},#{originalPrice},#{presentPrice},#{inventory},#{repeatPurchase},#{onceMaxPurchaseCount},#{phone},#{introduce},#{videoPath},#{instruction},#{buyCount},#{createTime},#{deadlineTime})
     </insert>
 
     <select id="getProductId" resultType="int">
@@ -70,7 +80,11 @@
     </update>
 
     <update id="updateProductInfoService">
-        update product_info set status=#{status},card_id=#{card_id},name=#{name},main_image=#{main_image},original_price=#{original_price},present_price=#{present_price},inventory=#{inventory},repeat_purchase=#{repeat_purchase},once_max_purchase_count=#{once_max_purchase_count},phone=#{phone},introduce=#{introduce},vedio_path=#{vedio_path},instruction=#{instruction},deadline_time=#{deadline_time} where id = #{id}
+        update product_info set status=#{status},is_hot=#{is_hot},card_id=#{card_id},company_id=(select company_id from card_info where id = #{card_id}),name=#{name},address=#{address},address_name=#{address_name},longitude=#{longitude},latitude=#{latitude},type=#{type},product_type=#{product_type},product_style=#{product_style},main_image=#{main_image},original_price=#{original_price},present_price=#{present_price},inventory=#{inventory},repeat_purchase=#{repeat_purchase},once_max_purchase_count=#{once_max_purchase_count},phone=#{phone},introduce=#{introduce},vedio_path=#{vedio_path},instruction=#{instruction},buy_count=#{buy_count},deadline_time=#{deadline_time} where id = #{id}
+    </update>
+
+    <update id="updateCEndOrderService">
+        update c_end_order set product_id=#{product_id},phone=#{phone},price=#{price},num=#{num},total=#{total},order_type=#{order_type},standard_id=#{standard_id},status=#{status},receive_address=#{receive_address},pay_time=#{pay_time} where id = #{id}
     </update>
 
     <update id="updateProductEntity">
@@ -107,6 +121,10 @@
 
     <delete id="deleteProductInfoService">
         delete from product_info where id = #{id}
+    </delete>
+
+    <delete id="deleteCEndOrderService">
+        delete from c_end_order where id = #{id}
     </delete>
 
     <delete id="deleteBasePicList">
