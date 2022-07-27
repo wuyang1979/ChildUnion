@@ -5,9 +5,9 @@ import com.qinzi123.dto.Establishment;
 import com.qinzi123.dto.EstablishmentInfo;
 import com.qinzi123.service.EstablishmentService;
 import com.qinzi123.util.DateUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.Map;
 @Service
 public class EstablishmentServiceImpl extends AbstractWechatMiniProgramService implements EstablishmentService {
 
-    @Autowired
+    @Resource
     EstablishmentDao establishmentDao;
 
     @Override

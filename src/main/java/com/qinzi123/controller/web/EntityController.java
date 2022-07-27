@@ -6,9 +6,9 @@ import com.qinzi123.service.EntityService;
 import com.qinzi123.util.DateUtils;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -25,7 +25,7 @@ import java.util.*;
 @RequestMapping(value = "/manage")
 public class EntityController {
 
-    @Autowired
+    @Resource
     EntityService entityService;
 
     private static final String City_Saas = "card_info";
@@ -39,6 +39,7 @@ public class EntityController {
     private static final String BUSS_LEAGUE_INFO = "buss_league_info";
     private static final String PRODUCT_INFO = "product_info";
     private static final String C_END_ORDER = "c_end_order";
+    private static final String SHOP_INFO = "shop_info";
 
     @RequestMapping(value = "/{tableName}/addEntity", method = RequestMethod.POST)
     public int addService(@PathVariable("tableName") String tableName,
@@ -88,7 +89,7 @@ public class EntityController {
             paramsMap.put("leaguetype", map.get("leaguetype"));
             paramsMap.put("phone", map.get("phone"));
             String typeStr = map.get("topic_type_id").toString();
-            String topic_type_id = null;
+            String topic_type_id;
             if (typeStr.contains(",")) {
                 String[] typeArr = typeStr.split(",");
                 topic_type_id = StringUtils.join(typeArr, "/");
@@ -151,6 +152,8 @@ public class EntityController {
             return entityService.addProductInfoService(map);
         } else if (C_END_ORDER.equals(tableName)) {
             return entityService.addCEndOrderService(map);
+        } else if (SHOP_INFO.equals(tableName)) {
+            return entityService.addShopInfoService(map);
         } else {
             return entityService.addService(tableName, map);
         }
@@ -168,10 +171,11 @@ public class EntityController {
             return entityService.updateEstablishmentService(map);
         } else if (PRODUCT_INFO.equals(tableName)) {
             return entityService.updateProductInfoService(map);
-        }else if(C_END_ORDER.equals(tableName)){
+        } else if (C_END_ORDER.equals(tableName)) {
             return entityService.updateCEndOrderService(map);
-        }
-        else {
+        } else if (SHOP_INFO.equals(tableName)) {
+            return entityService.updateShopInfoService(map);
+        } else {
             return entityService.updateService(tableName, map);
         }
     }
@@ -194,6 +198,8 @@ public class EntityController {
             return entityService.deleteProductInfoService(list);
         } else if (C_END_ORDER.equals(tableName)) {
             return entityService.deleteCEndOrderService(list);
+        } else if (SHOP_INFO.equals(tableName)) {
+            return entityService.deleteShopInfoService(list);
         } else {
             return entityService.deleteService(tableName, list);
         }
@@ -267,4 +273,17 @@ public class EntityController {
     private int clearAllJoiner(@RequestBody Map map) {
         return entityService.clearAllJoiner();
     }
+
+    @ApiOperation(value = "获取产品规格", notes = "获取产品规格")
+    @RequestMapping(value = "/getProductStandards", method = RequestMethod.POST)
+    private List<LinkedHashMap> getProductStandards() {
+        return entityService.getProductStandards();
+    }
+
+    @ApiOperation(value = "获取活动规格", notes = "获取活动规格")
+    @RequestMapping(value = "/getActivityStandards", method = RequestMethod.POST)
+    private List<LinkedHashMap> getActivityStandards() {
+        return entityService.getActivityStandards();
+    }
+
 }

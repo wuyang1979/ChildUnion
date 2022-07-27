@@ -6,6 +6,14 @@
 		select headimgurl, realname from card_info where id = #{card}
     </select>
 
+    <select id="getJoinInfoByCardAndType" resultType="java.util.LinkedHashMap">
+		select * from luck_draw where card_id = #{card} and type = #{type}
+    </select>
+
+    <select id="getOutsideJoinInfoByOpenId" resultType="java.util.LinkedHashMap">
+		select * from luck_draw_outside where open_id = #{openId}
+    </select>
+
     <insert id="joinLuckDraw" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
 		insert into luck_draw(card_id,name, headimgurl,create_time,type)
 		values(#{cardId}, #{realname}, #{headimgurl},#{createTime},#{type})
@@ -16,11 +24,4 @@
 		values(#{name}, #{headimgurl},#{openId},#{createTime})
 	</insert>
 
-    <select id="getJoinInfoByCardAndType" resultType="java.util.LinkedHashMap">
-		select * from luck_draw where card_id = #{card} and type = #{type}
-    </select>
-
-    <select id="getOutsideJoinInfoByOpenId" resultType="java.util.LinkedHashMap">
-		select * from luck_draw_outside where open_id = #{openId}
-    </select>
 </mapper>

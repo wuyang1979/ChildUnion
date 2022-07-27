@@ -4,9 +4,9 @@ import com.qinzi123.dao.UserInfoDao;
 import com.qinzi123.service.UserInfoService;
 import com.qinzi123.util.DateUtils;
 import org.apache.commons.collections.map.HashedMap;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -24,9 +24,8 @@ import java.util.Map;
 @Service
 public class UserInfoServiceImpl extends AbstractWechatMiniProgramService implements UserInfoService {
 
-    @Autowired
+    @Resource
     private UserInfoDao userInfoDao;
-
 
     @Override
     public int updateBirthdayById(Map map) {

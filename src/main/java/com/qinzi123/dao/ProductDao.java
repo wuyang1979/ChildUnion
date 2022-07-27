@@ -136,6 +136,8 @@ public interface ProductDao {
 
     int addDistributionRecord(Map map);
 
+    int deleteDistributionRecordByProductId(@Param("productId") int productId);
+
     String getProductInventoryByStandardId(Map map);
 
     String getActivityInventoryByStandardId(Map map);
@@ -150,11 +152,11 @@ public interface ProductDao {
 
     List<LinkedHashMap> getAllOrderList(@Param("card") int card, @Param("start") int start, @Param("num") int num);
 
-    List<LinkedHashMap> getAllDistributionOrderList(@Param("card") int card, @Param("start") int start, @Param("num") int num);
+    List<LinkedHashMap> getAllDistributionOrderList(@Param("userId") String userId, @Param("start") int start, @Param("num") int num);
 
     List<LinkedHashMap> getSelectedOrderList(@Param("card") int card, @Param("selectType") int selectType, @Param("start") int start, @Param("num") int num);
 
-    List<LinkedHashMap> getSelectedDistributionOrderList(@Param("card") int card, @Param("selectType") int selectType, @Param("start") int start, @Param("num") int num);
+    List<LinkedHashMap> getSelectedDistributionOrderList(@Param("userId") String userId, @Param("selectType") int selectType, @Param("start") int start, @Param("num") int num);
 
     int getCardByUserId(@Param("userId") String userId);
 

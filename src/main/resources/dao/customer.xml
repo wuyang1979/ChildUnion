@@ -12,7 +12,7 @@
 		and o.status in(1,2) limit #{start}, #{num}
     </select>
 
-	<select id="getSearchCustomerList" resultType="java.util.LinkedHashMap">
+    <select id="getSearchCustomerList" resultType="java.util.LinkedHashMap">
 		select DISTINCT u.id,u.phone,u.nick_name,u.head_img_url from c_end_user_info u
 		left join c_end_order o on u.open_id = o.open_id
 		left join product_info p on o.product_id = p.id
@@ -22,15 +22,15 @@
 		and o.status in(1,2) and from_base64(u.nick_name) like concat('%',#{searchValue},'%') limit #{start}, #{num}
     </select>
 
-	<select id="getBabyInfoById" resultType="java.util.LinkedHashMap">
+    <select id="getBabyInfoById" resultType="java.util.LinkedHashMap">
 		select * from c_end_baby_info where parent_id = #{userId}
     </select>
 
-	<select id="getReceiveAddressById" resultType="java.util.LinkedHashMap">
+    <select id="getReceiveAddressById" resultType="java.util.LinkedHashMap">
 		select * from c_end_receive_address where user_id = #{userId}
     </select>
 
-	<select id="getOrderListById" resultType="java.util.LinkedHashMap">
+    <select id="getOrderListById" resultType="java.util.LinkedHashMap">
 		select DISTINCT o.standard_id,p.main_image,p.name,p.product_type,o.price,o.num,date_format(o.pay_time,'%Y-%m-%d %H:%i') as pay_time from c_end_order o
 		left join product_info p on o.product_id = p.id
 		left join distribution_record d on o.product_id = d.product_id
@@ -39,11 +39,11 @@
 		and o.status in(1,2) and o.open_id = (select open_id from c_end_user_info u where u.id = #{userId}) limit #{start}, #{num}
     </select>
 
-	<select id="getProductStandardNameById" resultType="java.util.LinkedHashMap">
+    <select id="getProductStandardNameById" resultType="java.util.LinkedHashMap">
 		select * from c_end_product_standards where id = #{standardId}
     </select>
 
-	<select id="getActivityStandardNameById" resultType="java.util.LinkedHashMap">
+    <select id="getActivityStandardNameById" resultType="java.util.LinkedHashMap">
 		select * from c_end_activity_standards where id = #{standardId}
     </select>
 

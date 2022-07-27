@@ -3,12 +3,12 @@ package com.qinzi123.controller.micro;
 import com.qinzi123.service.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +26,7 @@ import java.util.Map;
 @Api(value = "客户运营")
 public class CustomerController {
 
-    @Autowired
+    @Resource
     private CustomerService customerService;
 
     @ApiOperation(value = "获取所有下单的客户信息", notes = "获取所有下单的客户信息")

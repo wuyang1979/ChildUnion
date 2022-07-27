@@ -3,12 +3,12 @@ package com.qinzi123.controller.micro;
 import com.qinzi123.service.EstablishmentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +26,7 @@ import java.util.Map;
 @Api(value = "企业机构")
 public class EstablishmentController {
 
-    @Autowired
+    @Resource
     EstablishmentService establishmentService;
 
     @RequestMapping(value = "/establishment/list", method = RequestMethod.POST)

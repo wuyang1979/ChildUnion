@@ -3,9 +3,9 @@ package com.qinzi123.controller.micro;
 import com.qinzi123.service.CampaignService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +26,7 @@ public class RechargeOrderController {
     private static final int PRODUCT_ID = 1;
     private static final String DEFAULT_PRODUCT = "productId";
 
-    @Autowired
+    @Resource
     CampaignService campaignService;
 
     @ApiOperation(value = "充值订单列表", notes = "充值订单列表")

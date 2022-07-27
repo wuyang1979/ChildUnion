@@ -4,9 +4,9 @@ import com.qinzi123.dao.BaseDao;
 import com.qinzi123.dao.KnowledgeDao;
 import com.qinzi123.service.KnowledgeService;
 import com.qinzi123.util.DateUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +23,9 @@ import java.util.Map;
 @Service
 public class KnowledgeServiceImpl extends AbstractWechatMiniProgramService implements KnowledgeService {
 
-    @Autowired
+    @Resource
     private KnowledgeDao knowledgeDao;
-    @Autowired
+    @Resource
     private BaseDao baseDao;
 
     @Override

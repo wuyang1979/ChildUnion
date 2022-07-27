@@ -12,12 +12,12 @@ import com.qinzi123.util.DateUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,16 +40,16 @@ public class RechargeMoneyServiceImpl extends AbstractWechatMiniProgramService i
 
     private Logger log = LoggerFactory.getLogger(RechargeMoneyServiceImpl.class);
 
-    @Autowired
+    @Resource
     CampaignDao campaignDao;
 
-    @Autowired
+    @Resource
     UserOrderDao userOrderDao;
 
-    @Autowired
+    @Resource
     CardDao cardDao;
 
-    @Autowired
+    @Resource
     ScoreService scoreService;
 
     private RestTemplate localRestTemplate;

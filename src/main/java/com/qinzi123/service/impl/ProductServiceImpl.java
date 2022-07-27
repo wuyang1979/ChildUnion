@@ -12,9 +12,9 @@ import com.qinzi123.service.ProductService;
 import com.qinzi123.util.DateUtils;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -30,11 +30,11 @@ import java.util.*;
 @Service
 public class ProductServiceImpl extends AbstractWechatMiniProgramService implements ProductService {
 
-    @Autowired
+    @Resource
     private ProductDao productDao;
-    @Autowired
+    @Resource
     EntityService entityService;
-    @Autowired
+    @Resource
     UserOrderDao userOrderDao;
 
     @Override
@@ -1125,7 +1125,6 @@ public class ProductServiceImpl extends AbstractWechatMiniProgramService impleme
     @Override
     public Map<String, Object> loadOrderCountByUserId(Map map) {
         Map<String, Object> resultMap = new HashedMap();
-        map.put("card", productDao.getCardByUserId(map.get("userId").toString()));
         resultMap.put("peddingPayCouont", productDao.getPeddingPayCouontByUserId(map).size());
         resultMap.put("peddingconfirm", productDao.getPeddingconfirmByUserId(map).size());
         return resultMap;
@@ -1198,13 +1197,12 @@ public class ProductServiceImpl extends AbstractWechatMiniProgramService impleme
         int start = Integer.parseInt(map.get("start").toString());
         int num = Integer.parseInt(map.get("num").toString());
         String userId1 = map.get("userId").toString();
-        int card = productDao.getCardByUserId(userId1);
         List<LinkedHashMap> list;
         if (selectType == -1) {
             //全部订单
-            list = productDao.getAllDistributionOrderList(card, start, num);
+            list = productDao.getAllDistributionOrderList(userId1, start, num);
         } else {
-            list = productDao.getSelectedDistributionOrderList(card, selectType, start, num);
+            list = productDao.getSelectedDistributionOrderList(userId1, selectType, start, num);
         }
         list.forEach(item -> {
             Map<String, Object> paramsMap = new HashedMap();
@@ -1214,8 +1212,6 @@ public class ProductServiceImpl extends AbstractWechatMiniProgramService impleme
             Map userInfoMap = productDao.getUserInfoByOpenID(paramsMap);
             Map<String, Object> standardInfo;
             int standardId = Integer.parseInt(item.get("standard_id").toString());
-            int issuerCardId = Integer.parseInt(item.get("card_id").toString());
-            item.put("isIssuer", issuerCardId == card);
             String standardName = "";
             if (productMap != null) {
                 int productType = Integer.parseInt((productMap.get("product_type").toString()));

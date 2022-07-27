@@ -33,6 +33,14 @@
         select count(*) from enterprise_comment e where e.enterprise_id = #{enterpriseId}
     </select>
 
+    <select id="getTitleById" resultType="string">
+        select title from enterprise_info where id = #{enterpriseId}
+    </select>
+
+    <select id="getEnterpriseOrderList" resultType="java.util.LinkedHashMap">
+        select id,name,phone,DATE_FORMAT(create_time,'%Y-%m-%d') as createTime,title,read_status from enterprise_consulting order by read_status,create_time desc
+    </select>
+
     <insert id="addComment" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
 		insert into enterprise_comment(enterprise_id, card_id,message,create_time)
 		values(#{enterpriseId}, #{cardId},#{commentMessage},#{createTime})
@@ -42,14 +50,6 @@
 		insert into enterprise_consulting(enterprise_id, name,phone,create_time,title,read_status)
 		values(#{enterpriseId}, #{name},#{phone},#{createTime},#{title},0)
 	</insert>
-
-    <select id="getTitleById" resultType="string">
-        select title from enterprise_info where id = #{enterpriseId}
-    </select>
-
-    <select id="getEnterpriseOrderList" resultType="java.util.LinkedHashMap">
-        select id,name,phone,DATE_FORMAT(create_time,'%Y-%m-%d') as createTime,title,read_status from enterprise_consulting order by read_status,create_time desc
-    </select>
 
     <update id="readOrder" parameterType="int">
     	update enterprise_consulting set read_status = 1 where id = #{id}

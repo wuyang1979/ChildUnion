@@ -10,11 +10,11 @@ import com.qinzi123.exception.GlobalProcessException;
 import com.qinzi123.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,22 +38,22 @@ public abstract class AbstractWechatService {
     // 校验消息体的 URL
     protected static final String MSG_CHECK_URL = "https://api.weixin.qq.com/wxa/msg_sec_check?access_token=%s";
 
-    @Autowired
+    @Resource
     protected RestTemplate restTemplate;
 
-    @Autowired
+    @Resource
     CardDao cardDao;
 
-    @Autowired
+    @Resource
     IndexDao indexDao;
 
-    @Autowired
+    @Resource
     CooperateDao cooperateDao;
 
-    @Autowired
+    @Resource
     PushDao pushDao;
 
-    @Autowired
+    @Resource
     TokenService tokenService;
 
     protected abstract String getAppId();

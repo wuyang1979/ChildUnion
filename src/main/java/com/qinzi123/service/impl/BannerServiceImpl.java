@@ -2,9 +2,9 @@ package com.qinzi123.service.impl;
 
 import com.qinzi123.dao.BannerDao;
 import com.qinzi123.service.BannerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -21,7 +21,7 @@ import java.util.List;
 public class BannerServiceImpl extends AbstractWechatMiniProgramService implements BannerService {
 
 
-    @Autowired
+    @Resource
     BannerDao bannerDao;
 
     public List<LinkedHashMap> listAllBanners() {

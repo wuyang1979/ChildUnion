@@ -1,12 +1,10 @@
 package com.qinzi123.controller.micro;
 
-import com.qinzi123.dto.CardMessageReply;
 import io.swagger.annotations.Api;
 import com.qinzi123.service.EnterpriseService;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +22,7 @@ import java.util.Map;
 @Api(value = "亲子企服")
 public class EnterpriseController {
 
-    @Autowired
+    @Resource
     EnterpriseService enterpriseService;
 
     @RequestMapping(value = "/enterprise/list", method = RequestMethod.POST)

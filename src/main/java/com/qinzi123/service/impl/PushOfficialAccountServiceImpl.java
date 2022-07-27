@@ -3,7 +3,6 @@ package com.qinzi123.service.impl;
 import com.qinzi123.dto.BaseMessage;
 import com.qinzi123.dto.CardMessage;
 import com.qinzi123.dto.CardMessageReply;
-import com.qinzi123.dto.FollowMessage;
 import com.qinzi123.dto.push.template.OfficialAccountSendObject;
 import com.qinzi123.dto.push.template.officialAccount.OACooperateMessageReplyTemplateHelper;
 import com.qinzi123.dto.push.template.officialAccount.OACooperateMessageTemplateHelper;
@@ -12,7 +11,6 @@ import com.qinzi123.service.TokenService;
 import com.qinzi123.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -36,7 +34,7 @@ public class PushOfficialAccountServiceImpl extends AbstractWechatOfficialAccoun
 
     private String yjOpenId = "otofq0LHoEZJ_loNGbZL2fu8dN4c";
 
-    @Autowired
+    @Resource
     TokenService tokenService;
 
     @Resource(name = "OACooperateMessage")

@@ -11,9 +11,9 @@ import com.qinzi123.util.Utils;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,22 +32,22 @@ public class PushMiniProgramServiceImpl extends AbstractWechatMiniProgramService
 
     private Logger logger = LoggerFactory.getLogger(PushMiniProgramServiceImpl.class);
 
-    @Autowired
+    @Resource
     BusinessWeixinService businessWeixinService;
 
-/*	@Autowired
+/*	@Resource
 	CardInfoTemplateHelper cardInfoTemplateHelper;
 
-	@Autowired
+	@Resource
 	CooperateMessageTemplateHelper cooperateMessageTemplateHelper;
 
-	@Autowired
+	@Resource
 	CooperateMessageReplyTemplateHelper cooperateMessageReplyTemplateHelper;*/
 
-    @Autowired
+    @Resource
     CooperateMessageSubmitHelper cooperateMessageSubmitHelper;
 
-    @Autowired
+    @Resource
     CooperateMessageReplySubmitHelper cooperateMessageReplySubmitHelper;
 
     private boolean isValidFormId(String formId) {

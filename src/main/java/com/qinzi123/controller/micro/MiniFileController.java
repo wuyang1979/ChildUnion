@@ -2,10 +2,10 @@ package com.qinzi123.controller.micro;
 
 import com.qinzi123.service.FileService;
 import io.swagger.annotations.Api;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -21,7 +21,7 @@ import java.util.Map;
 @Api(value = "上传文件")
 public class MiniFileController {
 
-    @Autowired
+    @Resource
     FileService fileService;
 
     @RequestMapping(value = "/mini/uploadFile/{columnName}", method = RequestMethod.POST)

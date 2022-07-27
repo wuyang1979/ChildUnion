@@ -2,79 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.qinzi123.dao.ProductDao">
 
-    <insert id="addProduct" useGeneratedKeys="true" keyProperty="id"
-            parameterType="com.qinzi123.dto.ProductInfo">
-        insert into product_info(status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,
-                                 product_style,wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,
-                                 instruction,buy_count,create_time,deadline_time,qr_image)
-                            values(#{status},#{isHot},#{cardId},(select id from shop_info where card_id = #{cardId}),#{name},
-                                   #{address},#{addressName},#{longitude},#{latitude},#{type},#{productType},#{productStyle},
-                                   #{wuyuType},#{mainImage},#{isAllowDistribution},#{repeatPurchase},#{phone},#{introduce},#{videoPath},
-                                   #{instruction},#{buyCount},#{createTime},#{deadlineTime},#{qrImage})
-    </insert>
-
-    <insert id="addActivity" useGeneratedKeys="true" keyProperty="id"
-            parameterType="com.qinzi123.dto.ProductInfo">
-        insert into product_info(status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,product_type,
-                                 wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,instruction,
-                                 buy_count,create_time,deadline_time,qr_image)
-                            values(#{status},#{isHot},#{cardId},(select id from shop_info where card_id = #{cardId}),#{name},
-                                   #{address},#{addressName},#{longitude},#{latitude},#{productType},#{wuyuType},#{mainImage},
-                                   #{isAllowDistribution},#{repeatPurchase},#{phone},#{introduce},#{videoPath},#{instruction},
-                                   #{buyCount},#{createTime},#{deadlineTime},#{qrImage})
-    </insert>
-
-    <update id="updateProduct" parameterType="com.qinzi123.dto.ProductInfo">
-    	update product_info
-		set name=#{name},address=#{address},address_name=#{addressName},longitude=#{longitude},latitude=#{latitude},
-		product_style=#{productStyle},wuyu_type=#{wuyuType},main_image=#{mainImage},is_allow_distribution=#{isAllowDistribution},
-		repeat_purchase = #{repeatPurchase},phone=#{phone},introduce=#{introduce},vedio_path=#{videoPath},
-		instruction=#{instruction},deadline_time=#{deadlineTime},qr_image=#{qrImage}
-		where id = #{id}
-	</update>
-
-    <update id="updateActivity" parameterType="com.qinzi123.dto.ProductInfo">
-    	update product_info
-		set name=#{name},address=#{address},address_name=#{addressName},longitude=#{longitude},latitude=#{latitude},
-		    wuyu_type=#{wuyuType},main_image=#{mainImage},is_allow_distribution=#{isAllowDistribution},repeat_purchase=#{repeatPurchase},
-		    phone=#{phone},introduce=#{introduce},vedio_path=#{videoPath},instruction=#{instruction},
-		    deadline_time=#{deadlineTime},qr_image=#{qrImage}
-		where id = #{id}
-	</update>
-
-    <insert id="addOtherImagesToProduct" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-        insert into product_picture(product_id, picture_address) values(#{productId},#{url})
-    </insert>
-
-    <insert id="addActivityStandards" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-        insert into c_end_activity_standards(product_id,adults_num,children_num,price,distribution,inventory,
-                                             once_max_purchase_count,once_min_purchase_count,standard_desc,create_time)
-                                    values(#{productId},#{adultsNum},#{childrenNum},#{price},#{distribution},#{inventory},
-                                           #{onceMaxPurchaseCount},#{onceMinPurchaseCount},CONCAT(#{productId},'-',#{productName},'-',#{adultsNum},'大',#{childrenNum},'小'),#{createTime})
-    </insert>
-
-    <update id="updateActivityStandards" parameterType="java.util.Map">
-    	update c_end_activity_standards
-    	set product_id = #{productId},adults_num = #{adultsNum},children_num = #{childrenNum},price = #{price},
-    	    distribution = #{distribution},inventory = #{inventory},once_max_purchase_count = #{onceMaxPurchaseCount},
-    	    once_min_purchase_count = #{onceMinPurchaseCount},standard_desc = CONCAT(#{productId},'-',#{productName},'-',#{adultsNum},'大',#{childrenNum},'小')
-    	    where id = #{standardId}
-	</update>
-
-    <insert id="addProductStandards" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-        insert into c_end_product_standards(product_id,name,price,distribution,inventory,once_max_purchase_count,
-                                            once_min_purchase_count,create_time)
-                                    values(#{productId},#{name},#{price},#{distribution},#{inventory},#{onceMaxPurchaseCount},
-                                           #{onceMinPurchaseCount},#{createTime})
-    </insert>
-
-    <update id="updateProductStandards" parameterType="java.util.Map">
-    	update c_end_product_standards
-    	set product_id = #{productId},name = #{name},price = #{price},distribution = #{distribution},inventory = #{inventory},
-    	    once_max_purchase_count = #{onceMaxPurchaseCount},once_min_purchase_count = #{onceMinPurchaseCount}
-    	    where id = #{standardId}
-	</update>
-
     <select id="listProduct" resultType="java.util.LinkedHashMap">
 		select id, status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,main_image,  original_price, present_price, inventory,repeat_purchase,once_max_purchase_count,phone,introduce,vedio_path,instruction,buy_count,date_format(create_time,'%Y-%m-%d') as create_time,date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
 		where card_id = #{card} and product_type = 0 order by is_hot desc, create_time desc limit #{start}, #{num}
@@ -295,34 +222,6 @@
 		select * from distribution_record where primary_shop_id = #{shopId}
     </select>
 
-    <delete id="deleteProductById">
-        delete from product_info where id = #{productId}
-    </delete>
-
-    <update id="upProduct" parameterType="java.util.Map">
-    	update product_info set status = 2 where id = #{productId}
-	</update>
-
-    <update id="upActivity" parameterType="java.util.Map">
-    	update product_info set status = 2 where id = #{productId}
-	</update>
-
-    <update id="downProduct" parameterType="java.util.Map">
-    	update product_info set status = 0 where id = #{productId}
-	</update>
-
-    <update id="downActivity" parameterType="java.util.Map">
-    	update product_info set status = 0 where id = #{productId}
-	</update>
-
-    <delete id="deleteStandardByStandardId">
-        delete from c_end_activity_standards where id = #{standardId}
-    </delete>
-
-    <delete id="deleteProductStandardByStandardId">
-        delete from c_end_product_standards where id = #{standardId}
-    </delete>
-
     <select id="getWriteOffListByCard" resultType="java.util.LinkedHashMap">
 		select * from c_end_write_off_info where open_id = (select openid from card_info where id = #{cardId})
     </select>
@@ -365,8 +264,8 @@
 
     <select id="getPeddingPayCouontByUserId" resultType="java.util.LinkedHashMap">
         select DISTINCT o.id from c_end_order o
-		LEFT JOIN product_info p on o.product_id = p.id LEFT JOIN distribution_record d on o.product_id = d.product_id
-		where o.primary_distribution_shop_id = (select id from shop_info where card_id = #{card})
+		LEFT JOIN product_info p on o.product_id = p.id
+		where o.primary_distribution_shop_id = -1 and o.primary_distribution_open_id = (select open_id from c_end_user_info where id = #{userId})
 		and o.status=0
     </select>
 
@@ -380,8 +279,8 @@
 
     <select id="getPeddingconfirmByUserId" resultType="java.util.LinkedHashMap">
 		select DISTINCT o.id from c_end_order o
-		LEFT JOIN product_info p on o.product_id = p.id LEFT JOIN distribution_record d on o.product_id = d.product_id
-		where o.primary_distribution_shop_id = (select id from shop_info where card_id = #{card})
+		LEFT JOIN product_info p on o.product_id = p.id
+		where o.primary_distribution_shop_id = -1 and o.primary_distribution_open_id = (select open_id from c_end_user_info where id = #{userId})
 		and o.status=1
     </select>
 
@@ -401,8 +300,8 @@
 		o.order_type,o.order_sale_type,p.main_image,p.introduce,date_format(o.create_time,'%Y-%m-%d %H:%i') as create_time,
 		date_format(o.pay_time,'%Y-%m-%d %H:%i') as pay_time,o.price,o.num,o.total,o.retail_commission,
 		o.retail_commission_income,o.platform_service_fee,o.standard_id from c_end_order o
-		LEFT JOIN product_info p on o.product_id = p.id LEFT JOIN distribution_record d on o.product_id = d.product_id
-		where o.primary_distribution_shop_id = (select id from shop_info where card_id = #{card})
+		LEFT JOIN product_info p on o.product_id = p.id
+		where o.primary_distribution_shop_id = -1 and o.primary_distribution_open_id = (select open_id from c_end_user_info u where u.id = #{userId})
 		order by o.status , o.create_time desc limit #{start}, #{num};
     </select>
 
@@ -423,8 +322,8 @@
 		o.order_type,o.order_sale_type,p.main_image,p.introduce,date_format(o.create_time,'%Y-%m-%d %H:%i') as create_time,
 		date_format(o.pay_time,'%Y-%m-%d %H:%i') as pay_time,o.price,o.num,o.total,o.retail_commission,
 		o.retail_commission_income,o.platform_service_fee,o.standard_id from c_end_order o
-		LEFT JOIN product_info p on o.product_id = p.id LEFT JOIN distribution_record d on o.product_id = d.product_id
-		where o.primary_distribution_shop_id = (select id from shop_info where card_id = #{card})
+		LEFT JOIN product_info p on o.product_id = p.id
+		where o.primary_distribution_shop_id = -1 and o.primary_distribution_open_id = (select open_id from c_end_user_info u where u.id = #{userId})
 		and o.status=#{selectType}
 		order by o.create_time desc limit #{start}, #{num};
     </select>
@@ -481,9 +380,45 @@
 		select url from activity_picture where product_id = #{productId}
     </select>
 
-    <delete id="deleteAitivityPictureByProductId">
-        delete from activity_picture where product_id = #{productId}
-    </delete>
+    <insert id="addProduct" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.qinzi123.dto.ProductInfo">
+        insert into product_info(status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,
+                                 product_style,wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,
+                                 instruction,buy_count,create_time,deadline_time,qr_image)
+                            values(#{status},#{isHot},#{cardId},(select id from shop_info where card_id = #{cardId}),#{name},
+                                   #{address},#{addressName},#{longitude},#{latitude},#{type},#{productType},#{productStyle},
+                                   #{wuyuType},#{mainImage},#{isAllowDistribution},#{repeatPurchase},#{phone},#{introduce},#{videoPath},
+                                   #{instruction},#{buyCount},#{createTime},#{deadlineTime},#{qrImage})
+    </insert>
+
+    <insert id="addActivity" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.qinzi123.dto.ProductInfo">
+        insert into product_info(status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,product_type,
+                                 wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,instruction,
+                                 buy_count,create_time,deadline_time,qr_image)
+                            values(#{status},#{isHot},#{cardId},(select id from shop_info where card_id = #{cardId}),#{name},
+                                   #{address},#{addressName},#{longitude},#{latitude},#{productType},#{wuyuType},#{mainImage},
+                                   #{isAllowDistribution},#{repeatPurchase},#{phone},#{introduce},#{videoPath},#{instruction},
+                                   #{buyCount},#{createTime},#{deadlineTime},#{qrImage})
+    </insert>
+
+    <insert id="addOtherImagesToProduct" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into product_picture(product_id, picture_address) values(#{productId},#{url})
+    </insert>
+
+    <insert id="addActivityStandards" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into c_end_activity_standards(product_id,adults_num,children_num,price,distribution,inventory,
+                                             once_max_purchase_count,once_min_purchase_count,standard_desc,create_time)
+                                    values(#{productId},#{adultsNum},#{childrenNum},#{price},#{distribution},#{inventory},
+                                           #{onceMaxPurchaseCount},#{onceMinPurchaseCount},CONCAT(#{productId},'-',#{productName},'-',#{adultsNum},'大',#{childrenNum},'小'),#{createTime})
+    </insert>
+
+    <insert id="addProductStandards" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into c_end_product_standards(product_id,name,price,distribution,inventory,once_max_purchase_count,
+                                            once_min_purchase_count,create_time)
+                                    values(#{productId},#{name},#{price},#{distribution},#{inventory},#{onceMaxPurchaseCount},
+                                           #{onceMinPurchaseCount},#{createTime})
+    </insert>
 
     <insert id="addWriteOffClerk" useGeneratedKeys="true" keyProperty="id"
             parameterType="java.util.Map">
@@ -499,8 +434,77 @@
         insert into distribution_record(product_id, releaser_shop_id,primary_shop_id,create_time) values(#{productId},#{releaser_shop_id},#{primary_shop_id},#{create_time})
     </insert>
 
+    <update id="updateProduct" parameterType="com.qinzi123.dto.ProductInfo">
+    	update product_info
+		set name=#{name},address=#{address},address_name=#{addressName},longitude=#{longitude},latitude=#{latitude},
+		product_style=#{productStyle},wuyu_type=#{wuyuType},main_image=#{mainImage},is_allow_distribution=#{isAllowDistribution},
+		repeat_purchase = #{repeatPurchase},phone=#{phone},introduce=#{introduce},vedio_path=#{videoPath},
+		instruction=#{instruction},deadline_time=#{deadlineTime},qr_image=#{qrImage}
+		where id = #{id}
+	</update>
+
+    <update id="updateActivity" parameterType="com.qinzi123.dto.ProductInfo">
+    	update product_info
+		set name=#{name},address=#{address},address_name=#{addressName},longitude=#{longitude},latitude=#{latitude},
+		    wuyu_type=#{wuyuType},main_image=#{mainImage},is_allow_distribution=#{isAllowDistribution},repeat_purchase=#{repeatPurchase},
+		    phone=#{phone},introduce=#{introduce},vedio_path=#{videoPath},instruction=#{instruction},
+		    deadline_time=#{deadlineTime},qr_image=#{qrImage}
+		where id = #{id}
+	</update>
+
+    <update id="updateActivityStandards" parameterType="java.util.Map">
+    	update c_end_activity_standards
+    	set product_id = #{productId},adults_num = #{adultsNum},children_num = #{childrenNum},price = #{price},
+    	    distribution = #{distribution},inventory = #{inventory},once_max_purchase_count = #{onceMaxPurchaseCount},
+    	    once_min_purchase_count = #{onceMinPurchaseCount},standard_desc = CONCAT(#{productId},'-',#{productName},'-',#{adultsNum},'大',#{childrenNum},'小')
+    	    where id = #{standardId}
+	</update>
+
+    <update id="updateProductStandards" parameterType="java.util.Map">
+    	update c_end_product_standards
+    	set product_id = #{productId},name = #{name},price = #{price},distribution = #{distribution},inventory = #{inventory},
+    	    once_max_purchase_count = #{onceMaxPurchaseCount},once_min_purchase_count = #{onceMinPurchaseCount}
+    	    where id = #{standardId}
+	</update>
+
+    <update id="upProduct" parameterType="java.util.Map">
+    	update product_info set status = 2 where id = #{productId}
+	</update>
+
+    <update id="upActivity" parameterType="java.util.Map">
+    	update product_info set status = 2 where id = #{productId}
+	</update>
+
+    <update id="downProduct" parameterType="java.util.Map">
+    	update product_info set status = 0 where id = #{productId}
+	</update>
+
+    <update id="downActivity" parameterType="java.util.Map">
+    	update product_info set status = 0 where id = #{productId}
+	</update>
+
+    <delete id="deleteProductById">
+        delete from product_info where id = #{productId}
+    </delete>
+
+    <delete id="deleteStandardByStandardId">
+        delete from c_end_activity_standards where id = #{standardId}
+    </delete>
+
+    <delete id="deleteProductStandardByStandardId">
+        delete from c_end_product_standards where id = #{standardId}
+    </delete>
+
+    <delete id="deleteAitivityPictureByProductId">
+        delete from activity_picture where product_id = #{productId}
+    </delete>
+
     <delete id="deleteDistributionRecord">
         delete from distribution_record where product_id = #{productId} and primary_shop_id = (select id from shop_info where card_id = #{card})
+    </delete>
+
+    <delete id="deleteDistributionRecordByProductId">
+        delete from distribution_record where product_id = #{productId}
     </delete>
 
 </mapper>

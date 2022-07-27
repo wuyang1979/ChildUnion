@@ -1,27 +1,23 @@
 package com.qinzi123.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.qinzi123.dto.CardMessage;
-import com.qinzi123.dto.FollowMessage;
 import com.qinzi123.dto.ScoreType;
 import com.qinzi123.dto.WxOneCity;
 import com.qinzi123.exception.GlobalProcessException;
 import com.qinzi123.happiness.util.StringUtil;
 import com.qinzi123.service.BusinessWeixinService;
 import com.qinzi123.service.PushMiniProgramService;
-import com.qinzi123.service.PushOfficialAccountService;
 import com.qinzi123.service.ScoreService;
 import com.qinzi123.util.DateUtils;
 import com.qinzi123.util.Utils;
 import com.qinzi123.util.WeChatUtil;
-import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -41,10 +37,10 @@ import java.util.*;
 @EnableAsync
 public class BusinessWeixinServiceImpl extends AbstractWechatMiniProgramService implements BusinessWeixinService {
 
-    @Autowired
+    @Resource
     ScoreService scoreService;
 
-    @Autowired
+    @Resource
     PushMiniProgramService pushService;
 
     private Logger logger = LoggerFactory.getLogger(BusinessWeixinServiceImpl.class);
@@ -194,7 +190,7 @@ public class BusinessWeixinServiceImpl extends AbstractWechatMiniProgramService 
     }
 
     public Map<String, Object> getIndependentSessionKeyAndOpenIdByCode(String code, String appName) {
-        Map<String,Object> appMap = cardDao.getAppInfoByAppName(appName);
+        Map<String, Object> appMap = cardDao.getAppInfoByAppName(appName);
         String appid = appMap.get("app_id").toString();
         String secret = appMap.get("app_secret").toString();
         // 根据小程序穿过来的code想这个url发送请求

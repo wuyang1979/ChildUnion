@@ -1,15 +1,10 @@
 package com.qinzi123.service.impl;
 
 import com.qinzi123.dao.CertificateDao;
-import com.qinzi123.dao.IndexDao;
 import com.qinzi123.service.CertificateService;
-import com.qinzi123.service.IndexService;
-import com.qinzi123.util.DateUtils;
-import org.apache.commons.collections.map.HashedMap;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +21,7 @@ import java.util.Map;
 @Service
 public class CertificateServiceImpl extends AbstractWechatMiniProgramService implements CertificateService {
 
-    @Autowired
+    @Resource
     private CertificateDao certificateDao;
 
     @Override

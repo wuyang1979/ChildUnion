@@ -5,12 +5,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +30,7 @@ public class LuckDrawController {
 
     private Logger logger = LoggerFactory.getLogger(KonwledgeController.class);
 
-    @Autowired
+    @Resource
     private LuckDrawService luckDrawService;
 
     @ApiOperation(value = "报名抽奖", notes = "报名抽奖")

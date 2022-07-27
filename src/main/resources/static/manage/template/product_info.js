@@ -51,6 +51,20 @@
                 value: '0'
             },
             {
+                name: "shop_id",
+                desc: "发布小店",
+                type: 4,
+                needInput: true,
+                disabled: false,
+                initData: [],
+                refs: {
+                    model: "shop_info",
+                    key: "id",
+                    value: "name"
+                },
+                value: '0'
+            },
+            {
                 name: "name",
                 desc: "产品名称",
                 type: 1,
@@ -111,7 +125,7 @@
             },
             {
                 name: "type",
-                desc: "产品规格（活动无需选择）",
+                desc: "产品模式（活动不选）",
                 type: 2,
                 needInput: false,
                 initData: [{value: 0, desc: '单一产品'}, {value: 1, desc: '联合产品'}],
@@ -120,12 +134,41 @@
             },
             {
                 name: "product_style",
-                desc: "产品类型（活动无需选择）",
+                desc: "产品类型（活动不选）",
                 type: 2,
                 needInput: false,
                 initData: [{value: 0, desc: '虚拟产品'}, {value: 1, desc: '实体产品'}],
                 refs: {},
                 value: '0'
+            },
+            {
+                name: "standardList",
+                desc: "产品/活动规格",
+                type: 13,
+                needInput: true,
+                disabled: false,
+                initData: [],
+                refs: {},
+                value: []
+            },
+            {
+                name: "wuyu_type",
+                desc: "五育类型",
+                type: 3,
+                needInput: false,
+                initData: [
+                    {value: 1, desc: '徳'},
+                    {value: 2, desc: '智'},
+                    {value: 3, desc: '体'},
+                    {value: 4, desc: '美'},
+                    {value: 5, desc: '劳'}
+                ],
+                refs: {
+                    model: "wu_yu_type",
+                    key: "id",
+                    value: "type_name"
+                },
+                value: []
             },
             {
                 name: "main_image",
@@ -137,32 +180,11 @@
                 value: ""
             },
             {
-                name: "original_price",
-                desc: "产品原价（元，活动不填）",
-                type: 1,
-                needInput: false,
-                disabled: false,
-                initData: [],
-                refs: {},
-                value: '0'
-            },
-            {
-                name: "present_price",
-                desc: "产品现价（元，活动不填）",
-                type: 1,
-                needInput: false,
-                disabled: false,
-                initData: [],
-                refs: {},
-                value: '0'
-            },
-            {
-                name: "inventory",
-                desc: "库存",
-                type: 1,
+                name: "is_allow_distribution",
+                desc: "是否允许分销",
+                type: 2,
                 needInput: true,
-                disabled: false,
-                initData: [],
+                initData: [{value: 0, desc: '不允许'}, {value: 1, desc: '允许'}],
                 refs: {},
                 value: '0'
             },
@@ -171,17 +193,7 @@
                 desc: "是否允许重复购买",
                 type: 2,
                 needInput: true,
-                initData: [{value: 0, desc: '允许'}, {value: 1, desc: '不允许'}],
-                refs: {},
-                value: 0
-            },
-            {
-                name: "once_max_purchase_count",
-                desc: "单次最大购买数量（-1为不限）",
-                type: 1,
-                needInput: true,
-                disabled: false,
-                initData: [],
+                initData: [{value: 1, desc: '不允许'}, {value: 0, desc: '允许'}],
                 refs: {},
                 value: '0'
             },
@@ -196,24 +208,24 @@
                 value: '0'
             },
             {
-                name: "deadline_time",
-                desc: "产品截止时间",
-                type: 7,
-                needInput: true,
-                disabled: true,
-                initData: [],
-                refs: {},
-                value: '0'
-            },
-            {
                 name: "introduce",
-                desc: "产品介绍",
+                desc: "产品/活动介绍",
                 type: 10,
                 needInput: false,
                 disabled: false,
                 initData: [],
                 refs: {},
                 value: '0'
+            },
+            {
+                name: "vedio_path",
+                desc: "产品/活动视频",
+                type: 9,
+                needInput: false,
+                disabled: false,
+                initData: [],
+                refs: {},
+                value: ''
             },
             {
                 name: "other_image",
@@ -223,16 +235,6 @@
                 initData: [],
                 refs: {},
                 value: []
-            },
-            {
-                name: "vedio_path",
-                desc: "产品视频",
-                type: 9,
-                needInput: false,
-                disabled: false,
-                initData: [],
-                refs: {},
-                value: ''
             },
             {
                 name: "instruction",
@@ -250,6 +252,16 @@
                 type: 1,
                 needInput: true,
                 disabled: false,
+                initData: [],
+                refs: {},
+                value: '0'
+            },
+            {
+                name: "deadline_time",
+                desc: "截止时间",
+                type: 7,
+                needInput: true,
+                disabled: true,
                 initData: [],
                 refs: {},
                 value: '0'

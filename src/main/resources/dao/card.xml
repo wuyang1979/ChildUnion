@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.qinzi123.dao.CardDao">
 
-
     <sql id="left_join_card_and_tag">
 		from card_info t left join
 			(select card_id, max(tag1) as tag1, max(tag2) as tag2, max(tag3) as tag3, max(tagid1) as tagid1, max(tagid2) as tagid2, max(tagid3) as tagid3 from
@@ -15,15 +14,19 @@
 		on t.id = s.card_id
 	</sql>
 
-    <!-- 获取商户列表 -->
-    <select id="listBusiness" resultType="java.util.LinkedHashMap">
-        select id, headimgurl, realname, job, company, score, tag1, tag2, tag3, tagid1, tagid2, tagid3,
-        case when follower_id is null then 0 else 1 end as isFollow, gender, leaguer, city
-        <include refid="left_join_card_and_tag"/>
-        left join (select follower_id from follower where user_id = #{id}) x on t.id = x.follower_id
-        where 1 = 1
-        <if test="search != null">
-            and (realname like #{search} or company like #{search} or introduce like #{search})
+	<sql id="getCardInfo">
+		select id, phone, realname, company, job, headimgurl, openid, workaddress, introduce, weixincode, score from card_info
+	</sql>
+
+	<!-- 获取商户列表 -->
+	<select id="listBusiness" resultType="java.util.LinkedHashMap">
+		select id, headimgurl, realname, job, company, score, tag1, tag2, tag3, tagid1, tagid2, tagid3,
+		case when follower_id is null then 0 else 1 end as isFollow, gender, leaguer, city
+		<include refid="left_join_card_and_tag"/>
+		left join (select follower_id from follower where user_id = #{id}) x on t.id = x.follower_id
+		where 1 = 1
+		<if test="search != null">
+			and (realname like #{search} or company like #{search} or introduce like #{search})
         </if>
         <!-- 此处SQL后续需要优化改写 -->
         <if test="tagId != null">
@@ -84,12 +87,6 @@
     <select id="getSeeCardRecord" resultType="java.lang.Integer">
         select count(1) from see_card_record where see_card_id = #{seeCardId} and seen_card_id = #{seenCardId} and see_contact_status = 1
     </select>
-
-    <update id="updateSeeContact" parameterType="java.util.Map">
-		update see_card_record
-		set see_contact_status = 1
-		where see_card_id = #{seeCardId} and seen_card_id = #{seenCardId}
-	</update>
 
     <!-- 获取商户列表 -->
     <select id="oneBusiness" resultType="java.util.LinkedHashMap">
@@ -184,99 +181,42 @@ WHERE
 	t.id = #{id}
     </select>
 
-    <!-- 获取商户列表 -->
-    <select id="getTagList" resultType="java.util.LinkedHashMap">
+	<!-- 获取商户列表 -->
+	<select id="getTagList" resultType="java.util.LinkedHashMap">
         select * from tag_service_info
     </select>
 
-    <!-- 获取商户列表 -->
-    <select id="getSubServiceList" resultType="java.util.LinkedHashMap">
+	<!-- 获取商户列表 -->
+	<select id="getSubServiceList" resultType="java.util.LinkedHashMap">
         select * from tag_service_info group by subservice_id
     </select>
 
-    <insert id="addFollower" useGeneratedKeys="true" parameterType="com.qinzi123.dto.Follower">
-		insert into follower(user_id, follower_id) values(#{userId}, #{followerId})
-	</insert>
-
-    <insert id="addFollowerMessage" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-		insert into message_info(message_type, message_behavior,send_person_card,send_person_name,receive_person_card,receive_person_name,create_time,read_status) values(#{message_type}, #{message_behavior},#{send_person_card},#{send_person_name},#{receive_person_card},#{receive_person_name},#{create_time},0)
-	</insert>
-
-    <delete id="deleteFollower" parameterType="com.qinzi123.dto.Follower">
-		delete from follower where user_id = #{userId} and follower_id = #{followerId}
-	</delete>
-
-    <select id="hasFollowed" resultType="java.util.Map">
+	<select id="hasFollowed" resultType="java.util.Map">
 		select * from follower where user_id = #{userId} and follower_id = #{followerId}
 	</select>
 
-    <!-- 获取拼班列表 新设计使用 -->
-    <resultMap type="java.util.LinkedHashMap" id="serviceList">
-        <id column="service_id" property="serviceId"/>
-        <id column="service_name" property="serviceName"/>
-        <collection property="subserviceList" ofType="java.util.LinkedHashMap" javaType="java.util.List">
-            <id column="subservice_id" property="subserviceId"/>
-            <id column="subservice_name" property="subserviceName"/>
-            <collection property="tagList" ofType="java.util.LinkedHashMap" javaType="java.util.List">
-                <id column="tag_id" property="tagId"/>
-                <id column="tag_name" property="tagName"/>
-            </collection>
-        </collection>
-    </resultMap>
-    <select id="getAllService" resultMap="serviceList">
+	<!-- 获取拼班列表 新设计使用 -->
+	<resultMap type="java.util.LinkedHashMap" id="serviceList">
+		<id column="service_id" property="serviceId"/>
+		<id column="service_name" property="serviceName"/>
+		<collection property="subserviceList" ofType="java.util.LinkedHashMap" javaType="java.util.List">
+			<id column="subservice_id" property="subserviceId"/>
+			<id column="subservice_name" property="subserviceName"/>
+			<collection property="tagList" ofType="java.util.LinkedHashMap" javaType="java.util.List">
+				<id column="tag_id" property="tagId"/>
+				<id column="tag_name" property="tagName"/>
+			</collection>
+		</collection>
+	</resultMap>
+	<select id="getAllService" resultMap="serviceList">
 		select service_id, service_name, subservice_id, subservice_name, tag_id, tag_name from tag_service_info
 	</select>
+	<select id="getCardInfoByOpenId" resultType="java.util.Map">
+		<include refid="getCardInfo"/>
+		where openid = #{openid}
+	</select>
 
-    <insert id="addCardInfo" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-		insert into card_info(phone, realname, gender, company, job, headimgurl, openid, city, workaddress, introduce, weixincode, datetime, invite)
-		values(#{phone}, #{realname}, #{gender}, #{company}, #{job}, #{headimgurl}, #{openid}, #{city}, #{workaddress}, #{introduce}, #{weixincode}, #{datetime}, #{invite})
-	</insert>
-
-    <update id="updateCardInfo" parameterType="java.util.Map">
-		update card_info
-		set phone = #{phone}, realname = #{realname}, gender = #{gender}, company=#{company}, job=#{job},
-		city = #{city}, workaddress = #{workaddress}, introduce = #{introduce}, weixincode = #{weixincode}
-		where id = #{id}
-	</update>
-
-    <update id="toLeaguer" parameterType="java.util.Map">
-		update card_info
-		set leaguer = 1, membership_time = #{membershipTime}, expiration_time = #{expirationTime}
-		where id = #{id}
-	</update>
-
-    <update id="toEnterpriseLeaguer" parameterType="java.util.Map">
-		update buss_league_info
-		set leaguetype = 2, membership_time = #{membershipTime}, expiration_time = #{expirationTime}
-		where id = (select company_id from card_info where id = #{id});
-	</update>
-
-    <update id="toGoldEnterpriseLeaguer" parameterType="java.util.Map">
-		update buss_league_info
-		set leaguetype = 3, membership_time = #{membershipTime}, expiration_time = #{expirationTime}
-		where id = (select company_id from card_info where id = #{id});
-	</update>
-
-    <update id="membershipExpiration" parameterType="java.util.Map">
-		update card_info
-		set leaguer = 0
-		where id = #{id}
-	</update>
-
-    <update id="refreshCardDate" parameterType="java.lang.Integer">
-		update card_info set datetime=SYSDATE() where id = #{id}
-	</update>
-
-    <sql id="getCardInfo">
-		select id, phone, realname, company, job, headimgurl, openid, workaddress, introduce, weixincode, score from card_info
-	</sql>
-
-    <select id="getCardInfoByOpenId" resultType="java.util.Map">
-        <include refid="getCardInfo"/>
-        where openid = #{openid}
-    </select>
-
-    <select id="getCendIdByOpenId" resultType="java.util.LinkedHashMap">
+	<select id="getCendIdByOpenId" resultType="java.util.LinkedHashMap">
       select * from c_end_user_info where open_id = #{openId}
     </select>
 
@@ -284,179 +224,236 @@ WHERE
       select * from app_info where app_name = #{appName}
     </select>
 
-    <select id="getCardInfoById" resultType="java.util.Map">
-        <include refid="getCardInfo"/>
-        where id = #{id}
+	<select id="getCardInfoById" resultType="java.util.Map">
+		<include refid="getCardInfo"/>
+		where id = #{id}
+	</select>
+
+	<select id="getCardInfoByPhone" resultType="java.util.Map">
+		<include refid="getCardInfo"/>
+		where phone =#{phone} and realname = #{realname}
+	</select>
+
+	<resultMap id="cardInfo" type="com.qinzi123.dto.CardInfo">
+		<id property="id" column="bid"/>
+		<result property="openid" column="openid"/>
+		<result property="phone" column="phone"/>
+		<result property="realname" column="realname"/>
+		<result property="company" column="company"/>
+		<result property="job" column="job"/>
+		<result property="headimgurl" column="headimgurl"/>
+		<result property="weixincode" column="weixincode"/>
+	</resultMap>
+
+	<select id="getCardInfoBeanById" resultMap="cardInfo">
+		<include refid="getCardInfo"/>
+		where id = #{id}
+	</select>
+
+	<select id="getCardTagById" resultType="java.util.Map">
+		select card_id, tag1, tag2, tag3 from card_tag where card_id = #{card_id}
+	</select>
+
+	<select id="getSeeCardNameAndLeaguerById" resultType="java.util.Map">
+		select realname, leaguer from card_info where id = #{seeCardId}
+	</select>
+
+	<select id="getCardNameById" resultType="string">
+		select realname from card_info where id = #{seenCardId}
+	</select>
+
+	<!-- 我关注的 -->
+	<select id="getFollowerById" resultType="java.util.Map">
+		select id, headimgurl, realname, job, company, tag1, tag2, tag3, case when follower_id is null then 0 else 1 end
+		as isFollow, gender, leaguer from
+		( select id, headimgurl, realname, job, company, tag1, tag2, tag3, gender, leaguer
+		<include refid="left_join_card_and_tag"/>
+		,follower f where t.id = f.follower_id and f.user_id = #{current_id}
+		) a left join (select follower_id from follower where user_id = #{my_id} ) x on a.id = x.follower_id
+	</select>
+
+	<!-- 关注我的 -->
+	<select id="getFansById" resultType="java.util.Map">
+		select id, headimgurl, realname, job, company, tag1, tag2, tag3, case when follower_id is null then 0 else 1 end
+		as isFollow, gender, leaguer from
+		( select id, headimgurl, realname, job, company, tag1, tag2, tag3, gender, leaguer
+		<include refid="left_join_card_and_tag"/>
+		,follower f where t.id = f.user_id and f.follower_id = #{current_id}
+		) a left join (select follower_id from follower where user_id = #{my_id} ) x on a.id = x.follower_id
+	</select>
+
+	<select id="hasScoreHistory" resultType="java.util.Map">
+		select * from card_score_history where card_id = #{card_id} and score_type = #{score_type} and TO_DAYS(create_time) = TO_DAYS(NOW())
+	</select>
+
+	<!-- 查询所有的城市 -->
+	<resultMap id="allCitys" type="com.qinzi123.dto.WxCitys">
+		<result column="first_name" property="name"/>
+		<collection property="list" ofType="com.qinzi123.dto.WxOneCity">
+			<id column="id" property="id"/>
+			<result column="city_code" property="cityCode"/>
+			<result column="city_name" property="cityName"/>
+		</collection>
+	</resultMap>
+
+	<select id="listCitys" resultType="java.util.LinkedHashMap">
+		select * from wx_citys
+  	</select>
+
+	<select id="searchCity" resultType="java.util.LinkedHashMap">
+		select * from wx_citys where city_name like #{cityName}
+  	</select>
+
+	<!-- 查询所有的城市 -->
+	<resultMap id="oneCity" type="com.qinzi123.dto.WxOneCity">
+		<id column="id" property="id"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="city_name" property="cityName"/>
+	</resultMap>
+	<select id="oneCity" resultMap="oneCity">
+		select * from wx_citys where city_code = #{id}
+	</select>
+
+	<select id="getEnterpriseOrderUnreadNum" resultType="int">
+        select count(*) from enterprise_consulting where read_status = 0
     </select>
 
-    <select id="getCardInfoByPhone" resultType="java.util.Map">
-        <include refid="getCardInfo"/>
-        where phone =#{phone} and realname = #{realname}
+	<select id="getBaseReserveUnreadNum" resultType="int">
+        select count(*) from activity_base_reserve where read_status = 0
     </select>
 
-    <resultMap id="cardInfo" type="com.qinzi123.dto.CardInfo">
-        <id property="id" column="bid"/>
-        <result property="openid" column="openid"/>
-        <result property="phone" column="phone"/>
-        <result property="realname" column="realname"/>
-        <result property="company" column="company"/>
-        <result property="job" column="job"/>
-        <result property="headimgurl" column="headimgurl"/>
-        <result property="weixincode" column="weixincode"/>
-    </resultMap>
-
-    <select id="getCardInfoBeanById" resultMap="cardInfo">
-        <include refid="getCardInfo"/>
-        where id = #{id}
+	<select id="getTagName" resultType="string">
+        select tag_name from tag_service_info where tag_id = #{tagId}
     </select>
 
-    <insert id="addCardTag" parameterType="java.util.Map">
+	<select id="getFollowerAuthListByCard" resultType="java.util.LinkedHashMap">
+         select * from auth_record where type = 1 and card_id = #{followerId}
+    </select>
+
+	<select id="getLast" resultType="int">
+         select TIMESTAMPDIFF(MINUTE, update_time, sysdate()) as last from card_message where id = #{messageId}
+    </select>
+
+	<insert id="addFollower" useGeneratedKeys="true" parameterType="com.qinzi123.dto.Follower">
+		insert into follower(user_id, follower_id) values(#{userId}, #{followerId})
+	</insert>
+
+	<insert id="addFollowerMessage" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into message_info(message_type, message_behavior,send_person_card,send_person_name,receive_person_card,receive_person_name,create_time,read_status) values(#{message_type}, #{message_behavior},#{send_person_card},#{send_person_name},#{receive_person_card},#{receive_person_name},#{create_time},0)
+	</insert>
+
+	<insert id="addCardInfo" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into card_info(phone, realname, gender, company, job, headimgurl, openid, city, workaddress, introduce, weixincode, datetime, invite)
+		values(#{phone}, #{realname}, #{gender}, #{company}, #{job}, #{headimgurl}, #{openid}, #{city}, #{workaddress}, #{introduce}, #{weixincode}, #{datetime}, #{invite})
+	</insert>
+
+	<insert id="addCardTag" parameterType="java.util.Map">
 		insert into card_tag(card_id, tag1, tag2, tag3)
 		values(#{card_id}, #{tag1}, #{tag2}, #{tag3})
 	</insert>
 
-    <insert id="addSeeCardRecord" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+	<insert id="addScoreHistory" parameterType="java.util.Map">
+		insert into card_score_history(card_id, score_type, score)
+		values(#{card_id}, #{score_type}, #{score})
+	</insert>
+
+	<insert id="addShowScoreHistory" parameterType="java.util.Map">
+		insert into card_score_show_history(card_id, show_card_id, score_type, score)
+		values(#{card_id}, #{show_card_id}, #{score_type}, #{score})
+	</insert>
+
+	<insert id="addSeeCardRecord" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
 		insert into see_card_record(see_card_id, see_realname, seen_card_id, seen_realname, leaguer, see_contact_status, create_time)
 		values(#{seeCardId}, #{seeCardName}, #{seenCardId}, #{seenCardName}, #{leaguer}, #{seeContactStatus}, #{createTime})
 	</insert>
 
-    <update id="updateCardTag" parameterType="java.util.Map">
+	<update id="updateSeeContact" parameterType="java.util.Map">
+		update see_card_record
+		set see_contact_status = 1
+		where see_card_id = #{seeCardId} and seen_card_id = #{seenCardId}
+	</update>
+
+	<update id="updateCardInfo" parameterType="java.util.Map">
+		update card_info
+		set phone = #{phone}, realname = #{realname}, gender = #{gender}, company=#{company}, job=#{job},
+		city = #{city}, workaddress = #{workaddress}, introduce = #{introduce}, weixincode = #{weixincode}
+		where id = #{id}
+	</update>
+
+	<update id="toLeaguer" parameterType="java.util.Map">
+		update card_info
+		set leaguer = 1, membership_time = #{membershipTime}, expiration_time = #{expirationTime}
+		where id = #{id}
+	</update>
+
+	<update id="toEnterpriseLeaguer" parameterType="java.util.Map">
+		update buss_league_info
+		set leaguetype = 2, membership_time = #{membershipTime}, expiration_time = #{expirationTime}
+		where id = (select company_id from card_info where id = #{id});
+	</update>
+
+	<update id="toGoldEnterpriseLeaguer" parameterType="java.util.Map">
+		update buss_league_info
+		set leaguetype = 3, membership_time = #{membershipTime}, expiration_time = #{expirationTime}
+		where id = (select company_id from card_info where id = #{id});
+	</update>
+
+	<update id="membershipExpiration" parameterType="java.util.Map">
+		update card_info
+		set leaguer = 0
+		where id = #{id}
+	</update>
+
+	<update id="updateCardTag" parameterType="java.util.Map">
 		update card_tag
 		set tag1 = #{tag1}, tag2 = #{tag2}, tag3 = #{tag3}
 		where card_id = #{card_id}
 	</update>
 
-    <update id="updateHeadingImgUrl" parameterType="java.util.Map">
+	<update id="updateHeadingImgUrl" parameterType="java.util.Map">
 		update card_info
 		set headimgurl = #{headingImgUrl}
 		where id = #{id}
 	</update>
 
-    <update id="updateCendHeadingImgUrl" parameterType="java.util.Map">
+	<update id="updateCendHeadingImgUrl" parameterType="java.util.Map">
 		update c_end_user_info
 		set head_img_url = #{headingImgUrl}
 		where id = #{id}
 	</update>
 
-    <select id="getCardTagById" resultType="java.util.Map">
-		select card_id, tag1, tag2, tag3 from card_tag where card_id = #{card_id}
-	</select>
+	<update id="refreshCardDate" parameterType="java.lang.Integer">
+		update card_info set datetime=SYSDATE() where id = #{id}
+	</update>
 
-    <select id="getSeeCardNameAndLeaguerById" resultType="java.util.Map">
-		select realname, leaguer from card_info where id = #{seeCardId}
-	</select>
-
-    <select id="getCardNameById" resultType="string">
-		select realname from card_info where id = #{seenCardId}
-	</select>
-
-    <!-- 我关注的 -->
-    <select id="getFollowerById" resultType="java.util.Map">
-        select id, headimgurl, realname, job, company, tag1, tag2, tag3, case when follower_id is null then 0 else 1 end
-        as isFollow, gender, leaguer from
-        ( select id, headimgurl, realname, job, company, tag1, tag2, tag3, gender, leaguer
-        <include refid="left_join_card_and_tag"/>
-        ,follower f where t.id = f.follower_id and f.user_id = #{current_id}
-        ) a left join (select follower_id from follower where user_id = #{my_id} ) x on a.id = x.follower_id
-    </select>
-
-    <!-- 关注我的 -->
-    <select id="getFansById" resultType="java.util.Map">
-        select id, headimgurl, realname, job, company, tag1, tag2, tag3, case when follower_id is null then 0 else 1 end
-        as isFollow, gender, leaguer from
-        ( select id, headimgurl, realname, job, company, tag1, tag2, tag3, gender, leaguer
-        <include refid="left_join_card_and_tag"/>
-        ,follower f where t.id = f.user_id and f.follower_id = #{current_id}
-        ) a left join (select follower_id from follower where user_id = #{my_id} ) x on a.id = x.follower_id
-    </select>
-
-
-    <!-- 更新分数 -->
-    <update id="minusScore" parameterType="java.util.Map">
+	<!-- 更新分数 -->
+	<update id="minusScore" parameterType="java.util.Map">
 		update card_info
 		set score = score - #{score}
 		where id = #{id} and score > 0
 	</update>
 
-    <!-- 更新分数 -->
-    <update id="addScore" parameterType="java.util.Map">
+	<!-- 更新分数 -->
+	<update id="addScore" parameterType="java.util.Map">
 		update card_info
 		set score = score + #{score}
 		where id = #{id}
 	</update>
 
-    <insert id="addScoreHistory" parameterType="java.util.Map">
-		insert into card_score_history(card_id, score_type, score)
-		values(#{card_id}, #{score_type}, #{score})
-	</insert>
-
-    <insert id="addShowScoreHistory" parameterType="java.util.Map">
-		insert into card_score_show_history(card_id, show_card_id, score_type, score)
-		values(#{card_id}, #{show_card_id}, #{score_type}, #{score})
-	</insert>
-
-    <select id="hasScoreHistory" resultType="java.util.Map">
-		select * from card_score_history where card_id = #{card_id} and score_type = #{score_type} and TO_DAYS(create_time) = TO_DAYS(NOW())
-	</select>
-
-    <!-- 查询所有的城市 -->
-    <resultMap id="allCitys" type="com.qinzi123.dto.WxCitys">
-        <result column="first_name" property="name"/>
-        <collection property="list" ofType="com.qinzi123.dto.WxOneCity">
-            <id column="id" property="id"/>
-            <result column="city_code" property="cityCode"/>
-            <result column="city_name" property="cityName"/>
-        </collection>
-    </resultMap>
-
-    <select id="listCitys" resultType="java.util.LinkedHashMap">
-		select * from wx_citys
-  	</select>
-
-    <select id="searchCity" resultType="java.util.LinkedHashMap">
-		select * from wx_citys where city_name like #{cityName}
-  	</select>
-
-    <!-- 查询所有的城市 -->
-    <resultMap id="oneCity" type="com.qinzi123.dto.WxOneCity">
-        <id column="id" property="id"/>
-        <result column="city_code" property="cityCode"/>
-        <result column="city_name" property="cityName"/>
-    </resultMap>
-    <select id="oneCity" resultMap="oneCity">
-		select * from wx_citys where city_code = #{id}
-	</select>
-
-    <select id="getEnterpriseOrderUnreadNum" resultType="int">
-        select count(*) from enterprise_consulting where read_status = 0
-    </select>
-
-    <select id="getBaseReserveUnreadNum" resultType="int">
-        select count(*) from activity_base_reserve where read_status = 0
-    </select>
-
-    <select id="getTagName" resultType="string">
-        select tag_name from tag_service_info where tag_id = #{tagId}
-    </select>
-
-    <update id="updateUserAuthStatusByCard" parameterType="int">
+	<update id="updateUserAuthStatusByCard" parameterType="int">
 		update auth_record set auth_status = 0 where type = 1 and card_id = #{userId}
 	</update>
 
-    <update id="updateFollowerAuthStatusByCard" parameterType="int">
+	<update id="updateFollowerAuthStatusByCard" parameterType="int">
 		update auth_record set auth_status = 0 where type = 1 and card_id = #{followerId}
 	</update>
-
-    <select id="getFollowerAuthListByCard" resultType="java.util.LinkedHashMap">
-         select * from auth_record where type = 1 and card_id = #{followerId}
-    </select>
-
-    <select id="getLast" resultType="int">
-         select TIMESTAMPDIFF(MINUTE, update_time, sysdate()) as last from card_message where id = #{messageId}
-    </select>
 
 	<update id="updateOpenIdByCard" parameterType="java.util.Map">
 		update card_info set openid = #{openId} where id = #{card}
 	</update>
+
+	<delete id="deleteFollower" parameterType="com.qinzi123.dto.Follower">
+		delete from follower where user_id = #{userId} and follower_id = #{followerId}
+	</delete>
 
 </mapper>

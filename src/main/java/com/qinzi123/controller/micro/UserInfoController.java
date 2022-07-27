@@ -1,21 +1,14 @@
 package com.qinzi123.controller.micro;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
-import com.github.wxpay.sdk.WXPayUtil;
-import com.qinzi123.dto.WithDrawDTO;
-import com.qinzi123.dto.WithDrawEnum;
 import com.qinzi123.service.UserInfoService;
-import com.qinzi123.util.WithDrawUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.collections.map.HashedMap;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +26,7 @@ import java.util.Map;
 @Api(value = "用户信息")
 public class UserInfoController {
 
-    @Autowired
+    @Resource
     private UserInfoService userInfoService;
 
     @ApiOperation(value = "更新生日", notes = "更新生日")

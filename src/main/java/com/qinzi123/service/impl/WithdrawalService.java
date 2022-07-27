@@ -17,9 +17,18 @@ public interface WithdrawalService {
 
     int startWithdrawal(Map map) throws Exception;
 
+    int distributionPartnerStartWithdrawal(Map map) throws Exception;
+
     Map getTotalOfCurrentDay(Map map);
+
+    Map getDistributionPartnerTotalOfCurrentDay(Map map);
 
     List<LinkedHashMap> getRecordList(Map map);
 
+    List<LinkedHashMap> getDistributionPartnerRecordList(Map map);
+
     Map getAllAmount(Map map);
+
+    Map getDistributionPartnerAllAmount(Map map);
+
 }

@@ -35,11 +35,17 @@ public interface EntityService {
 
     int addOtherImagesToProductInfo(Map<String, Object> map);
 
+    int addProductStandards(Map<String, Object> map);
+
+    int addActivityStandards(Map<String, Object> map);
+
     int addEstablishmentService(Map<String, Object> map);
 
     int addProductInfoService(Map<String, Object> map);
 
     int addCEndOrderService(Map<String, Object> map);
+
+    int addShopInfoService(Map<String, Object> map);
 
     int addOtherImagesToProduct(Map<String, Object> map);
 
@@ -65,6 +71,8 @@ public interface EntityService {
 
     int updateCEndOrderService(Map<String, Object> map);
 
+    int updateShopInfoService(Map<String, Object> map);
+
     int deleteService(String tableName, List<Map<String, Object>> list);
 
     int deleteBaseService(List<Map<String, Object>> list);
@@ -82,6 +90,8 @@ public interface EntityService {
     int deleteProductInfoService(List<Map<String, Object>> list);
 
     int deleteCEndOrderService(List<Map<String, Object>> list);
+
+    int deleteShopInfoService(List<Map<String, Object>> list);
 
     List<LinkedHashMap> showService(String tableName, Map<String, Object> map);
 
@@ -106,6 +116,11 @@ public interface EntityService {
     List<LinkedHashMap> getOutsideLuckDrawMemberList();
 
     int clearAllJoiner();
+
+    List<LinkedHashMap> getProductStandards();
+
+    List<LinkedHashMap> getActivityStandards();
+
 }
 
 

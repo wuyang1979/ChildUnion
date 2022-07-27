@@ -175,7 +175,9 @@
         <![CDATA[
 
 
-                            select * from c_end_order where order_type = 0 and status = 1 and pay_time <= #{currentTimeMinus7Days}
+
+                                    select * from c_end_order where order_type = 0 and status = 1 and pay_time <= #{currentTimeMinus7Days}
+
 
 
 
@@ -186,38 +188,42 @@
         select type,app_id,mchid,api_key from shop_info where id = (select shop_id from product_info where id = (select product_id from c_end_order where id =#{orderId}))
     </select>
 
+    <select id="getPrimaryDistributionUserIdByOpenId" resultType="string">
+        select id from c_end_user_info where open_id = #{openId}
+    </select>
+
     <insert id="addUserOrder" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-		insert into c_end_order(order_no,product_id,open_id,phone,price,num,total,order_type,order_sale_type,
+		insert into c_end_order(order_no,product_id,buyer,open_id,phone,price,num,total,order_type,order_sale_type,
 		                        retail_commission,retail_commission_income,primary_distribution_shop_id,primary_distribution_open_id,
 		                        platform_service_fee,standard_id,status,receive_address,create_time)
-		       values(#{orderNo},#{productId},#{openId},#{phone},#{price},#{num},#{total},#{orderType},#{orderSaleType},
+		       values(#{orderNo},#{productId},#{buyer},#{openId},#{phone},#{price},#{num},#{total},#{orderType},#{orderSaleType},
 		              #{retail_commission},#{retail_commission_income},#{primary_distribution_shop_id},#{primary_distribution_open_id},
 		              #{platform_service_fee},#{standardId},#{status},#{receiveAddress},#{createTime})
 	</insert>
 
     <insert id="addUserFreeOrder" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-		insert into c_end_order(order_no,product_id,open_id,phone,price,num,total,order_type,order_sale_type,
+		insert into c_end_order(order_no,product_id,buyer,open_id,phone,price,num,total,order_type,order_sale_type,
 		                        retail_commission,retail_commission_income,primary_distribution_shop_id,primary_distribution_open_id,
 		                        platform_service_fee,standard_id,status,receive_address,create_time,pay_time)
-	           values(#{orderNo},#{productId},#{openId},#{phone},#{price},#{num},#{total},#{orderType},#{orderSaleType},
+	           values(#{orderNo},#{productId},#{buyer},#{openId},#{phone},#{price},#{num},#{total},#{orderType},#{orderSaleType},
 	                  #{retail_commission},#{retail_commission_income},#{primary_distribution_shop_id},#{primary_distribution_open_id},
 	                  #{platform_service_fee},#{standardId},#{status},#{receiveAddress},#{createTime},#{payTime})
 	</insert>
 
     <insert id="addUserActivityOrder" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-		insert into c_end_order(order_no,product_id,open_id,phone,price,num,total,order_type,order_sale_type,retail_commission,
+		insert into c_end_order(order_no,product_id,buyer,open_id,phone,price,num,total,order_type,order_sale_type,retail_commission,
 		                        retail_commission_income,primary_distribution_shop_id,primary_distribution_open_id,
 		                        platform_service_fee,standard_id,status,create_time)
-		       values(#{orderNo},#{productId},#{openId},#{phone},#{price},#{num},#{total},#{orderType},#{orderSaleType},
+		       values(#{orderNo},#{productId},#{buyer},#{openId},#{phone},#{price},#{num},#{total},#{orderType},#{orderSaleType},
 		              #{retail_commission},#{retail_commission_income},#{primary_distribution_shop_id},#{primary_distribution_open_id},
 		              #{platform_service_fee},#{standardId},#{status},#{createTime})
 	</insert>
 
     <insert id="addUserFreeActivityOrder" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-		insert into c_end_order(order_no,product_id,open_id,phone,price,num,total,order_type,order_sale_type,retail_commission,
+		insert into c_end_order(order_no,product_id,buyer,open_id,phone,price,num,total,order_type,order_sale_type,retail_commission,
 		                        retail_commission_income,primary_distribution_shop_id,primary_distribution_open_id,
 		                        platform_service_fee,standard_id,status,create_time,pay_time)
-		       values(#{orderNo},#{productId},#{openId},#{phone},#{price},#{num},#{total},#{orderType},#{orderSaleType},
+		       values(#{orderNo},#{productId},#{buyer},#{openId},#{phone},#{price},#{num},#{total},#{orderType},#{orderSaleType},
 		              #{retail_commission},#{retail_commission_income},#{primary_distribution_shop_id},#{primary_distribution_open_id},
 		              #{platform_service_fee},#{standardId},#{status},#{createTime},#{payTime})
 	</insert>
@@ -227,7 +233,8 @@
 		                values((select id from c_end_user_info where open_id = #{openId}), #{activity_id},#{institution_id},#{certificate_time},#{create_time})
 	</insert>
 
-    <insert id="addClientEndDistributorWithdrawalRecord" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+    <insert id="addClientEndDistributorWithdrawalRecord" useGeneratedKeys="true" keyProperty="id"
+            parameterType="java.util.Map">
 		insert into c_end_wx_withdrawal_record(open_id,amount,create_time)
 		                values(#{openId},#{amount},#{createTime})
 	</insert>
@@ -303,4 +310,9 @@
     <update id="updateExclusiveDistributorShopWithdrawalAmount" parameterType="java.util.Map">
 		update shop_info set already_withdrawal_money = convert(already_withdrawal_money + #{primaryDistributorIncome},decimal(10,2)) where id = #{primaryDistributionShopId}
 	</update>
+
+    <update id="updateDistributionPartnerAccountByUserId" parameterType="java.util.Map">
+		update distribution_partner_order set can_withdrawal_money = convert(can_withdrawal_money + #{canWithdrawalMoney},decimal(10,2)) where user_id = #{userId}
+	</update>
+
 </mapper>

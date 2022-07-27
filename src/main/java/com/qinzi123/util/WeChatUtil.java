@@ -49,7 +49,7 @@ public class WeChatUtil {
             InputStream inputStream = connection.getInputStream();
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            String str = null;
+            String str;
             StringBuffer buffer = new StringBuffer();
             while ((str = bufferedReader.readLine()) != null) {
                 buffer.append(str);
@@ -93,7 +93,7 @@ public class WeChatUtil {
     }
 
     public static byte[] getminiqrQr(String url, Map<String, Object> paraMap) throws Exception {
-        byte[] result = null;
+        byte[] result;
         HttpPost httpPost = new HttpPost(url);
         httpPost.addHeader("Content-Type", "application/json");
 

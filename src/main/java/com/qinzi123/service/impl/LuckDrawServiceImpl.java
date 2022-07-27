@@ -3,9 +3,9 @@ package com.qinzi123.service.impl;
 import com.qinzi123.dao.LuckDrawDao;
 import com.qinzi123.service.LuckDrawService;
 import com.qinzi123.util.DateUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -23,7 +23,7 @@ import java.util.Map;
 @Service
 public class LuckDrawServiceImpl extends AbstractWechatMiniProgramService implements LuckDrawService {
 
-    @Autowired
+    @Resource
     private LuckDrawDao luckDrawDao;
 
     @Override

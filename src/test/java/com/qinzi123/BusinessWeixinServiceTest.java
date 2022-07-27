@@ -4,9 +4,10 @@ import com.qinzi123.dao.CardDao;
 import com.qinzi123.service.impl.BusinessWeixinServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.annotation.Resource;
 
 /**
  * @title: BusinessWeixinServiceTest
@@ -20,10 +21,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 public class BusinessWeixinServiceTest {
 
-    @Autowired
+    @Resource
     CardDao weixinDao;
 
-    @Autowired
+    @Resource
     private BusinessWeixinServiceImpl businessWeixinService;
 
     //@Ignore

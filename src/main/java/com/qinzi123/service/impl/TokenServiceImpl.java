@@ -7,11 +7,11 @@ import com.qinzi123.service.TokenService;
 import com.qinzi123.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +28,7 @@ import java.util.Map;
 @EnableScheduling
 public class TokenServiceImpl implements TokenService {
 
-    @Autowired
+    @Resource
     TokenDao tokenDao;
 
     private static final Logger log = LoggerFactory.getLogger(TokenServiceImpl.class);

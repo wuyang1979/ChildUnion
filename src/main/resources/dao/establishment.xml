@@ -62,6 +62,10 @@
 		select leaguetype from buss_league_info where id = #{companyId}
     </select>
 
+    <select id="getLogoByShopId" resultType="string">
+		select logopic from shop_info where id = #{shopId}
+    </select>
+
     <insert id="addEstablishment" useGeneratedKeys="true" keyProperty="id"
             parameterType="com.qinzi123.dto.EstablishmentInfo">
 		insert into buss_league_info(leaguetype, companydesc,company,abbreviation,logopic,members,companyaddr,companytel, companyweb,industry,mainbussiness,maindemand,contactname,contactduty,contacttel,contactwx,submittime,updatetime,contactopenid,email,licensepic)
@@ -86,7 +90,4 @@
         delete from c_end_write_off_info where id = #{id}
     </delete>
 
-    <select id="getLogoByShopId" resultType="string">
-		select logopic from shop_info where id = #{shopId}
-    </select>
 </mapper>

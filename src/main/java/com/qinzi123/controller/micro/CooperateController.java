@@ -5,9 +5,9 @@ import com.qinzi123.dto.CardMessageReply;
 import com.qinzi123.service.CooperateWeixinService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +25,7 @@ import java.util.Map;
 @Api(value = "商户处理")
 public class CooperateController {
 
-    @Autowired
+    @Resource
     private CooperateWeixinService cooperateWeixinService;
 
     @ApiOperation(value = "所有合作消息列表", notes = "合作消息列表")

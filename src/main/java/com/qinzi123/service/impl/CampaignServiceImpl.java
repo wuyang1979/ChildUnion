@@ -7,10 +7,10 @@ import com.qinzi123.service.CampaignService;
 import com.qinzi123.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +29,7 @@ public class CampaignServiceImpl extends AbstractWechatMiniProgramService implem
 
     private Logger log = LoggerFactory.getLogger(CampaignServiceImpl.class);
 
-    @Autowired
+    @Resource
     CampaignDao campaignDao;
 
     public List<LinkedHashMap> listCampaign(int start, int num) {

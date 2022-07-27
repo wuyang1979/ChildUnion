@@ -6,33 +6,19 @@
 		select id,open_id,phone,nick_name,head_img_url,date_format(birthday,'%Y-%m-%d') as birthday,gender,date_format(create_time,'%Y-%m-%d %H:%i:%s') as create_time from c_end_user_info where id = #{id}
     </select>
 
-	<select id="getShopListByPhone" resultType="java.util.LinkedHashMap">
+    <select id="getShopListByPhone" resultType="java.util.LinkedHashMap">
 		SELECT * FROM shop_info where card_id = (select id from card_info where phone = #{phone})
     </select>
 
-	<select id="getShopListByShopId" resultType="java.util.LinkedHashMap">
+    <select id="getShopListByShopId" resultType="java.util.LinkedHashMap">
 		SELECT * FROM shop_info where id = #{shopId}
     </select>
-
-    <select id="getUuid" resultType="string">
-		select md5(uuid());
-    </select>
-
-    <insert id="registerNewUser" parameterType="java.util.Map">
-		insert into c_end_user_info(id, open_id,phone,nick_name,head_img_url,gender,belong,create_time)
-		values(#{id}, #{openId},#{phone},#{nickName},#{headImgUrl},#{gender},#{belong},#{createTime})
-	</insert>
-
-	<insert id="addOfflineRecord" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-		insert into offline_record(online_shop_id, online_card_id,offline_user_id,offline_open_id,create_time)
-		values(#{onlineShopId}, #{onlineCardId},#{offlineUserId},(select open_id from c_end_user_info where id = #{offlineUserId}),#{createTime})
-	</insert>
 
     <select id="getOrderNoById" resultType="string">
 		select order_no from c_end_order where id = #{id};
     </select>
 
-	<select id="getDistributionPartnerOrderNoById" resultType="string">
+    <select id="getDistributionPartnerOrderNoById" resultType="string">
 		select order_no from distribution_partner_order where id = #{id};
     </select>
 
@@ -40,14 +26,9 @@
 		select count(*) from c_end_certificate_info where user_id = #{id};
     </select>
 
-    <update id="updatePhoneByCard" parameterType="java.util.Map">
-    	update card_info set phone = #{phone} where id = #{card}
-	</update>
-
-	<insert id="addDistributionPartnerOrder" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-		insert into distribution_partner_order(user_id,order_no,total,num,price,status,create_time)
-		                        values(#{userId},#{orderNo},'9.9','1','9.9',0,#{createTime})
-	</insert>
+    <select id="getUuid" resultType="string">
+		select md5(uuid());
+    </select>
 
     <select id="getShopListByUserId" resultType="java.util.LinkedHashMap">
 		select * from shop_info
@@ -56,22 +37,42 @@
 		                                            where id = #{userId}))
     </select>
 
-	<select id="getDistributionShopByUserId" resultType="java.util.LinkedHashMap">
+    <select id="getDistributionShopByUserId" resultType="java.util.LinkedHashMap">
 		select * from shop_info
 			where card_id = (select id from card_info
 								where phone = (select phone from c_end_user_info
 													where id = #{userId}))
     </select>
 
-	<select id="getDistributionPartnerListByUserId" resultType="java.util.LinkedHashMap">
+    <select id="getDistributionPartnerListByUserId" resultType="java.util.LinkedHashMap">
 		select * from distribution_partner_order where status = 1 and user_id = #{userId}
     </select>
 
-	<select id="getAllDistributionShopList" resultType="java.util.LinkedHashMap">
+    <select id="getAllDistributionShopList" resultType="java.util.LinkedHashMap">
 		select * from shop_info where shop_type = 1
     </select>
 
-	<delete id="deleteDistributionRecordByDistributionShopId" parameterType="int">
+    <insert id="registerNewUser" parameterType="java.util.Map">
+		insert into c_end_user_info(id, open_id,phone,nick_name,head_img_url,gender,belong,create_time)
+		values(#{id}, #{openId},#{phone},#{nickName},#{headImgUrl},#{gender},#{belong},#{createTime})
+	</insert>
+
+    <insert id="addDistributionPartnerOrder" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into distribution_partner_order(user_id,order_no,total,num,price,status,can_withdrawal_money,already_withdrawal_money,create_time)
+		                        values(#{userId},#{orderNo},'9.9','1','9.9',0,'0.00','0.00',#{createTime})
+	</insert>
+
+    <insert id="addOfflineRecord" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into offline_record(online_shop_id, online_card_id,offline_user_id,offline_open_id,create_time)
+		values(#{onlineShopId}, #{onlineCardId},#{offlineUserId},(select open_id from c_end_user_info where id = #{offlineUserId}),#{createTime})
+	</insert>
+
+    <update id="updatePhoneByCard" parameterType="java.util.Map">
+    	update card_info set phone = #{phone} where id = #{card}
+	</update>
+
+    <delete id="deleteDistributionRecordByDistributionShopId" parameterType="int">
         delete from distribution_record where primary_shop_id = #{shopId}
     </delete>
+
 </mapper>

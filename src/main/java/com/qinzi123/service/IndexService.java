@@ -25,7 +25,7 @@ public interface IndexService {
 
     Map getCertificateNum(Map map);
 
-    List<LinkedHashMap> getShopListByUserId(Map map);
+    List<LinkedHashMap> getDistributionPartnerListByUserId(Map map);
 
     List<LinkedHashMap> getShopListByUserId2(Map map);
 

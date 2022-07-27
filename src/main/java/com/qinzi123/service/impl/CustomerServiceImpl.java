@@ -2,9 +2,9 @@ package com.qinzi123.service.impl;
 
 import com.qinzi123.dao.CustomerDao;
 import com.qinzi123.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.Map;
 @Service
 public class CustomerServiceImpl extends AbstractWechatMiniProgramService implements CustomerService {
 
-    @Autowired
+    @Resource
     private CustomerDao customerDao;
 
     @Override

@@ -4,9 +4,9 @@ import com.qinzi123.service.BaseService;
 import com.qinzi123.util.Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +24,7 @@ import java.util.Map;
 @Api(value = "活动基地")
 public class BaseController {
 
-    @Autowired
+    @Resource
     BaseService baseService;
 
     @RequestMapping(value = "/base/list", method = RequestMethod.POST)

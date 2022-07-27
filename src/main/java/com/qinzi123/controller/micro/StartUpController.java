@@ -3,14 +3,12 @@ package com.qinzi123.controller.micro;
 import com.qinzi123.service.StartUpService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.LinkedHashMap;
-import java.util.List;
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -26,7 +24,7 @@ import java.util.Map;
 @Api(value = "启动控制层")
 public class StartUpController {
 
-    @Autowired
+    @Resource
     private StartUpService startUpService;
 
     @ApiOperation(value = "新增小程序访问次数", notes = "新增小程序访问次数")

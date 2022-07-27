@@ -113,7 +113,7 @@ public class WXPayReport {
     private static final int DEFAULT_CONNECT_TIMEOUT_MS = 6*1000;
     private static final int DEFAULT_READ_TIMEOUT_MS = 8*1000;
 
-    private LinkedBlockingQueue<String> reportMsgQueue = null;
+    private LinkedBlockingQueue<String> reportMsgQueue;
     private WXPayConfig config;
     private ExecutorService executorService;
 
@@ -143,7 +143,7 @@ public class WXPayReport {
                                 StringBuffer sb = new StringBuffer();
                                 String firstMsg = reportMsgQueue.take();
                                 WXPayUtil.getLogger().info("get first report msg: {}", firstMsg);
-                                String msg = null;
+                                String msg;
                                 sb.append(firstMsg); //会阻塞至有消息
                                 int remainNum = config.getReportBatchSize() - 1;
                                 for (int j=0; j<remainNum; ++j) {

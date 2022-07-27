@@ -10,9 +10,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.util.*;
@@ -30,13 +30,13 @@ import java.util.*;
 @Api(value = "小店信息")
 public class ShopController {
 
-    @Autowired
+    @Resource
     private ShopService shopService;
 
-    @Autowired
+    @Resource
     private ProductService productService;
 
-    @Autowired
+    @Resource
     private ProductDao productDao;
 
     @ApiOperation(value = "获取小店信息", notes = "获取小店信息")

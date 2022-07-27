@@ -3,9 +3,9 @@ package com.qinzi123.dto.push.message;
 import com.qinzi123.dao.CooperateDao;
 import com.qinzi123.dto.CardMessage;
 import com.qinzi123.dto.push.MessageTools;
-import com.qinzi123.service.CooperateWeixinService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * @title: CooperateMessageSubmitHelper
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CooperateMessageSubmitHelper extends CooperateMessageHelper {
 
-    @Autowired
+    @Resource
     CooperateDao cooperateDao;
 
     @Override

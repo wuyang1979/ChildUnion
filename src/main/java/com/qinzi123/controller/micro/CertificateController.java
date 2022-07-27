@@ -1,7 +1,6 @@
 package com.qinzi123.controller.micro;
 
 import com.itextpdf.text.pdf.*;
-import com.qinzi123.happiness.util.StringUtil;
 import com.qinzi123.service.CertificateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,9 +8,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.dom4j.DocumentException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
@@ -43,7 +42,7 @@ public class CertificateController {
      */
     private static final String IMG_TYPE = "jpg";
 
-    @Autowired
+    @Resource
     private CertificateService certificateService;
 
     @RequestMapping(value = "/certificate/getCertificateList", method = RequestMethod.POST)

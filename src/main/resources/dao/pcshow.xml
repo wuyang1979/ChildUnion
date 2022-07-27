@@ -8,7 +8,6 @@
         <result property="secondScope" column="secondscope"/>
     </resultMap>
 
-
     <resultMap id="cardInfo" type="com.qinzi123.happiness.domain.CardInfo">
         <id property="id" column="id"/>
         <result property="bussinessId" column="bussinessid"/>
@@ -27,9 +26,7 @@
         <result property="leaguer" column="leaguer"/>
         <collection property="cardScope" ofType="com.qinzi123.happiness.domain.CardScope"
                     column="id" select="getCardScope">
-
         </collection>
-
     </resultMap>
 
     <select id="getCardScope" resultMap="cardScope">
@@ -120,7 +117,6 @@
         <result property="bussinessId" column="bussinessid"/>
         <association property="bussinessInfo" javaType="com.qinzi123.happiness.domain.BussinessInfo"
                      column="bussinessId" select="getBussinessInfo">
-
         </association>
     </resultMap>
 
@@ -154,9 +150,7 @@
         <result property="submitTime" column="submittime"/>
         <result property="updateTime" column="updatetime"/>
         <result property="contactOpenId" column="contactopenid"/>
-
     </resultMap>
-
 
     <select id="getBussLeagues" resultMap="businessLeagueInfo">
 		select * from buss_league_info order by leaguetype desc, submittime desc  limit #{start}, #{pageSize}
@@ -185,19 +179,14 @@
         <result property="cost" column="cost"/>
         <result property="childCost" column="child_cost"/>
         <result property="address" column="address"/>
-
         <result property="phone" column="phone"/>
         <result property="datetime" column="datetime"/>
         <result property="endDatetime" column="enddatetime"/>
-
         <result property="signupStartTime" column="signupstarttime"/>
         <result property="signupEndTime" column="signupendtime"/>
         <result property="organizationName" column="organizationname"/>
         <result property="organizationPhone" column="organizationphone"/>
-
-
     </resultMap>
-
 
     <select id="getBussinessCampaignsById" resultMap="campaignPcShowInfo">
 		select * from campaign_info a, campaign_condition b WHERE a.id=b.id and a.id= #{id}
@@ -252,4 +241,5 @@
     <select id="getSearLeaguesTotalRecords" resultType="java.lang.Integer">
 		select count(*) from buss_league_info where  companydesc like '%#{str}%' or company like '%#{str}%'
 	</select>
+
 </mapper>

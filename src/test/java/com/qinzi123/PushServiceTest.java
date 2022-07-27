@@ -8,10 +8,10 @@ import com.qinzi123.service.PushMiniProgramService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -27,13 +27,13 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 public class PushServiceTest {
 
-    @Autowired
+    @Resource
     CardDao weixinDao;
 
-    @Autowired
+    @Resource
     PushMiniProgramService pushService;
 
-    @Autowired
+    @Resource
     CooperateWeixinService cooperateWeixinService;
 
     CardMessage getCardMessage() {

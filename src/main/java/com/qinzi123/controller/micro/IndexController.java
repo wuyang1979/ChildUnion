@@ -7,12 +7,12 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -36,10 +36,10 @@ import java.util.Map;
 @Api(value = "首页")
 public class IndexController {
 
-    @Autowired
+    @Resource
     private IndexService indexService;
 
-    @Autowired
+    @Resource
     private UserOrderService userOrderService;
 
     @ApiOperation(value = "获取手机号", notes = "获取手机号")
@@ -127,9 +127,9 @@ public class IndexController {
     }
 
     @ApiOperation(value = "获取b端在亲子云商开通的小店列表", notes = "获取b端在亲子云商开通的小店列表")
-    @RequestMapping(value = "/index/getShopListByUserId", method = RequestMethod.POST)
-    private List<LinkedHashMap> getShopListByUserId(@RequestBody Map map) {
-        return indexService.getShopListByUserId(map);
+    @RequestMapping(value = "/index/getDistributionPartnerListByUserId", method = RequestMethod.POST)
+    private List<LinkedHashMap> getDistributionPartnerListByUserId(@RequestBody Map map) {
+        return indexService.getDistributionPartnerListByUserId(map);
     }
 
     @ApiOperation(value = "获取b端在亲子云商开通的小店列表", notes = "获取b端在亲子云商开通的小店列表")

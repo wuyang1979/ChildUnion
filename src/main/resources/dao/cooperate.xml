@@ -2,28 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.qinzi123.dao.CooperateDao">
 
-    <insert id="addMessage" useGeneratedKeys="true" parameterType="com.qinzi123.dto.CardMessage">
-		insert into card_message(card_id, form_id, title, message, read_count, give_like, message_type, source_type, source_path)
-		values(#{cardId}, #{formId}, #{title}, #{message}, 0, 0, #{messageType}, #{sourceType}, #{sourcePath})
-	</insert>
+    <sql id="select_card_message">
+		select a.id, card_id, form_id, title, message, update_time, TIMESTAMPDIFF(MINUTE, update_time, sysdate()) as last,
+		read_count, give_like, b.id as bid, openid, phone, realname, company, job, headimgurl, a.message_type,
+		 a.source_type, a.source_path
+			from card_message a, card_info b where a.card_id = b.id
+	</sql>
+
+    <sql id="select_small_formId">
+		select id, card_id, form_id, is_use, create_time from wx_small_formId
+		where is_use = 0 and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= create_time
+	</sql>
+
+    <sql id="get_card_message_reply">
+		select a.id, message_id, card_id, reply_id, reply_message, create_time,
+		TIMESTAMPDIFF(MINUTE, create_time, sysdate()) as last,
+		b.id as bid, b.openid, b.phone, b.realname, b.company, b.job, b.headimgurl
+		from card_message_reply a, card_info b, card_info c where a.card_id = b.id
+	</sql>
+
+    <sql id="get_active_cooperate_reply">
+		select DISTINCT card_id , card_id as bid, openid, c.phone, realname, company, job, headimgurl from card_info c left join wx_order a on c.id = a.card_id LEFT JOIN wx_order_pay_score b on a.order_no = b.order_no
+	</sql>
 
     <select id="getCardMessageId" resultType="int">
 		select id from card_message where title = #{title}
 	</select>
-
-    <insert id="addMessagePictures" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-		insert into card_message_picture(card_message_id, url)
-		values(#{cardMessageId}, #{url})
-	</insert>
-
-    <update id="updateMessageRead" parameterType="com.qinzi123.dto.CardMessage">
-		update card_message set read_count = read_count + 1 where id =#{id}
-	</update>
-
-    <update id="updateMessageLike" parameterType="com.qinzi123.dto.CardMessage">
-		update card_message set give_like = give_like + 1 where id =#{id}
-	</update>
-
 
     <resultMap type="com.qinzi123.dto.CardMessage" id="cardMessage">
         <id property="id" column="id"/>
@@ -49,13 +53,6 @@
         </association>
     </resultMap>
 
-    <sql id="select_card_message">
-		select a.id, card_id, form_id, title, message, update_time, TIMESTAMPDIFF(MINUTE, update_time, sysdate()) as last,
-		read_count, give_like, b.id as bid, openid, phone, realname, company, job, headimgurl, a.message_type,
-		 a.source_type, a.source_path
-			from card_message a, card_info b where a.card_id = b.id
-	</sql>
-
     <select id="getAllCardMessage" resultMap="cardMessage">
         <include refid="select_card_message"/>
         and a.verify = 1
@@ -79,17 +76,7 @@
     <select id="getFansUser2Push" resultType="java.lang.String">
 		select c.openid from card_info c, follower f where c.id = f.user_id and f.follower_id = #{followerId}
 	</select>
-    <insert id="addMessageSend" useGeneratedKeys="true" parameterType="com.qinzi123.dto.CardMessageSend">
-		insert into card_message_send(card_id, message_id, openid) values(#{cardId}, #{messageId}, #{openid})
-	</insert>
 
-    <insert id="addCardSend" useGeneratedKeys="true" parameterType="com.qinzi123.dto.CardInfoSend">
-		insert into card_message_send(card_id, new_card_id, openid) values(#{cardId}, #{newCardId}, #{openid})
-	</insert>
-
-    <insert id="addCurrentToken" useGeneratedKeys="true" parameterType="com.qinzi123.dto.WxSmallToken">
-		insert into wx_small_token(token) values(#{token})
-	</insert>
     <resultMap type="com.qinzi123.dto.WxSmallToken" id="smallToken">
         <id property="id" column="id"/>
         <result property="token" column="token"/>
@@ -100,13 +87,6 @@
 		ORDER BY create_time desc limit 1
 	</select>
 
-    <!-- 保存formId -->
-    <insert id="addFormId" useGeneratedKeys="true" parameterType="com.qinzi123.dto.WxSmallFormId">
-		insert into wx_small_formId(card_id, form_id, is_use) values(#{cardId}, #{formId}, #{isUse})
-	</insert>
-    <update id="updateFormId" parameterType="com.qinzi123.dto.WxSmallFormId">
-		update wx_small_formId set is_use = #{isUse} where id = #{id}
-	</update>
     <resultMap type="com.qinzi123.dto.WxSmallFormId" id="smallFormId">
         <id property="id" column="id"/>
         <result property="cardId" column="card_id"/>
@@ -114,13 +94,7 @@
         <result property="isUse" column="is_use"/>
         <result property="createTime" column="create_time"/>
         <!--result property="updateTime" column="update_time"/-->
-
     </resultMap>
-
-    <sql id="select_small_formId">
-		select id, card_id, form_id, is_use, create_time from wx_small_formId
-		where is_use = 0 and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= create_time
-	</sql>
 
     <select id="getCanUseSmallFormId" resultMap="smallFormId">
         <include refid="select_small_formId"/>
@@ -134,11 +108,6 @@
         order by create_time
     </select>
 
-
-    <insert id="addCardMessageReply" useGeneratedKeys="true" parameterType="com.qinzi123.dto.CardMessageReply">
-		insert into card_message_reply(message_id, card_id, reply_id, reply_message)
-		values(#{messageId}, #{cardId}, #{replyId}, #{replyMessage})
-	</insert>
     <resultMap type="com.qinzi123.dto.CardMessageReply" id="cardMessageReply">
         <id property="id" column="id"/>
         <result property="messageId" column="message_id"/>
@@ -157,17 +126,6 @@
             <result property="headimgurl" column="headimgurl"/>
         </association>
     </resultMap>
-
-    <sql id="get_card_message_reply">
-		select a.id, message_id, card_id, reply_id, reply_message, create_time,
-		TIMESTAMPDIFF(MINUTE, create_time, sysdate()) as last,
-		b.id as bid, b.openid, b.phone, b.realname, b.company, b.job, b.headimgurl
-		from card_message_reply a, card_info b, card_info c where a.card_id = b.id
-	</sql>
-
-    <sql id="get_active_cooperate_reply">
-		select DISTINCT card_id , card_id as bid, openid, c.phone, realname, company, job, headimgurl from card_info c left join wx_order a on c.id = a.card_id LEFT JOIN wx_order_pay_score b on a.order_no = b.order_no
-	</sql>
 
     <select id="getAllCardMessageReplyByMessageId" resultMap="cardMessageReply">
         <include refid="get_card_message_reply"/>
@@ -192,11 +150,6 @@
 		select url from card_message_picture where card_message_id = #{messageId}
     </select>
 
-    <insert id="addCardMessageReplyMessage" useGeneratedKeys="true" keyProperty="id"
-            parameterType="java.util.LinkedHashMap">
-		insert into message_info(message_type, message_behavior,card_message_id,send_person_card,send_person_name,receive_person_card,receive_person_name,create_time,read_status) values(#{message_type}, #{message_behavior},#{card_message_id},#{send_person_card},(select realname from card_info where id = #{send_person_card}),#{receive_person_card},(select realname from card_info where id = #{receive_person_card}),#{create_time},0)
-    </insert>
-
     <select id="getFollower" resultType="java.util.LinkedHashMap">
 		select * from follower where user_id = #{userId} and follower_id = #{followerId}
     </select>
@@ -208,19 +161,6 @@
     <select id="getCardMessageAuthListByCard" resultType="java.util.LinkedHashMap">
         select * from auth_record where type = 2 and card_id = #{card}
 	</select>
-
-    <insert id="addAuthAcceptRecord" useGeneratedKeys="true" keyProperty="id"
-            parameterType="java.util.Map">
-		insert into auth_record(card_id, open_id, type, auth_status, create_time) values(#{card}, (select openid from card_info where id = #{card}), #{type},#{authStatus},#{createTime})
-    </insert>
-
-    <update id="updateFollowerAuthStatusByCard" parameterType="int">
-    	update auth_record set auth_status = 1 where type = 1 and card_id = #{card}
-	</update>
-
-    <update id="updateCardMessageAuthStatusByCard" parameterType="int">
-    	update auth_record set auth_status = 1 where type = 2 and card_id = #{card}
-	</update>
 
     <select id="getUnAuthRecordList" resultType="java.util.LinkedHashMap">
         select * from auth_record where type in (1,2) and card_id = #{card}
@@ -241,4 +181,67 @@
     <select id="getEstablishmentCount" resultType="int">
          select count(*) from buss_league_info
 	</select>
+
+    <insert id="addMessage" useGeneratedKeys="true" parameterType="com.qinzi123.dto.CardMessage">
+		insert into card_message(card_id, form_id, title, message, read_count, give_like, message_type, source_type, source_path)
+		values(#{cardId}, #{formId}, #{title}, #{message}, 0, 0, #{messageType}, #{sourceType}, #{sourcePath})
+	</insert>
+
+    <insert id="addMessagePictures" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into card_message_picture(card_message_id, url)
+		values(#{cardMessageId}, #{url})
+	</insert>
+
+    <insert id="addMessageSend" useGeneratedKeys="true" parameterType="com.qinzi123.dto.CardMessageSend">
+		insert into card_message_send(card_id, message_id, openid) values(#{cardId}, #{messageId}, #{openid})
+	</insert>
+
+    <insert id="addCardSend" useGeneratedKeys="true" parameterType="com.qinzi123.dto.CardInfoSend">
+		insert into card_message_send(card_id, new_card_id, openid) values(#{cardId}, #{newCardId}, #{openid})
+	</insert>
+
+    <insert id="addCurrentToken" useGeneratedKeys="true" parameterType="com.qinzi123.dto.WxSmallToken">
+		insert into wx_small_token(token) values(#{token})
+	</insert>
+
+    <!-- 保存formId -->
+    <insert id="addFormId" useGeneratedKeys="true" parameterType="com.qinzi123.dto.WxSmallFormId">
+		insert into wx_small_formId(card_id, form_id, is_use) values(#{cardId}, #{formId}, #{isUse})
+	</insert>
+
+    <insert id="addCardMessageReply" useGeneratedKeys="true" parameterType="com.qinzi123.dto.CardMessageReply">
+		insert into card_message_reply(message_id, card_id, reply_id, reply_message)
+		values(#{messageId}, #{cardId}, #{replyId}, #{replyMessage})
+	</insert>
+
+    <insert id="addCardMessageReplyMessage" useGeneratedKeys="true" keyProperty="id"
+            parameterType="java.util.LinkedHashMap">
+		insert into message_info(message_type, message_behavior,card_message_id,send_person_card,send_person_name,receive_person_card,receive_person_name,create_time,read_status) values(#{message_type}, #{message_behavior},#{card_message_id},#{send_person_card},(select realname from card_info where id = #{send_person_card}),#{receive_person_card},(select realname from card_info where id = #{receive_person_card}),#{create_time},0)
+    </insert>
+
+    <insert id="addAuthAcceptRecord" useGeneratedKeys="true" keyProperty="id"
+            parameterType="java.util.Map">
+		insert into auth_record(card_id, open_id, type, auth_status, create_time) values(#{card}, (select openid from card_info where id = #{card}), #{type},#{authStatus},#{createTime})
+    </insert>
+
+    <update id="updateMessageRead" parameterType="com.qinzi123.dto.CardMessage">
+		update card_message set read_count = read_count + 1 where id =#{id}
+	</update>
+
+    <update id="updateMessageLike" parameterType="com.qinzi123.dto.CardMessage">
+		update card_message set give_like = give_like + 1 where id =#{id}
+	</update>
+
+    <update id="updateFormId" parameterType="com.qinzi123.dto.WxSmallFormId">
+		update wx_small_formId set is_use = #{isUse} where id = #{id}
+	</update>
+
+    <update id="updateFollowerAuthStatusByCard" parameterType="int">
+    	update auth_record set auth_status = 1 where type = 1 and card_id = #{card}
+	</update>
+
+    <update id="updateCardMessageAuthStatusByCard" parameterType="int">
+    	update auth_record set auth_status = 1 where type = 2 and card_id = #{card}
+	</update>
+
 </mapper>

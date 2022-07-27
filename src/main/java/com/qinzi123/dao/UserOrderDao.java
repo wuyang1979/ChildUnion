@@ -60,9 +60,13 @@ public interface UserOrderDao {
 
     int updateIssuerShopWithdrawalAmount(Map map);
 
+    String getPrimaryDistributionUserIdByOpenId(@Param("openId") String openId);
+
     int updateExclusiveIssuerShopWithdrawalAmount(Map map);
 
     int updateDistributorShopWithdrawalAmount(Map map);
+
+    int updateDistributionPartnerAccountByUserId(Map map);
 
     int updateDistributorShopWithdrawalAmountToAlready(Map map);
 

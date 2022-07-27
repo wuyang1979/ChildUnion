@@ -87,7 +87,7 @@ public class PCShowServiceImpl implements PCShowService {
         List<CardInfo> cardInfos = pcshowdao.getCardInfo(request.start,
                 request.pageSize);
         List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
-        Map<String, Object> map = null;
+        Map<String, Object> map;
         for (CardInfo cardInfo : cardInfos) {
             map = new HashMap<String, Object>();
             map.put("id", cardInfo.getId());
@@ -129,7 +129,7 @@ public class PCShowServiceImpl implements PCShowService {
     public List<Map<String, Object>> bussinessMapCampaigns(
             List<BussinessPcShowCampaigns> bussiness) {
         List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
-        Map<String, Object> map = null;
+        Map<String, Object> map;
         for (BussinessPcShowCampaigns bussinessPcShowCampaign : bussiness) {
             map = new HashMap<String, Object>();
             map.put("imagepath", bussinessPcShowCampaign.getImagePath());
@@ -188,7 +188,7 @@ public class PCShowServiceImpl implements PCShowService {
     private List<Map<String, Object>> bussinesseMapMessages(
             List<BussinessMessage> bussinessMessages) {
         List<Map<String, Object>> ret = new ArrayList<Map<String, Object>>();
-        Map<String, Object> map = null;
+        Map<String, Object> map;
         for (BussinessMessage bussinessMessage : bussinessMessages) {
             map = new HashMap<String, Object>();
             map.put("id", bussinessMessage.getId());

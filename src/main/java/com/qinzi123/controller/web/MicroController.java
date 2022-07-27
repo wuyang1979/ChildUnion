@@ -10,12 +10,12 @@ import com.qinzi123.util.DateUtils;
 import com.qinzi123.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,20 +40,20 @@ public class MicroController {
 
     private static final Logger logger = LoggerFactory.getLogger(PayController.class);
 
-    @Autowired
+    @Resource
     RechargeMoneyService rechargeMoneyService;
 
-    @Autowired
+    @Resource
     private ProductDao productDao;
 
-    @Autowired
+    @Resource
     private UserOrderDao userOrderDao;
 
     @RequestMapping(value = "/order/callback")
     private void callback(HttpServletRequest request, HttpServletResponse response) {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader((ServletInputStream) request.getInputStream()));
-            String line = null;
+            String line;
             StringBuilder sb = new StringBuilder();
             while ((line = br.readLine()) != null) {
                 sb.append(line);

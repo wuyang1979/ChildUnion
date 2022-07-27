@@ -4,16 +4,15 @@ import com.qinzi123.dao.BaseDao;
 import com.qinzi123.dto.TemplateData;
 import com.qinzi123.dto.WxMssVo;
 import com.qinzi123.service.BaseService;
-import com.qinzi123.service.PushOfficialAccountService;
 import com.qinzi123.util.DateUtils;
 import com.qinzi123.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -29,7 +28,7 @@ import java.util.stream.Collectors;
 @Service
 public class BaseServiceImpl extends AbstractWechatMiniProgramService implements BaseService {
 
-    @Autowired
+    @Resource
     BaseDao baseDao;
 
     private String yjOpenId = "otofq0LHoEZJ_loNGbZL2fu8dN4c";

@@ -1,13 +1,12 @@
 package com.qinzi123.service.impl;
 
-import com.fasterxml.jackson.core.util.InternCache;
 import com.qinzi123.dao.CooperateDao;
 import com.qinzi123.dto.CardInfo;
 import com.qinzi123.dto.CardMessage;
 import com.qinzi123.dto.CardMessageReply;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -27,7 +26,7 @@ public class ServiceHelper {
      * 微信支付的比率
      */
     private static final int MICRO_PERCENT = 100;
-    @Autowired
+    @Resource
     CooperateDao cooperateDao;
 
 

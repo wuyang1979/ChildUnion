@@ -4,12 +4,11 @@ import com.qinzi123.dto.*;
 import com.qinzi123.service.*;
 import com.qinzi123.util.DateUtils;
 import com.qinzi123.util.Utils;
-import org.aspectj.weaver.Lint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -25,13 +24,13 @@ import java.util.*;
 //@EnableAsync
 public class CooperateWeixinServiceImpl extends AbstractWechatMiniProgramService implements CooperateWeixinService {
 
-    @Autowired
+    @Resource
     PushMiniProgramService pushService;
 
-    @Autowired
+    @Resource
     PushOfficialAccountService pushOfficialAccountService;
 
-    @Autowired
+    @Resource
     ScoreService scoreService;
 
     private Logger logger = LoggerFactory.getLogger(CooperateWeixinServiceImpl.class);

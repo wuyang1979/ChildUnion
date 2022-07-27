@@ -4,13 +4,12 @@ import com.qinzi123.dao.EstablishmentDao;
 import com.qinzi123.dao.ProductDao;
 import com.qinzi123.dao.ShopDao;
 import com.qinzi123.dto.ShopInfo;
-import com.qinzi123.service.ProductService;
 import com.qinzi123.service.ShopService;
 import com.qinzi123.util.DateUtils;
 import org.apache.commons.collections.map.HashedMap;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -28,11 +27,11 @@ import java.util.Map;
 @Service
 public class ShopServiceImpl extends AbstractWechatMiniProgramService implements ShopService {
 
-    @Autowired
+    @Resource
     private ShopDao shopDao;
-    @Autowired
+    @Resource
     private EstablishmentDao establishmentDao;
-    @Autowired
+    @Resource
     private ProductDao productDao;
 
     @Override

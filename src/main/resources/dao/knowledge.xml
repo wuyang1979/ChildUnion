@@ -7,14 +7,6 @@
 		order by create_time desc, id desc
     </select>
 
-    <update id="updateReadCount" parameterType="java.util.Map">
-		update knowledge_library set read_count = read_count + 1 where id =#{id}
-	</update>
-
-    <update id="updateBuyCount" parameterType="java.util.Map">
-		update knowledge_library set buy_count = buy_count + 1 where id =#{knowledgeId}
-	</update>
-
     <select id="isLeaguer" resultType="java.util.Map">
 		select leaguer from card_info where id = #{id}
 	</select>
@@ -27,4 +19,13 @@
 		insert into knowledge_order(card_id, realname,knowledge_id,create_time)
 		values(#{card}, #{realname},#{knowledgeId},#{createTime})
 	</insert>
+
+    <update id="updateReadCount" parameterType="java.util.Map">
+		update knowledge_library set read_count = read_count + 1 where id =#{id}
+	</update>
+
+    <update id="updateBuyCount" parameterType="java.util.Map">
+		update knowledge_library set buy_count = buy_count + 1 where id =#{knowledgeId}
+	</update>
+
 </mapper>

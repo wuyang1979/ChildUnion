@@ -5,15 +5,14 @@ import com.qinzi123.dao.IndexDao;
 import com.qinzi123.dao.ProductDao;
 import com.qinzi123.dao.ShopDao;
 import com.qinzi123.dao.UserInfoDao;
-import com.qinzi123.exception.GlobalProcessException;
 import com.qinzi123.service.IndexService;
 import com.qinzi123.util.DateUtils;
 import com.qinzi123.util.Utils;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -28,14 +27,14 @@ import java.util.*;
 @Service
 public class IndexServiceImpl extends AbstractWechatMiniProgramService implements IndexService {
 
-    @Autowired
+    @Resource
     private IndexDao indexDao;
 
-    @Autowired
+    @Resource
     private UserInfoDao userInfoDao;
-    @Autowired
+    @Resource
     private ShopDao shopDao;
-    @Autowired
+    @Resource
     private ProductDao productDao;
 
     @Override
@@ -103,7 +102,6 @@ public class IndexServiceImpl extends AbstractWechatMiniProgramService implement
                         indexDao.addOfflineRecord(paramsMap);
                     }
                 }
-
             }
             resultMap.put("id", id);
             return resultMap;
@@ -120,11 +118,8 @@ public class IndexServiceImpl extends AbstractWechatMiniProgramService implement
     }
 
     @Override
-    public List<LinkedHashMap> getShopListByUserId(Map map) {
-        List<LinkedHashMap> shopList = indexDao.getShopListByUserId(map);
-        List<LinkedHashMap> distributionPartnerList = indexDao.getDistributionPartnerListByUserId(map);
-        shopList.addAll(distributionPartnerList);
-        return shopList;
+    public List<LinkedHashMap> getDistributionPartnerListByUserId(Map map) {
+        return indexDao.getDistributionPartnerListByUserId(map);
     }
 
     @Override

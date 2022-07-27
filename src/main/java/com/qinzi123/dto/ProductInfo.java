@@ -19,17 +19,19 @@ public class ProductInfo {
     private int id;
     private int status;
     private int isHot;
-    private int type;
-    private int productType;
-    private int productStyle;
-    private String wuyuType;
     private String cardId;
+    private int shopId;
     private String name;
     private String address;
     private String addressName;
     private String longitude;
     private String latitude;
+    private int productType;
+    private int type;
+    private int productStyle;
+    private String wuyuType;
     private String mainImage;
+    private int isAllowDistribution;
     private int repeatPurchase;
     private String phone;
     private String introduce;
@@ -39,5 +41,4 @@ public class ProductInfo {
     private Date createTime;
     private String deadlineTime;
     private String qrImage;
-    private int isAllowDistribution;
 }

@@ -2,8 +2,9 @@ package com.qinzi123.service.impl;
 
 import com.qinzi123.dao.StartUpDao;
 import com.qinzi123.service.StartUpService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * @title: StartUpServiceImpl
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StartUpServiceImpl extends AbstractWechatMiniProgramService implements StartUpService {
 
-    @Autowired
+    @Resource
     private StartUpDao startUpDao;
 
     @Override

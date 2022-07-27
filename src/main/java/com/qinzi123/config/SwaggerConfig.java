@@ -1,7 +1,6 @@
 package com.qinzi123.config;
 
 import com.fasterxml.classmate.TypeResolver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +12,8 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import javax.annotation.Resource;
 
 /**
  * @title: SwaggerConfig
@@ -30,7 +31,7 @@ public class SwaggerConfig {
 	@Value("${swagger.version}")
 	private String version;
 
-	@Autowired
+	@Resource
 	private TypeResolver typeResolver;
 
 	@Bean

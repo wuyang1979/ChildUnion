@@ -103,24 +103,79 @@
                 value: 0
             },
             {
-                name: "standard_id",
-                desc: "活动规格（产品不选）",
-                type: 4,
+                name: "order_sale_type",
+                desc: "订单销售类型",
+                type: 2,
+                needInput: true,
+                initData: [{value: 0, desc: '销售订单'}, {value: 1, desc: '分销订单'}],
+                refs: {},
+                value: 0
+            },
+            {
+                name: "retail_commission",
+                desc: "一级分销佣金（元，分销订单必填）",
+                type: 1,
                 needInput: false,
                 disabled: false,
                 initData: [],
-                refs: {
-                    model: "c_end_activity_standards",
-                    key: "id",
-                    value: "standard_desc"
-                },
+                refs: {},
                 value: '0'
+            },
+            {
+                name: "retail_commission_income",
+                desc: "一级分销佣金实际所得（元，分销订单必填）",
+                type: 1,
+                needInput: false,
+                disabled: false,
+                initData: [],
+                refs: {},
+                value: '0'
+            },
+            {
+                name: "primary_distribution_shop_id",
+                desc: "一级分销商小店id（-1：客户分销；0：平台分销；其他：商户分销）",
+                type: 1,
+                needInput: false,
+                disabled: false,
+                initData: [],
+                refs: {},
+                value: '0'
+            },
+            {
+                name: "primary_distribution_open_id",
+                desc: "一级分销用户openid（客户分销必填）",
+                type: 1,
+                needInput: false,
+                disabled: false,
+                initData: [],
+                refs: {},
+                value: '0'
+            },
+            {
+                name: "platform_service_fee",
+                desc: "平台服务费（元，分销订单必填）",
+                type: 1,
+                needInput: false,
+                disabled: false,
+                initData: [],
+                refs: {},
+                value: '0'
+            },
+            {
+                name: "standard_id",
+                desc: "活动/产品规格",
+                type: 4,
+                needInput: true,
+                disabled: false,
+                initData: [],
+                refs: {},
+                value: []
             },
             {
                 name: "pay_time",
                 desc: "付款时间",
                 type: 7,
-                needInput: true,
+                needInput: false,
                 disabled: false,
                 initData: [],
                 refs: {},
@@ -137,7 +192,7 @@
             },
             {
                 name: "receive_address",
-                desc: "收货地址（活动不填）",
+                desc: "收货地址（虚拟产品或活动不填）",
                 type: 1,
                 needInput: false,
                 disabled: false,

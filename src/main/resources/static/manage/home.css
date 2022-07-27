@@ -152,3 +152,78 @@ select:disabled {
     color: #bbb;
     cursor: not-allowed;
 }
+
+.product-standard-item {
+    font-size: 12px;
+    position: relative;
+    margin-top: 10px;
+}
+
+.product-standard-delete_icon {
+    position: absolute;
+    right: 2px;
+    top: 45px;
+    width: 13px;
+    height: 13px;
+    cursor: pointer;
+}
+
+.product-standard-first,
+.product-standard-second,
+.product-standard-third,
+.product-standard-fourth {
+    display: flex;
+    height: 22px;
+    line-height: 22px;
+    margin-bottom: 5px;
+}
+
+.add-standard {
+    color: #fff;
+    font-size: 12px;
+    width: 68px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    background-color: #20a0ff;
+    border-color: #20a0ff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-standard input {
+    font-size: 10px;
+}
+
+.product-standard-second input {
+    width: 15%;
+    margin-right: 3px;
+}
+
+.adult-input,
+.children-input {
+    width: 15%;
+    margin-right: 3px;
+}
+
+.product-standard-second input:last-child {
+    margin-right: 0;
+}
+
+.max-tip {
+    width: 55%;
+}
+
+.min-tip {
+    width: 55%;
+}
+
+.product-standard-third input,
+.product-standard-fourth input {
+    width: 35%;
+}
+
+.el-checkbox__label {
+    padding-left: 0;
+    padding-right: 5px;
+}

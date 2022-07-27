@@ -1,7 +1,9 @@
 package com.qinzi123.dao;
 
+import com.qinzi123.dto.ActivityStandardDto;
 import com.qinzi123.dto.EnterpriseInfo;
 import com.qinzi123.dto.ProductInfo;
+import com.qinzi123.dto.ProductStandardDto;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.LinkedHashMap;
@@ -33,6 +35,8 @@ public interface EntityDao {
 
     int updateCEndOrderService(Map<String, Object> map);
 
+    int updateShopInfoService(Map<String, Object> map);
+
     int updateProductEntity(Map<String, Object> map);
 
     int deleteEntity(@Param("tableName") String tableName, @Param("keyColumns") String keyColumns);
@@ -51,11 +55,25 @@ public interface EntityDao {
 
     int deleteProductInfoService(Map<String, Object> map);
 
+    int deleteProductStandardsService(Map<String, Object> map);
+
+    int deleteActivityStandardsService(Map<String, Object> map);
+
+    int deleteProductPicturesService(Map<String, Object> map);
+
+    int deleteDistributionRecordsService(Map<String, Object> map);
+
     int deleteCEndOrderService(Map<String, Object> map);
+
+    int deleteShopInfoService(Map<String, Object> map);
 
     List<LinkedHashMap> findEntityByKey(@Param("tableName") String tableName, @Param("keyColumns") String keyColumns);
 
     List<LinkedHashMap> findEntitys(@Param("tableName") String tableName);
+
+    List<LinkedHashMap> getProductStandardByProductId(@Param("productId") int productId);
+
+    List<LinkedHashMap> getAcitivityStandardByProductId(@Param("productId") int productId);
 
     List<LinkedHashMap> findBaseEntity(@Param("tableName") String tableName);
 
@@ -81,11 +99,17 @@ public interface EntityDao {
 
     int addEstablishmentService(Map<String, Object> map);
 
+    int addProductStandard(ProductStandardDto productStandardDto);
+
+    int addActivityStandard(ActivityStandardDto activityStandardDto);
+
     int addProductInfoService(ProductInfo productInfo);
 
     int addActivityInfoService(ProductInfo productInfo);
 
     int addCEndOrderService(Map map);
+
+    int addShopInfoService(Map map);
 
     List<LinkedHashMap> pictureList(@Param("baseId") int baseId);
 
@@ -108,4 +132,9 @@ public interface EntityDao {
     List<LinkedHashMap> getOutsideLuckDrawMemberList();
 
     int clearAllJoiner();
+
+    List<LinkedHashMap> getProductStandards();
+
+    List<LinkedHashMap> getActivityStandards();
+
 }

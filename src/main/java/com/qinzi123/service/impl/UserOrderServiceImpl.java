@@ -15,7 +15,6 @@ import com.qinzi123.service.UserOrderService;
 import com.qinzi123.util.DateUtils;
 import com.qinzi123.util.Utils;
 import com.qinzi123.util.WithDrawUtils;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -27,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.nio.charset.Charset;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -43,13 +43,13 @@ import java.util.*;
 @Service
 public class UserOrderServiceImpl extends AbstractWechatMiniProgramService implements UserOrderService {
 
-    @Autowired
+    @Resource
     private UserOrderDao userOrderDao;
 
-    @Autowired
+    @Resource
     private ProductDao productDao;
 
-    @Autowired
+    @Resource
     private PushMiniProgramService pushService;
 
     private final int PLATFORM_SERVICE_RATE = 0;
@@ -773,7 +773,7 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
         int start = Integer.parseInt(map.get("start").toString());
         int num = Integer.parseInt(map.get("num").toString());
         String userId = map.get("userId").toString();
-        List<LinkedHashMap> list = null;
+        List<LinkedHashMap> list;
         if (selectType == -1) {
             //全部订单
             list = userOrderDao.getAllOrderList(userId, start, num);
@@ -858,16 +858,11 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                 //客户分销
                 String primaryDistributionOpenId = orderInfo.get("primary_distribution_open_id").toString();
                 if (StringUtils.isNotEmpty(primaryDistributionOpenId)) {
-                    //只要一级分销客户的openId不为空，则说明该客户已成为分销合伙人
-                    Map<String, Object> wxWithdrawalMap = enterprisePayToChange(Double.parseDouble(orderInfo.get("retail_commission_income").toString()), primaryDistributionOpenId, "", "", "");
-                    String msg = wxWithdrawalMap.get("msg").toString();
-                    if ("success".equals(msg)) {
-                        //提现成功
-                        map.put("createTime", DateUtils.getAccurateDate());
-                        map.put("openId", primaryDistributionOpenId);
-                        map.put("amount", Double.parseDouble(orderInfo.get("retail_commission_income").toString()));
-                        userOrderDao.addClientEndDistributorWithdrawalRecord(map);
-                    }
+                    //只要一级分销客户的openId不为空，则说明该客户已成为分销合伙人 金额计入我的收益（可提现金额）
+                    String primaryDistributionUserId = userOrderDao.getPrimaryDistributionUserIdByOpenId(primaryDistributionOpenId);
+                    paramsMap.put("userId", primaryDistributionUserId);
+                    paramsMap.put("canWithdrawalMoney", Double.parseDouble(orderInfo.get("retail_commission_income").toString()));
+                    userOrderDao.updateDistributionPartnerAccountByUserId(paramsMap);
                 }
             } else if (primaryDistributionShopId == 0) {
                 //平台分销
@@ -942,16 +937,11 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                 //客户分销
                 String primaryDistributionOpenId = orderInfo.get("primary_distribution_open_id").toString();
                 if (StringUtils.isNotEmpty(primaryDistributionOpenId)) {
-                    //只要一级分销客户的openId不为空，则说明该客户已成为分销合伙人
-                    Map<String, Object> wxWithdrawalMap = enterprisePayToChange(Double.parseDouble(orderInfo.get("retail_commission_income").toString()), primaryDistributionOpenId, "", "", "");
-                    String msg = wxWithdrawalMap.get("msg").toString();
-                    if ("success".equals(msg)) {
-                        //提现成功
-                        map.put("createTime", DateUtils.getAccurateDate());
-                        map.put("openId", primaryDistributionOpenId);
-                        map.put("amount", Double.parseDouble(orderInfo.get("retail_commission_income").toString()));
-                        userOrderDao.addClientEndDistributorWithdrawalRecord(map);
-                    }
+                    //只要一级分销客户的openId不为空，则说明该客户已成为分销合伙人 金额计入我的收益（可提现金额）
+                    String primaryDistributionUserId = userOrderDao.getPrimaryDistributionUserIdByOpenId(primaryDistributionOpenId);
+                    paramsMap.put("userId", primaryDistributionUserId);
+                    paramsMap.put("canWithdrawalMoney", Double.parseDouble(orderInfo.get("retail_commission_income").toString()));
+                    userOrderDao.updateDistributionPartnerAccountByUserId(paramsMap);
                 }
             } else if (primaryDistributionShopId == 0) {
                 //平台分销
@@ -1016,21 +1006,11 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                     //客户分销
                     String primaryDistributionOpenId = orderInfo.get("primary_distribution_open_id").toString();
                     if (StringUtils.isNotEmpty(primaryDistributionOpenId)) {
-                        //只要一级分销客户的openId不为空，则说明该客户已成为分销合伙人
-                        Map<String, Object> wxWithdrawalMap;
-                        try {
-                            wxWithdrawalMap = enterprisePayToChange(Double.parseDouble(orderInfo.get("retail_commission_income").toString()), primaryDistributionOpenId, "", "", "");
-                            String msg = wxWithdrawalMap.get("msg").toString();
-                            if ("success".equals(msg)) {
-                                //提现成功
-                                map.put("createTime", DateUtils.getAccurateDate());
-                                map.put("openId", primaryDistributionOpenId);
-                                map.put("amount", Double.parseDouble(orderInfo.get("retail_commission_income").toString()));
-                                userOrderDao.addClientEndDistributorWithdrawalRecord(map);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        //只要一级分销客户的openId不为空，则说明该客户已成为分销合伙人 金额计入我的收益（可提现金额）
+                        String primaryDistributionUserId = userOrderDao.getPrimaryDistributionUserIdByOpenId(primaryDistributionOpenId);
+                        paramsMap.put("userId", primaryDistributionUserId);
+                        paramsMap.put("canWithdrawalMoney", Double.parseDouble(orderInfo.get("retail_commission_income").toString()));
+                        userOrderDao.updateDistributionPartnerAccountByUserId(paramsMap);
                     }
                 } else if (primaryDistributionShopId == 0) {
                     //平台分销

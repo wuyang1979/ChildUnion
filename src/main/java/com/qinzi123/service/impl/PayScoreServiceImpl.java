@@ -7,10 +7,10 @@ import com.qinzi123.service.PayScoreService;
 import com.qinzi123.service.ScoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,10 +30,10 @@ public class PayScoreServiceImpl extends AbstractWechatMiniProgramService implem
 
     private static final String message = "用户 {}, 订单 {}, 扣除积分{}, 兑换 {}";
 
-    @Autowired
+    @Resource
     CampaignDao campaignDao;
 
-    @Autowired
+    @Resource
     ScoreService scoreService;
 
     @Override

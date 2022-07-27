@@ -10,9 +10,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.util.*;
@@ -30,13 +30,13 @@ import java.util.*;
 @Api(value = "产品信息")
 public class ProductController {
 
-    @Autowired
+    @Resource
     private ProductService productService;
 
-    @Autowired
+    @Resource
     private ShopService shopService;
 
-    @Autowired
+    @Resource
     private ProductDao productDao;
 
     @ApiOperation(value = "添加产品信息", notes = "添加产品信息")
@@ -44,7 +44,6 @@ public class ProductController {
     private int addProduct(@RequestBody Map map) {
         return productService.addProduct(map);
     }
-
 
     @ApiOperation(value = "添加活动信息", notes = "添加活动信息")
     @RequestMapping(value = "/product/addActivity", method = RequestMethod.POST)
@@ -424,7 +423,7 @@ public class ProductController {
         if (StringUtils.isEmpty(accessToken)) {
             throw new GlobalProcessException("accessToken获取出错");
         }
-        byte[] qrCodeBytes = null;
+        byte[] qrCodeBytes;
         Map<String, Object> paraMap = new HashMap();
         String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=";
         url += accessToken;

@@ -19,17 +19,30 @@ public interface WithdrawalDao {
 
     int startWithdrawal(Map map);
 
+    int distributionPartnerStartWithdrawal(Map map);
+
     int updateShopMoneyByCardId(Map map);
 
     int updateDistributionShopMoneyByCardId(Map map);
 
+    int updateDistributionShopMoneyByUserId(Map map);
+
     List<LinkedHashMap> getCurrentDayWithdrawalRecordList(Map map);
+
+    List<LinkedHashMap> getDistributionPartnerCurrentDayWithdrawalRecordList(Map map);
 
     Map getShopInfoByCard(@Param("card") int card);
 
     String getTargetOpenIdByCard(@Param("card") int card);
 
+    String getTargetOpenIdByUserId(@Param("userId") String userId);
+
     List<LinkedHashMap> getAllRecordList(Map map);
 
+    List<LinkedHashMap> getAllDistributionPartnerRecordList(Map map);
+
     List<LinkedHashMap> getRecordList(Map map);
+
+    List<LinkedHashMap> getDistributionPartnerRecordList(Map map);
+
 }

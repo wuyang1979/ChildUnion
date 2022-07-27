@@ -6,13 +6,13 @@ import com.qinzi123.util.Utils;
 import com.qinzi123.util.WeChatUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.text.ParseException;
@@ -37,7 +37,7 @@ public class UserOrderController {
     //微信订单支付有效时长20分钟
     private int orderValidityMinute = 20;
 
-    @Autowired
+    @Resource
     private UserOrderService userOrderService;
 
     /**

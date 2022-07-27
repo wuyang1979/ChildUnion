@@ -1,6 +1,5 @@
 package com.qinzi123.dto.push.message;
 
-import com.qinzi123.dto.CardMessage;
 import com.qinzi123.dto.FollowMessage;
 import com.qinzi123.dto.push.MessageTools;
 import org.springframework.stereotype.Component;

@@ -5,4 +5,5 @@
     <update id="addVisitCount">
        update wx_visit_count set value = value + 1 where id = 1;
 	</update>
+
 </mapper>

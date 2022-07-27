@@ -14,29 +14,13 @@
         select card_id,id,name from shop_info where company_id = (select company_id from card_info where id = #{card})
     </select>
 
-	<select id="getAllAllowDistributionProductList" resultType="java.util.LinkedHashMap">
+    <select id="getAllAllowDistributionProductList" resultType="java.util.LinkedHashMap">
 		select id,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
 		main_image,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
 		date_format(create_time,'%Y-%m-%d') as create_time,
 		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
 		where is_allow_distribution = 1
     </select>
-
-    <insert id="addShop" useGeneratedKeys="true" keyProperty="id" parameterType="com.qinzi123.dto.ShopInfo">
-		insert into shop_info(card_id, company_id,name,logopic,can_withdrawal_money,already_withdrawal_money,progress_withdrawal_money,shop_type,create_time)
-		                        values(#{cardId},(select company_id from card_info where id = #{cardId}),#{name},(select logopic from buss_league_info where id = (select company_id from card_info where id = #{cardId})),#{canWithdrawalMoney},#{alreadyWithdrawalMoney},#{progressWithdrawalMoney},#{shopType},#{createTime})
-	</insert>
-
-    <insert id="addDistributionShop" useGeneratedKeys="true" keyProperty="id" parameterType="com.qinzi123.dto.ShopInfo">
-		insert into shop_info(card_id, name,can_withdrawal_money,already_withdrawal_money,progress_withdrawal_money,shop_type,create_time)
-		             values(#{cardId},#{name},#{canWithdrawalMoney},#{alreadyWithdrawalMoney},#{progressWithdrawalMoney},#{shopType},#{createTime})
-	</insert>
-
-    <update id="updateShopInfoById" parameterType="java.util.Map">
-    	update shop_info
-		set name = #{shopName}, logopic=#{logopic}, account_name = #{accountName}, bank_name = #{bankName}, bank_account = #{bankAccount}
-		where id = #{id}
-	</update>
 
     <select id="getShopInfo" resultType="java.util.LinkedHashMap">
 		select * from shop_info where id = #{shopId}
@@ -46,7 +30,7 @@
 		select phone from card_info where id = (select card_id from shop_info where id = #{shopId})
     </select>
 
-	<select id="getVisitCountByShopId" resultType="int">
+    <select id="getVisitCountByShopId" resultType="int">
 		select visit_count from shop_info where id = #{shopId}
     </select>
 
@@ -71,7 +55,7 @@
 	    select qr_image from product_info where id = #{productId}
     </select>
 
-	<select id="getShopTypeByCardId" resultType="java.util.Map">
+    <select id="getShopTypeByCardId" resultType="java.util.Map">
 		select shop_type from shop_info where card_id = #{card}
     </select>
 
@@ -79,12 +63,29 @@
 	    select realname,openid,headimgurl from card_info where id = #{cardId}
     </select>
 
+    <insert id="addShop" useGeneratedKeys="true" keyProperty="id" parameterType="com.qinzi123.dto.ShopInfo">
+		insert into shop_info(card_id, company_id,name,logopic,can_withdrawal_money,already_withdrawal_money,progress_withdrawal_money,shop_type,create_time)
+		                        values(#{cardId},(select company_id from card_info where id = #{cardId}),#{name},(select logopic from buss_league_info where id = (select company_id from card_info where id = #{cardId})),#{canWithdrawalMoney},#{alreadyWithdrawalMoney},#{progressWithdrawalMoney},#{shopType},#{createTime})
+	</insert>
+
+    <insert id="addDistributionShop" useGeneratedKeys="true" keyProperty="id" parameterType="com.qinzi123.dto.ShopInfo">
+		insert into shop_info(card_id, name,can_withdrawal_money,already_withdrawal_money,progress_withdrawal_money,shop_type,create_time)
+		             values(#{cardId},#{name},#{canWithdrawalMoney},#{alreadyWithdrawalMoney},#{progressWithdrawalMoney},#{shopType},#{createTime})
+	</insert>
+
     <insert id="addShopownerToWriteOff" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
 		insert into c_end_write_off_info(open_id, shop_id,nick_name,head_img_url,create_time)
 		                        values(#{open_id},#{shop_id},#{nick_name},#{head_img_url},#{create_time})
 	</insert>
 
-	<update id="addVisitCountByShopId" parameterType="java.util.Map">
+    <update id="updateShopInfoById" parameterType="java.util.Map">
+    	update shop_info
+		set name = #{shopName}, logopic=#{logopic}, account_name = #{accountName}, bank_name = #{bankName}, bank_account = #{bankAccount}
+		where id = #{id}
+	</update>
+
+    <update id="addVisitCountByShopId" parameterType="java.util.Map">
     	update shop_info set visit_count = visit_count + 1 where id = #{shopId}
 	</update>
+
 </mapper>

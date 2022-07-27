@@ -2,59 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.qinzi123.dao.EntityDao">
 
-    <insert id="addEntity">
-        insert into ${tableName}(${tableColumns}) values(${tableValues})
-    </insert>
-
-    <insert id="addOtherImages" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-        insert into wx_product_picture(product_id, url) values(#{productId},#{url})
-    </insert>
-
-    <insert id="addOtherImagesToBase" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-        insert into activity_base_picture(base_id, picture_address) values(#{baseId},#{url})
-    </insert>
-
-    <insert id="addOtherImagesToEnterprise" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-        insert into enterprise_picture(enterprise_id, url) values(#{enterpriseId},#{url})
-    </insert>
-
-    <insert id="addOtherImagesToProductInfo" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-        insert into product_picture(product_id, picture_address) values(#{productId},#{url})
-    </insert>
-
-    <insert id="addOtherImagesToProduct" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-        insert into wx_product_picture(product_id, url) values(#{productId},#{url})
-    </insert>
-
-    <insert id="addBaseService" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-        insert into activity_base(name,topic_type_id,leaguetype,price,open_time,traffic,workaddress,official_account_name,introduce,card_id,main_image,longitude,latitude,level,create_time,city,district,phone) values(#{name},#{topic_type_id},#{leaguetype},#{price},#{open_time},#{traffic},#{workaddress},#{official_account_name},#{introduce},#{card_id},#{main_image},#{longitude},#{latitude},#{level},#{create_time},#{city},#{district},#{phone})
-    </insert>
-
-    <insert id="addEnterpriseService" useGeneratedKeys="true" keyProperty="id"
-            parameterType="com.qinzi123.dto.EnterpriseInfo">
-        insert into enterprise_info(name,card_id,create_time,phone,type,isHot,title,main_image,score,introduce) values(#{name},#{cardId},#{createTime},#{phone},#{type},#{isHot},#{title},#{mainImage},#{score},#{introduce})
-    </insert>
-
-    <insert id="addEstablishmentService" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-        insert into buss_league_info(company,companyaddr,companydesc,companytel,companyweb,contactduty,contactname,contacttel,contactwx,email,industry,leaguetype,licensepic,logopic,mainbussiness,maindemand,members,submittime,updatetime)
-          values(#{company},#{companyaddr},#{companydesc},#{companytel},#{companyweb},#{contactduty},#{contactname},#{contacttel},#{contactwx},#{email},#{industry},#{leaguetype},#{licensepic},#{logopic},#{mainbussiness},#{maindemand},#{members},#{submittime},#{updatetime})
-    </insert>
-
-    <insert id="addCEndOrderService" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-        insert into c_end_order(order_no,product_id,open_id,phone,price,num,total,order_type,standard_id,status,receive_address,create_time,pay_time)
-          values(#{orderNo},#{product_id},#{open_id},#{phone},#{price},#{num},#{total},#{order_type},#{standard_id},#{status},#{receive_address},#{createTime},#{pay_time})
-    </insert>
-
-    <insert id="addProductInfoService" useGeneratedKeys="true" keyProperty="id" parameterType="com.qinzi123.dto.ProductInfo">
-        insert into product_info(status,is_hot,card_id,company_id,name,address,address_name,longitude,latitude,type,product_type,product_style,main_image,original_price,present_price,inventory,repeat_purchase,once_max_purchase_count,phone,introduce,vedio_path,instruction,buy_count,create_time,deadline_time)
- values(#{status},#{isHot},#{cardId},(select company_id from card_info where id = #{cardId}),#{name},#{address},#{addressName},#{longitude},#{latitude},#{type},#{productType},#{productStyle},#{mainImage},#{originalPrice},#{presentPrice},#{inventory},#{repeatPurchase},#{onceMaxPurchaseCount},#{phone},#{introduce},#{videoPath},#{instruction},#{buyCount},#{createTime},#{deadlineTime})
-    </insert>
-
-    <insert id="addActivityInfoService" useGeneratedKeys="true" keyProperty="id" parameterType="com.qinzi123.dto.ProductInfo">
-        insert into product_info(status,is_hot,card_id,company_id,name,address,address_name,longitude,latitude,product_type,main_image,original_price,present_price,inventory,repeat_purchase,once_max_purchase_count,phone,introduce,vedio_path,instruction,buy_count,create_time,deadline_time)
- values(#{status},#{isHot},#{cardId},(select company_id from card_info where id = #{cardId}),#{name},#{address},#{addressName},#{longitude},#{latitude},#{productType},#{mainImage},#{originalPrice},#{presentPrice},#{inventory},#{repeatPurchase},#{onceMaxPurchaseCount},#{phone},#{introduce},#{videoPath},#{instruction},#{buyCount},#{createTime},#{deadlineTime})
-    </insert>
-
     <select id="getProductId" resultType="int">
         select id from wx_product where name = #{name}
     </select>
@@ -63,92 +10,24 @@
         select id from activity_base where name = #{name}
     </select>
 
-    <update id="updateEntity">
-        update ${tableName} set ${updateColumns} where ${keyColumns}
-    </update>
-
-    <update id="updateBaseEntity">
-        update activity_base set card_id=#{card_id},phone=#{phone},leaguetype=#{leaguetype},city=#{city},longitude=#{longitude},latitude=#{latitude},district=#{district},introduce=#{introduce},level=#{level},main_image=#{main_image},name=#{name},official_account_name=#{official_account_name},open_time=#{open_time},price=#{price},topic_type_id=#{topic_type_id},traffic=#{traffic},workaddress=#{workaddress} where id = #{id}
-    </update>
-
-    <update id="updateEnterpriseEntity">
-        update enterprise_info set name=#{name},card_id=#{card_id},phone=#{phone},type=#{type},isHot=#{isHot},title=#{title},main_image=#{main_image},score=#{score},introduce=#{introduce} where id = #{id}
-    </update>
-
-    <update id="updateEstablishmentEntity">
-        update buss_league_info set leaguetype=#{leaguetype},companydesc=#{companydesc},company=#{company},logopic=#{logopic},members=#{members},companyaddr=#{companyaddr},companytel=#{companytel},companyweb=#{companyweb},industry=#{industry},mainbussiness=#{mainbussiness},maindemand=#{maindemand},licensepic=#{licensepic},contactname=#{contactname},contactduty=#{contactduty},contacttel=#{contacttel},contactwx=#{contactwx},email=#{email} where id = #{id}
-    </update>
-
-    <update id="updateProductInfoService">
-        update product_info set status=#{status},is_hot=#{is_hot},card_id=#{card_id},company_id=(select company_id from card_info where id = #{card_id}),name=#{name},address=#{address},address_name=#{address_name},longitude=#{longitude},latitude=#{latitude},type=#{type},product_type=#{product_type},product_style=#{product_style},main_image=#{main_image},original_price=#{original_price},present_price=#{present_price},inventory=#{inventory},repeat_purchase=#{repeat_purchase},once_max_purchase_count=#{once_max_purchase_count},phone=#{phone},introduce=#{introduce},vedio_path=#{vedio_path},instruction=#{instruction},buy_count=#{buy_count},deadline_time=#{deadline_time} where id = #{id}
-    </update>
-
-    <update id="updateCEndOrderService">
-        update c_end_order set product_id=#{product_id},phone=#{phone},price=#{price},num=#{num},total=#{total},order_type=#{order_type},standard_id=#{standard_id},status=#{status},receive_address=#{receive_address},pay_time=#{pay_time} where id = #{id}
-    </update>
-
-    <update id="updateProductEntity">
-        update wx_product set channel_price=#{channel_price},company=#{company},currency=#{currency},deadline_time=#{deadline_time},detail=#{detail},limit_stock=#{limit_stock},main_image=#{main_image},name=#{name},price=#{price},status=#{status},stock=#{stock} where id = #{id}
-    </update>
-
-    <delete id="deleteEntity">
-        delete from ${tableName} where ${keyColumns}
-    </delete>
-
-    <delete id="deleteBaseEntity">
-        delete from activity_base where id = #{id}
-    </delete>
-
-    <delete id="deleteBaseReserveEntity">
-        delete from activity_base_reserve where id = #{id}
-    </delete>
-
-    <delete id="deleteEnterpriseService">
-        delete from enterprise_info where id = #{id}
-    </delete>
-
-    <delete id="deleteEnterpriseConsultingService">
-        delete from enterprise_consulting where id = #{id}
-    </delete>
-
-    <delete id="deleteEnterpriseCommentService">
-        delete from enterprise_comment where id = #{id}
-    </delete>
-
-    <delete id="deleteEstablishmentService">
-        delete from buss_league_info where id = #{id}
-    </delete>
-
-    <delete id="deleteProductInfoService">
-        delete from product_info where id = #{id}
-    </delete>
-
-    <delete id="deleteCEndOrderService">
-        delete from c_end_order where id = #{id}
-    </delete>
-
-    <delete id="deleteBasePicList">
-        delete from activity_base_picture where base_id = #{baseId}
-    </delete>
-
-    <delete id="deleteEnterprisePicList">
-        delete from enterprise_picture where enterprise_id = #{enterpriseId}
-    </delete>
-
-    <delete id="deleteProductInfoPicList">
-        delete from product_picture where product_id = #{productId}
-    </delete>
-
-    <delete id="deleteProductPicList">
-        delete from wx_product_picture where product_id = #{productId}
-    </delete>
-
     <select id="findEntityByKey" resultType="java.util.LinkedHashMap">
         select * from ${tableName} where ${keyColumns}
     </select>
 
     <select id="findEntitys" resultType="java.util.LinkedHashMap">
         select * from ${tableName}
+    </select>
+
+    <select id="getProductStandardByProductId" resultType="java.util.LinkedHashMap">
+        select id,product_id,name as category,price,distribution,inventory,
+               once_max_purchase_count as onceMaxPurchaseCount,once_min_purchase_count as onceMinPurchaseCount
+               from c_end_product_standards where product_id = #{productId}
+    </select>
+
+    <select id="getAcitivityStandardByProductId" resultType="java.util.LinkedHashMap">
+        select id,product_id,adults_num as adultsNum,children_num as childrenNum,price,distribution,inventory,
+               once_max_purchase_count as onceMaxPurchaseCount,once_min_purchase_count as onceMinPurchaseCount
+               from c_end_activity_standards where product_id = #{productId}
     </select>
 
     <select id="findBaseEntity" resultType="java.util.LinkedHashMap">
@@ -203,8 +82,237 @@
 		select * from luck_draw_outside;
     </select>
 
+    <select id="getActivityStandards" resultType="java.util.LinkedHashMap">
+		select id,standard_desc as value from c_end_activity_standards
+    </select>
+
+    <select id="getProductStandards" resultType="java.util.LinkedHashMap">
+		select id,name as value from c_end_product_standards
+    </select>
+
+    <insert id="addEntity">
+        insert into ${tableName}(${tableColumns}) values(${tableValues})
+    </insert>
+
+    <insert id="addOtherImages" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into wx_product_picture(product_id, url) values(#{productId},#{url})
+    </insert>
+
+    <insert id="addOtherImagesToBase" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into activity_base_picture(base_id, picture_address) values(#{baseId},#{url})
+    </insert>
+
+    <insert id="addOtherImagesToEnterprise" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into enterprise_picture(enterprise_id, url) values(#{enterpriseId},#{url})
+    </insert>
+
+    <insert id="addOtherImagesToProductInfo" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into product_picture(product_id, picture_address) values(#{productId},#{url})
+    </insert>
+
+    <insert id="addOtherImagesToProduct" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into wx_product_picture(product_id, url) values(#{productId},#{url})
+    </insert>
+
+    <insert id="addBaseService" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into activity_base(name,topic_type_id,leaguetype,price,open_time,traffic,workaddress,official_account_name,introduce,card_id,main_image,longitude,latitude,level,create_time,city,district,phone) values(#{name},#{topic_type_id},#{leaguetype},#{price},#{open_time},#{traffic},#{workaddress},#{official_account_name},#{introduce},#{card_id},#{main_image},#{longitude},#{latitude},#{level},#{create_time},#{city},#{district},#{phone})
+    </insert>
+
+    <insert id="addEnterpriseService" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.qinzi123.dto.EnterpriseInfo">
+        insert into enterprise_info(name,card_id,create_time,phone,type,isHot,title,main_image,score,introduce) values(#{name},#{cardId},#{createTime},#{phone},#{type},#{isHot},#{title},#{mainImage},#{score},#{introduce})
+    </insert>
+
+    <insert id="addEstablishmentService" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into buss_league_info(company,companyaddr,companydesc,companytel,companyweb,contactduty,contactname,contacttel,contactwx,email,industry,leaguetype,licensepic,logopic,mainbussiness,maindemand,members,submittime,updatetime)
+          values(#{company},#{companyaddr},#{companydesc},#{companytel},#{companyweb},#{contactduty},#{contactname},#{contacttel},#{contactwx},#{email},#{industry},#{leaguetype},#{licensepic},#{logopic},#{mainbussiness},#{maindemand},#{members},#{submittime},#{updatetime})
+    </insert>
+
+    <insert id="addProductStandard" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.qinzi123.dto.ProductStandardDto">
+        insert into c_end_product_standards(product_id,name,price,distribution,inventory,
+                                            once_max_purchase_count,once_min_purchase_count,create_time)
+                                    values(#{productId},#{category},#{price},#{distribution},#{inventory},
+                                           #{onceMaxPurchaseCount},#{onceMinPurchaseCount},#{createTime})
+    </insert>
+
+    <insert id="addActivityStandard" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.qinzi123.dto.ActivityStandardDto">
+        insert into c_end_activity_standards(product_id,adults_num,children_num,price,distribution,inventory,
+                                             once_max_purchase_count,once_min_purchase_count,standard_desc,create_time)
+                                    values(#{productId},#{adultsNum},#{childrenNum},#{price},#{distribution},
+                                           #{inventory},#{onceMaxPurchaseCount},#{onceMinPurchaseCount},
+                                           CONCAT(#{productId},'-',#{productName},'-',#{adultsNum},'大',#{childrenNum},'小'),
+                                           #{createTime})
+    </insert>
+
+    <insert id="addCEndOrderService" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into c_end_order(order_no,product_id,open_id,phone,price,num,total,order_type,order_sale_type,
+                                retail_commission,retail_commission_income,primary_distribution_shop_id,
+                                primary_distribution_open_id,platform_service_fee,standard_id,status,
+                                receive_address,create_time,pay_time)
+          values(#{orderNo},#{product_id},#{open_id},#{phone},#{price},#{num},#{total},#{order_type},
+                 #{order_sale_type},#{retail_commission},#{retail_commission_income},
+                 #{primary_distribution_shop_id},#{primary_distribution_open_id},#{platform_service_fee},
+                 #{standard_id},#{status},#{receive_address},#{createTime},#{pay_time})
+    </insert>
+
+    <insert id="addShopInfoService" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into shop_info(card_id,company_id,name,logopic,account_name,bank_name,bank_account,
+                              can_withdrawal_money,already_withdrawal_money,progress_withdrawal_money,shop_type,
+                              type,create_time,visit_count)
+          values(#{card_id},#{company_id},#{name},#{logopic},#{account_name},#{bank_name},#{bank_account},
+                 #{can_withdrawal_money},#{already_withdrawal_money},#{progress_withdrawal_money},#{shop_type},
+                 #{type},#{createTime},#{visit_count})
+    </insert>
+
+    <insert id="addProductInfoService" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.qinzi123.dto.ProductInfo">
+        insert into product_info(status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,
+                                 type,product_type,product_style,wuyu_type,main_image,is_allow_distribution,
+                                 repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
+                                 create_time,deadline_time,qr_image)
+          values(#{status},#{isHot},#{cardId},#{shopId},#{name},#{address},#{addressName},#{longitude},#{latitude},
+                 #{type},#{productType},#{productStyle},#{wuyuType},#{mainImage},#{isAllowDistribution},
+                 #{repeatPurchase},#{phone},#{introduce},#{videoPath},#{instruction},#{buyCount},#{createTime},
+                 #{deadlineTime},#{qrImage})
+    </insert>
+
+    <insert id="addActivityInfoService" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.qinzi123.dto.ProductInfo">
+         insert into product_info(status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,
+                                 product_type,wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,
+                                 introduce,vedio_path,instruction,buy_count,create_time,deadline_time,qr_image)
+          values(#{status},#{isHot},#{cardId},#{shopId},#{name},#{address},#{addressName},#{longitude},#{latitude},
+                 #{productType},#{wuyuType},#{mainImage},#{isAllowDistribution},#{repeatPurchase},#{phone},
+                 #{introduce},#{videoPath},#{instruction},#{buyCount},#{createTime},#{deadlineTime},#{qrImage})
+     </insert>
+
+    <update id="updateEntity">
+        update ${tableName} set ${updateColumns} where ${keyColumns}
+    </update>
+
+    <update id="updateBaseEntity">
+        update activity_base set card_id=#{card_id},phone=#{phone},leaguetype=#{leaguetype},city=#{city},longitude=#{longitude},latitude=#{latitude},district=#{district},introduce=#{introduce},level=#{level},main_image=#{main_image},name=#{name},official_account_name=#{official_account_name},open_time=#{open_time},price=#{price},topic_type_id=#{topic_type_id},traffic=#{traffic},workaddress=#{workaddress} where id = #{id}
+    </update>
+
+    <update id="updateEnterpriseEntity">
+        update enterprise_info set name=#{name},card_id=#{card_id},phone=#{phone},type=#{type},isHot=#{isHot},title=#{title},main_image=#{main_image},score=#{score},introduce=#{introduce} where id = #{id}
+    </update>
+
+    <update id="updateEstablishmentEntity">
+        update buss_league_info set leaguetype=#{leaguetype},companydesc=#{companydesc},company=#{company},logopic=#{logopic},members=#{members},companyaddr=#{companyaddr},companytel=#{companytel},companyweb=#{companyweb},industry=#{industry},mainbussiness=#{mainbussiness},maindemand=#{maindemand},licensepic=#{licensepic},contactname=#{contactname},contactduty=#{contactduty},contacttel=#{contacttel},contactwx=#{contactwx},email=#{email} where id = #{id}
+    </update>
+
+    <update id="updateProductInfoService">
+        update product_info set status=#{status},is_hot=#{is_hot},card_id=#{card_id},shop_id=#{shop_id},
+                                name=#{name},address=#{address},address_name=#{address_name},
+                                longitude=#{longitude},latitude=#{latitude},type=#{type},
+                                product_type=#{product_type},product_style=#{product_style},
+                                wuyu_type=#{wuyu_type},main_image=#{main_image},
+                                is_allow_distribution=#{is_allow_distribution},repeat_purchase=#{repeat_purchase},
+                                phone=#{phone},introduce=#{introduce},vedio_path=#{vedio_path},
+                                instruction=#{instruction},buy_count=#{buy_count},deadline_time=#{deadline_time},
+                                qr_image=#{qr_image}
+                                where id = #{id}
+    </update>
+
+    <update id="updateCEndOrderService">
+        update c_end_order set product_id=#{product_id},phone=#{phone},price=#{price},num=#{num},total=#{total},
+               order_type=#{order_type},order_sale_type=#{order_sale_type},retail_commission=#{retail_commission},
+               retail_commission_income=#{retail_commission_income},
+               primary_distribution_shop_id=#{primary_distribution_shop_id},
+               primary_distribution_open_id=#{primary_distribution_open_id},
+               platform_service_fee=#{platform_service_fee},standard_id=#{standard_id},status=#{status},
+               receive_address=#{receive_address},pay_time=#{pay_time} where id = #{id}
+    </update>
+
+    <update id="updateShopInfoService">
+        update shop_info set card_id=#{card_id},company_id=#{company_id},name=#{name},logopic=#{logopic},
+                             account_name=#{account_name},bank_name=#{bank_name},bank_account=#{bank_account},
+                             can_withdrawal_money=#{can_withdrawal_money},already_withdrawal_money=#{already_withdrawal_money},
+                             progress_withdrawal_money=#{progress_withdrawal_money},shop_type=#{shop_type},
+                             type=#{type},visit_count=#{visit_count} where id = #{id}
+    </update>
+
+    <update id="updateProductEntity">
+        update wx_product set channel_price=#{channel_price},company=#{company},currency=#{currency},deadline_time=#{deadline_time},detail=#{detail},limit_stock=#{limit_stock},main_image=#{main_image},name=#{name},price=#{price},status=#{status},stock=#{stock} where id = #{id}
+    </update>
+
+    <delete id="deleteEntity">
+        delete from ${tableName} where ${keyColumns}
+    </delete>
+
+    <delete id="deleteBaseEntity">
+        delete from activity_base where id = #{id}
+    </delete>
+
+    <delete id="deleteBaseReserveEntity">
+        delete from activity_base_reserve where id = #{id}
+    </delete>
+
+    <delete id="deleteEnterpriseService">
+        delete from enterprise_info where id = #{id}
+    </delete>
+
+    <delete id="deleteEnterpriseConsultingService">
+        delete from enterprise_consulting where id = #{id}
+    </delete>
+
+    <delete id="deleteEnterpriseCommentService">
+        delete from enterprise_comment where id = #{id}
+    </delete>
+
+    <delete id="deleteEstablishmentService">
+        delete from buss_league_info where id = #{id}
+    </delete>
+
+    <delete id="deleteProductInfoService">
+        delete from product_info where id = #{id}
+    </delete>
+
+    <delete id="deleteProductStandardsService">
+        delete from c_end_product_standards where product_id = #{id}
+    </delete>
+
+    <delete id="deleteActivityStandardsService">
+        delete from c_end_activity_standards where product_id = #{id}
+    </delete>
+
+    <delete id="deleteProductPicturesService">
+        delete from product_picture where product_id = #{id}
+    </delete>
+
+    <delete id="deleteDistributionRecordsService">
+        delete from distribution_record where product_id = #{id}
+    </delete>
+
+    <delete id="deleteCEndOrderService">
+        delete from c_end_order where id = #{id}
+    </delete>
+
+    <delete id="deleteShopInfoService">
+        delete from shop_info where id = #{id}
+    </delete>
+
+    <delete id="deleteBasePicList">
+        delete from activity_base_picture where base_id = #{baseId}
+    </delete>
+
+    <delete id="deleteEnterprisePicList">
+        delete from enterprise_picture where enterprise_id = #{enterpriseId}
+    </delete>
+
+    <delete id="deleteProductInfoPicList">
+        delete from product_picture where product_id = #{productId}
+    </delete>
+
+    <delete id="deleteProductPicList">
+        delete from wx_product_picture where product_id = #{productId}
+    </delete>
 
     <delete id="clearAllJoiner">
 		 delete from luck_draw_outside
 	</delete>
+
 </mapper>

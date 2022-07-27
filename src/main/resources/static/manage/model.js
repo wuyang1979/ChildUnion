@@ -7,6 +7,7 @@ var vm = new Vue({
         dialogFormVisible: false, // 初始是否显示弹出框
         dialogForAdd: true,    // 是否是增加记录
         isShowTable: false,  // 初始化是否显示表格
+        productType: 0,     //0：产品；1：活动
         pageSize: 20,         // 表格显示记录数
         activeTabsName: 'first',  // 激活的tab页
 
@@ -190,6 +191,12 @@ var vm = new Vue({
                         });
                     } else if (this.tableUrl == "product_info") {
                         let productId = this.tableMeta.columns[0].value;
+                        for (let j = 0; j < op.tableMeta.columns.length; j++) {
+                            if (op.tableMeta.columns[j].name == "product_type") {
+                                op.productType = op.tableMeta.columns[j].value;
+                                break;
+                            }
+                        }
                         this.post("/product/pictureList", {id: productId}, function (result) {
                             for (let i = 0; i < result.body.length; i++) {
                                 for (let j = 0; j < op.tableMeta.columns.length; j++) {
@@ -199,6 +206,26 @@ var vm = new Vue({
                                 }
                             }
                         });
+                        let typeStr;
+                        for (let j = 0; j < op.tableMeta.columns.length; j++) {
+                            if (op.tableMeta.columns[j].name == "wuyu_type") {
+                                typeStr = this.tableMeta.columns[j].value;
+                            }
+                        }
+                        let typeArr = [];
+                        if (typeStr.indexOf("/") != -1) {
+                            let typeArrTemp = typeStr.split("/");
+                            for (let i = 0; i < typeArrTemp.length; i++) {
+                                typeArr.push(parseInt(typeArrTemp[i]));
+                            }
+                        } else {
+                            typeArr.push(parseInt(typeStr));
+                        }
+                        for (let k = 0; k < op.tableMeta.columns.length; k++) {
+                            if (op.tableMeta.columns[k].name == "wuyu_type") {
+                                op.tableMeta.columns[k].value = typeArr;
+                            }
+                        }
                     } else if (this.tableUrl == "enterprise_info") {
                         let ennterpriseId = this.tableMeta.columns[0].value;
                         this.post("/enterprise/pictureList", {id: ennterpriseId}, function (result) {
@@ -268,6 +295,47 @@ var vm = new Vue({
             if (!this.checkCommon(checkDialogCommon(this.tableMeta))) return;
             this.dialogForAdd ? this.addData() : this.updateData();
         },
+        // 添加产品规格
+        addProductStandard: function () {
+            let op = this;
+            for (let i = 0; i < op.tableMeta.columns.length; i++) {
+                if (op.tableMeta.columns[i].name == "standardList") {
+                    let standard = {};
+                    if (op.productType == 0) {
+                        standard = {
+                            "category": "",
+                            "price": "",
+                            "distribution": "",
+                            "inventory": "",
+                            "onceMaxPurchaseCount": "",
+                            "onceMinPurchaseCount": ""
+                        };
+                    } else if (op.productType == 1) {
+                        standard = {
+                            "adultsNum": "",
+                            "childrenNum": "",
+                            "price": "",
+                            "distribution": "",
+                            "inventory": "",
+                            "onceMaxPurchaseCount": "",
+                            "onceMinPurchaseCount": ""
+                        };
+                    }
+                    op.tableMeta.columns[i].value.push(standard);
+                    break;
+                }
+            }
+        },
+        // 添加产品规格
+        deleteProductStandard: function (index) {
+            let op = this;
+            for (let i = 0; i < op.tableMeta.columns.length; i++) {
+                if (op.tableMeta.columns[i].name == "standardList") {
+                    op.tableMeta.columns[i].value.splice(index, 1);
+                    break;
+                }
+            }
+        },
         // 搜索按钮点击
         search: function () {
             if (this.searchValue == undefined || this.searchValue.length == 0) return;
@@ -283,7 +351,57 @@ var vm = new Vue({
         },
         // 单选框控制 - 走control处理
         radioChange: function (label) {
+            let op = this;
             bind_radio_change(label);
+            if (this.tableUrl == "c_end_order") {
+                if (label == 0) {
+                    this.post("/getProductStandards", {}, function (result) {
+                        for (let k = 0; k < op.tableMeta.columns.length; k++) {
+                            if (op.tableMeta.columns[k].name == "standard_id") {
+                                op.tableMeta.columns[k].initData = [];
+                            }
+                        }
+                        for (let j = 0; j < op.tableMeta.columns.length; j++) {
+                            if (op.tableMeta.columns[j].name == "standard_id") {
+                                for (let i = 0; i < result.body.length; i++) {
+                                    let standard = {"value": result.body[i].id, "desc": result.body[i].value};
+                                    op.tableMeta.columns[j].initData.push(standard);
+                                }
+                            }
+                        }
+                    });
+                } else if (label == 1) {
+                    this.post("/getActivityStandards", {}, function (result) {
+                        for (let k = 0; k < op.tableMeta.columns.length; k++) {
+                            if (op.tableMeta.columns[k].name == "standard_id") {
+                                op.tableMeta.columns[k].initData = [];
+                            }
+                        }
+                        for (let j = 0; j < op.tableMeta.columns.length; j++) {
+                            if (op.tableMeta.columns[j].name == "standard_id") {
+                                for (let i = 0; i < result.body.length; i++) {
+                                    let standard = {"value": result.body[i].id, "desc": result.body[i].value};
+                                    op.tableMeta.columns[j].initData.push(standard);
+                                }
+                            }
+                        }
+                    });
+                }
+            } else if (this.tableUrl == "product_info") {
+                //遍历  product_type的value
+                let columns = op.tableMeta.columns;
+                for (let i = 0; i < columns.length; i++) {
+                    if (columns[i].name == 'product_type' && columns[i].value == 0) {
+                        //选择发布产品
+                        op.productType = 0;
+                        break;
+                    } else if (columns[i].name == 'product_type' && columns[i].value == 1) {
+                        //选择发布活动
+                        op.productType = 1;
+                        break;
+                    }
+                }
+            }
         },
         // 菜单点击
         handleMenuClick: function (index, path) {
@@ -382,6 +500,8 @@ var vm = new Vue({
                 var value
                 if (oneColumn.name == "deadline_time" || oneColumn.name == "create_time" || oneColumn.name == "pay_time") {
                     value = formatDate(oneColumn.value);
+                } else if (oneColumn.name == "standardList") {
+                    value = oneColumn.value;
                 } else {
                     value = oneColumn.value instanceof Date ? oneColumn.value.format("yyyy-MM-dd") : (
                         isArray(oneColumn.value) ? oneColumn.value.join(",") : oneColumn.value);

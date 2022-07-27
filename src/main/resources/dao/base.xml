@@ -72,6 +72,14 @@
 		select area from scenic_spot_area where id = #{district}
     </select>
 
+    <select id="getBaseReserveList" resultType="java.util.LinkedHashMap">
+        select id,activity_base_name as baseName,card_name as cardName,phone,DATE_FORMAT(create_time,'%Y-%m-%d') as createTime,read_status from activity_base_reserve order by read_status,id
+    </select>
+
+    <select id="allBaseMapInfo" resultType="java.util.LinkedHashMap">
+        select id, name, longitude, latitude from activity_base
+    </select>
+
     <insert id="baseReserve" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
 		insert into activity_base_reserve(activity_base_id, card_id,create_time,activity_base_name,card_name,phone,company,read_status)
 		values(#{baseId}, #{cardId},#{createTime},#{activityBaseName},#{cardName},#{phone},#{company},0)
@@ -89,15 +97,8 @@
 		where id = #{id}
 	</update>
 
-    <select id="getBaseReserveList" resultType="java.util.LinkedHashMap">
-        select id,activity_base_name as baseName,card_name as cardName,phone,DATE_FORMAT(create_time,'%Y-%m-%d') as createTime,read_status from activity_base_reserve order by read_status,id
-    </select>
-
-    <select id="allBaseMapInfo" resultType="java.util.LinkedHashMap">
-        select id, name, longitude, latitude from activity_base
-    </select>
-
     <update id="readOrder" parameterType="int">
     	update activity_base_reserve set read_status = 1 where id = #{id}
 	</update>
+
 </mapper>

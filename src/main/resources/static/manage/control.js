@@ -152,6 +152,7 @@
     }
 
     function load_init() {
+        let op = this;
         if (this.modelName == "student") {
             this.vm.loadRefs({
                 model: "student",

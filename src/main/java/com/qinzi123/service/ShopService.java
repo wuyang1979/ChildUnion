@@ -33,7 +33,7 @@ public interface ShopService {
 
     Map<String, Object> getShopShowInfoById(Map map);
 
-    Map<String,Object> getShopTypeByCardId(Map map);
+    Map<String, Object> getShopTypeByCardId(Map map);
 
     List<LinkedHashMap> listProuct(int shopId, int start, int num);
 
