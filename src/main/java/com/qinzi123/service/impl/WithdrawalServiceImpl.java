@@ -1,12 +1,14 @@
 package com.qinzi123.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.qinzi123.dao.WithdrawalDao;
 import com.qinzi123.dto.WithDrawDTO;
 import com.qinzi123.dto.WithDrawEnum;
 import com.qinzi123.util.DateUtils;
+import com.qinzi123.util.JsonUtil;
 import com.qinzi123.util.WithDrawUtils;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Service;
@@ -47,8 +49,10 @@ public class WithdrawalServiceImpl extends AbstractWechatMiniProgramService impl
             //1.企业付款至零钱
             String targetOpenId = withdrawalDao.getTargetOpenIdByCard(card);
             Map<String, Object> wxWithdrawalMap = enterprisePayToChange(Double.parseDouble(map.get("actualAmount").toString()), targetOpenId, "", "", "");
-            String msg = wxWithdrawalMap.get("msg").toString();
-            if ("success".equals(msg)) {
+            JSONObject wxWithdrawalJson = JsonUtil.mapToJson(wxWithdrawalMap);
+            JSONObject resultJson = wxWithdrawalJson.getJSONObject("result");
+            String msg = resultJson.getString("result_code");
+            if ("success".equalsIgnoreCase(msg)) {
                 //提现成功
                 map.put("createTime", DateUtils.getAccurateDate());
                 //提现状态  0：提现中；1：已提现
@@ -60,19 +64,28 @@ public class WithdrawalServiceImpl extends AbstractWechatMiniProgramService impl
     }
 
     @Override
-    public int distributionPartnerStartWithdrawal(Map map) throws Exception {
+    public Map distributionPartnerStartWithdrawal(Map map) throws Exception {
         String userId = map.get("userId").toString();
         String targetOpenId = withdrawalDao.getTargetOpenIdByUserId(userId);
         Map<String, Object> wxWithdrawalMap = enterprisePayToChangeForChengZhangGo(Double.parseDouble(map.get("actualAmount").toString()), targetOpenId, "", "", "");
-        String msg = wxWithdrawalMap.get("msg").toString();
-        if ("success".equals(msg)) {
+        JSONObject wxWithdrawalJson = JsonUtil.mapToJson(wxWithdrawalMap);
+        JSONObject resultJson = wxWithdrawalJson.getJSONObject("result");
+        String msg = resultJson.getString("result_code");
+        Map<String, Object> resultMap = new HashedMap();
+        if ("success".equalsIgnoreCase(msg)) {
             //提现成功
             map.put("createTime", DateUtils.getAccurateDate());
             //提现状态  0：提现中；1：已提现
             map.put("status", 1);
             withdrawalDao.updateDistributionShopMoneyByUserId(map);
+            withdrawalDao.distributionPartnerStartWithdrawal(map);
+            resultMap.put("flag", 1);
+            resultMap.put("msg", resultJson.getString("return_msg"));
+        } else {
+            resultMap.put("flag", 0);
+            resultMap.put("msg", resultJson.getString("return_msg"));
         }
-        return withdrawalDao.distributionPartnerStartWithdrawal(map);
+        return resultMap;
     }
 
     Map<String, Object> enterprisePayToChange(double amount, String openId, String independentMchid, String independentApiKey, String apiclientCertPath) throws Exception {
@@ -136,17 +149,19 @@ public class WithdrawalServiceImpl extends AbstractWechatMiniProgramService impl
         String url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
         String post = WithDrawUtils.getRestInstance(independentMchid, apiclientCertPath, url, WithDrawUtils.convertToXml(withDrawDTO));
         Map<String, String> result = WXPayUtil.xmlToMap(post);
-        //result为调用接口之后的返回参数，可以根据返回参数判断是否成功
+//        //result为调用接口之后的返回参数，可以根据返回参数判断是否成功
         Map<String, Object> resultMap = new HashedMap();
-        if ("SUCCESS".equals(result.get("result_code"))) {
-            //提现成功
-            resultMap.put("msg", "success");
-            return resultMap;
-        } else {
-            //提现失败
-            resultMap.put("msg", WithDrawEnum.fromText(result.get("err_code")).getMsg());
-            return resultMap;
-        }
+        resultMap.put("result", result);
+        return resultMap;
+//        if ("SUCCESS".equals(result.get("result_code"))) {
+//            //提现成功
+//            resultMap.put("msg", "success");
+//            return resultMap;
+//        } else {
+//            //提现失败
+//            resultMap.put("msg", WithDrawEnum.fromText(result.get("err_code")).getMsg());
+//            return resultMap;
+//        }
     }
 
     @Override

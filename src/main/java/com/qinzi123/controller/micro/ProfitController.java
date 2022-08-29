@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,5 +33,17 @@ public class ProfitController {
     @RequestMapping(value = "/profit/getDistributionPartnerProfitInfo", method = RequestMethod.POST)
     private Map getDistributionPartnerProfitInfo(@RequestBody Map map) {
         return profitService.getDistributionPartnerProfitInfo(map);
+    }
+
+    @ApiOperation(value = "获取直卖收益列表", notes = "获取直卖收益列表")
+    @RequestMapping(value = "/profit/loadSelfProfitList", method = RequestMethod.POST)
+    private List<LinkedHashMap> loadSelfProfitList(@RequestBody Map map) {
+        return profitService.loadSelfProfitList(map);
+    }
+
+    @ApiOperation(value = "获取团队收益列表", notes = "获取团队收益列表")
+    @RequestMapping(value = "/profit/loadTeamProfitList", method = RequestMethod.POST)
+    private List<LinkedHashMap> loadTeamProfitList(@RequestBody Map map) {
+        return profitService.loadTeamProfitList(map);
     }
 }

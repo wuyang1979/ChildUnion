@@ -54,4 +54,6 @@ public interface ShopDao {
 
     int addVisitCountByShopId(Map map);
 
+    List<LinkedHashMap> getShopListByUserId(@Param("userId") String userId);
+
 }

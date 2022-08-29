@@ -27,6 +27,8 @@ public class ProductInfo {
     private String longitude;
     private String latitude;
     private int productType;
+    private int activityType1;
+    private int activityType2;
     private int type;
     private int productStyle;
     private String wuyuType;

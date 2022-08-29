@@ -6,4 +6,43 @@
 		select can_withdrawal_money,already_withdrawal_money from distribution_partner_order where user_id = #{userId}
     </select>
 
+    <select id="getSelfProfitListByUserId" resultType="java.util.LinkedHashMap">
+		select * from c_end_order
+		    where primary_distribution_shop_id = -1
+		    and status in (1,2)
+		    and primary_distribution_open_id = (select open_id from c_end_user_info
+		                                            where id = #{userId} and belong = 0)
+    </select>
+
+	<select id="getMemberListByUserId" resultType="java.lang.String">
+		select user_id from c_end_commander_info
+			where first_commander_type = 2
+			and first_commander = #{userId}
+			order by id
+    </select>
+
+    <select id="getSelfProfitCustomerOpenIdListByUserId" resultType="java.util.LinkedHashMap">
+		select DISTINCT open_id from c_end_order
+		    where primary_distribution_shop_id = -1
+		    and status in (1,2)
+		    and primary_distribution_open_id = (select open_id from c_end_user_info
+		                                            where id = #{userId} and belong = 0)
+		    limit #{start}, #{num}
+    </select>
+
+	<select id="getMemberProfitCustomerOpenIdListByUserId" resultType="java.util.LinkedHashMap">
+		select DISTINCT open_id from c_end_order
+		    where primary_distribution_shop_id = -1
+		    and status in (1,2)
+		    and primary_distribution_open_id in
+		        <foreach item="param" index="index" collection="param" open="(" separator="," close=")">
+			        #{param}
+		        </foreach>
+		    limit #{start}, #{num}
+    </select>
+
+    <select id="getCustomerInfoByOpenId" resultType="java.util.Map">
+		select nick_name,head_img_url from c_end_user_info where open_id = #{openId}
+    </select>
+
 </mapper>

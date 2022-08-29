@@ -60,6 +60,37 @@ public class IndexServiceImpl extends AbstractWechatMiniProgramService implement
         return Integer.parseInt(map.get("id").toString());
     }
 
+    @Override
+    public int addDistributionRecordForShopkeeper(Map map) {
+        String createTime = DateUtils.getAccurateDate();
+        map.put("createTime", createTime);
+        map.put("payTime", createTime);
+        map.put("orderNo", Utils.getCurrentDateNoFlag());
+        return indexDao.addFreeDistributionPartnerOrder(map);
+    }
+
+    @Override
+    public int addOrUpdateNewMembersJoinAuthAcceptRecord(Map map) {
+        String userId = map.get("userId").toString();
+        List<LinkedHashMap> newMembersJoinAuthList = indexDao.getNewMembersJoinAuthListByUserId(userId);
+        int rows;
+        if (newMembersJoinAuthList.size() == 0) {
+            Map paramsMap = new HashMap();
+            paramsMap.put("userId", userId);
+            paramsMap.put("type", 1);
+            paramsMap.put("authStatus", 1);
+            paramsMap.put("createTime", DateUtils.getAccurateDate());
+            rows = indexDao.addCEndAuthAcceptRecord(paramsMap);
+        } else {
+            rows = indexDao.updateNewMembersJoinAuthStatusByUserId(userId);
+        }
+        return rows;
+    }
+
+    @Override
+    public List<LinkedHashMap> getDistributionRecordByUserId(Map map) {
+        return indexDao.getDistributionRecordByUserId(map);
+    }
 
     @Override
     public Map<String, Object> registerNewUser(Map map) {
@@ -123,6 +154,11 @@ public class IndexServiceImpl extends AbstractWechatMiniProgramService implement
     }
 
     @Override
+    public List<LinkedHashMap> getShopListByUserId(Map map) {
+        return indexDao.getShopListByUserId(map);
+    }
+
+    @Override
     public List<LinkedHashMap> getShopListByUserId2(Map map) {
         return indexDao.getShopListByUserId(map);
     }
@@ -133,6 +169,11 @@ public class IndexServiceImpl extends AbstractWechatMiniProgramService implement
         List<LinkedHashMap> distributionPartnerList = indexDao.getDistributionPartnerListByUserId(map);
         shopList.addAll(distributionPartnerList);
         return shopList;
+    }
+
+    @Override
+    public List<LinkedHashMap> getCEndUnAuthRecordList(Map map) {
+        return indexDao.getCEndUnAuthRecordList(map);
     }
 
     public String getUuid() {

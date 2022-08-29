@@ -181,11 +181,13 @@
     <insert id="addActivityInfoService" useGeneratedKeys="true" keyProperty="id"
             parameterType="com.qinzi123.dto.ProductInfo">
          insert into product_info(status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,
-                                 product_type,wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,
-                                 introduce,vedio_path,instruction,buy_count,create_time,deadline_time,qr_image)
+                                 product_type,activity_type1,activity_type2,wuyu_type,main_image,is_allow_distribution,
+                                 repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,create_time,deadline_time,
+                                 qr_image)
           values(#{status},#{isHot},#{cardId},#{shopId},#{name},#{address},#{addressName},#{longitude},#{latitude},
-                 #{productType},#{wuyuType},#{mainImage},#{isAllowDistribution},#{repeatPurchase},#{phone},
-                 #{introduce},#{videoPath},#{instruction},#{buyCount},#{createTime},#{deadlineTime},#{qrImage})
+                 #{productType},#{activityType1},#{activityType2},#{wuyuType},#{mainImage},#{isAllowDistribution},
+                 #{repeatPurchase},#{phone},#{introduce},#{videoPath},#{instruction},#{buyCount},#{createTime},
+                 #{deadlineTime},#{qrImage})
      </insert>
 
     <update id="updateEntity">
@@ -209,6 +211,7 @@
                                 name=#{name},address=#{address},address_name=#{address_name},
                                 longitude=#{longitude},latitude=#{latitude},type=#{type},
                                 product_type=#{product_type},product_style=#{product_style},
+                                activity_type1=#{activity_type1},activity_type2=#{activity_type2},
                                 wuyu_type=#{wuyu_type},main_image=#{main_image},
                                 is_allow_distribution=#{is_allow_distribution},repeat_purchase=#{repeat_purchase},
                                 phone=#{phone},introduce=#{introduce},vedio_path=#{vedio_path},

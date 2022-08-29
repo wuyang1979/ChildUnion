@@ -165,6 +165,8 @@ public class ProductServiceImpl extends AbstractWechatMiniProgramService impleme
         productInfo.setStatus(2);
         productInfo.setIsHot(0);
         productInfo.setProductType(1);
+        productInfo.setActivityType1(Integer.parseInt(map.get("activityType1").toString()));
+        productInfo.setActivityType2(Integer.parseInt(map.get("activityType2").toString()));
         productInfo.setWuyuType(map.get("wuyuType").toString());
         productInfo.setCardId(map.get("card").toString());
         productInfo.setName(map.get("name").toString());
@@ -421,6 +423,8 @@ public class ProductServiceImpl extends AbstractWechatMiniProgramService impleme
         productInfo.setId(productId);
         productInfo.setName(map.get("name").toString());
         productInfo.setWuyuType(map.get("wuyuType").toString());
+        productInfo.setActivityType1(Integer.parseInt(map.get("activityType1").toString()));
+        productInfo.setActivityType2(Integer.parseInt(map.get("activityType2").toString()));
         if (map.get("address") != null) {
             productInfo.setAddress(map.get("address").toString());
         } else {
@@ -730,8 +734,8 @@ public class ProductServiceImpl extends AbstractWechatMiniProgramService impleme
     }
 
     @Override
-    public List<LinkedHashMap> getAllListProduct(int type, int start, int num) {
-        return productDao.getAllListProduct(type, start, num);
+    public List<LinkedHashMap> getAllListProduct(int type, String activityType1, String activityType2, int start, int num) {
+        return productDao.getAllListProduct(type, activityType1, activityType2, start, num);
     }
 
     @Override

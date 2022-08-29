@@ -38,7 +38,7 @@ public class WithdrawalController {
 
     @ApiOperation(value = "分销合伙人发起提现", notes = "分销合伙人发起提现")
     @RequestMapping(value = "/withdrawal/distributionPartnerStartWithdrawal", method = RequestMethod.POST)
-    private int distributionPartnerStartWithdrawal(@RequestBody Map map) throws Exception {
+    private Map distributionPartnerStartWithdrawal(@RequestBody Map map) throws Exception {
         return withdrawalService.distributionPartnerStartWithdrawal(map);
     }
 

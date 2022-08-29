@@ -32,12 +32,31 @@
 		    and status = 1
     </select>
 
+    <select id="getPhoneByOpenId" resultType="string">
+		select phone from c_end_user_info where open_id = #{openId} and belong = 0
+    </select>
+
+    <select id="getCascadeListByUserId" resultType="java.util.LinkedHashMap">
+		select * from c_end_customer_cascade where subordinate_id = #{userId}
+    </select>
+
+    <select id="getDistributionPartnerListByOpenId" resultType="java.util.LinkedHashMap">
+		select * from distribution_partner_order
+		    where status = 1 and user_id = (select id from c_end_user_info
+		                                        where open_id = #{openId} and belong = 0)
+    </select>
+
+
     <select id="getOpenIdByPhone" resultType="string">
 		select open_id from c_end_user_info where phone = #{posterSharerPhone} and belong = 0
     </select>
 
     <select id="getPhoneByUserId" resultType="string">
 		select phone from c_end_user_info where id = #{userId} and belong = 0
+    </select>
+
+    <select id="getUserIdByDistributionRecordId" resultType="string">
+		select user_id from distribution_partner_order where id = #{id}
     </select>
 
     <select id="getReceiveAddress" resultType="java.util.LinkedHashMap">
@@ -59,7 +78,7 @@
     </select>
 
     <select id="getUserIdByOpenId" resultType="string">
-        select id from c_end_user_info where open_id = #{openId}
+        select id from c_end_user_info where open_id = #{openId} and belong = 0
     </select>
 
     <select id="getWriteOffClerkByOpenId" resultType="java.util.LinkedHashMap">
@@ -152,7 +171,7 @@
     </select>
 
     <select id="getUserIdByOrderId" resultType="string">
-		select id from c_end_user_info where open_id = (select open_id from c_end_order where id = #{orderId})
+		select id from c_end_user_info where belong = 0 and open_id = (select open_id from c_end_order where id = #{orderId})
     </select>
 
     <select id="loadBuyerInfoByOpenId" resultType="java.util.Map">
@@ -176,7 +195,9 @@
 
 
 
-                                    select * from c_end_order where order_type = 0 and status = 1 and pay_time <= #{currentTimeMinus7Days}
+
+                                            select * from c_end_order where order_type = 0 and status = 1 and pay_time <= #{currentTimeMinus7Days}
+
 
 
 
@@ -189,8 +210,13 @@
     </select>
 
     <select id="getPrimaryDistributionUserIdByOpenId" resultType="string">
-        select id from c_end_user_info where open_id = #{openId}
+        select id from c_end_user_info where open_id = #{openId} and belong = 0
     </select>
+
+    <insert id="addSecondRegimentalCommander" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into c_end_commander_info(first_commander_type,first_commander,user_id,create_time)
+               values(#{firstCommanderType},#{shopId},#{userId},#{createTime})
+	</insert>
 
     <insert id="addUserOrder" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
 		insert into c_end_order(order_no,product_id,buyer,open_id,phone,price,num,total,order_type,order_sale_type,
@@ -199,6 +225,11 @@
 		       values(#{orderNo},#{productId},#{buyer},#{openId},#{phone},#{price},#{num},#{total},#{orderType},#{orderSaleType},
 		              #{retail_commission},#{retail_commission_income},#{primary_distribution_shop_id},#{primary_distribution_open_id},
 		              #{platform_service_fee},#{standardId},#{status},#{receiveAddress},#{createTime})
+	</insert>
+
+    <insert id="addCascade" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into c_end_customer_cascade(superior_type,superior_id,subordinate_id,create_time)
+               values(#{superior_type},#{superior_id},#{subordinate_id},#{create_time})
 	</insert>
 
     <insert id="addUserFreeOrder" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
@@ -230,7 +261,7 @@
 
     <insert id="addCertificateInfo" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
 		insert into c_end_certificate_info(user_id,activity_id,institution_id,certificate_time,create_time)
-		                values((select id from c_end_user_info where open_id = #{openId}), #{activity_id},#{institution_id},#{certificate_time},#{create_time})
+		                values((select id from c_end_user_info where open_id = #{openId} and belong = 0), #{activity_id},#{institution_id},#{certificate_time},#{create_time})
 	</insert>
 
     <insert id="addClientEndDistributorWithdrawalRecord" useGeneratedKeys="true" keyProperty="id"

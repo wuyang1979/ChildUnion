@@ -25,6 +25,8 @@ public interface RechargeMoneyService {
 
     Map clientEndDistributionPartnerPayBack(String result);
 
+    Map clientEndDistributionPartnerToBeLeaderPayBack(String result);
+
     Map toLeaguer(Map map);
 
     Map membershipExpiration(Map map);

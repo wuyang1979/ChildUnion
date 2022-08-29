@@ -36,7 +36,7 @@ public abstract class AbstractWechatMiniProgramService extends AbstractWechatSer
     protected static final String LEAGUE_NOTIFY_URL = "https://www.qinzi123.com/leagueOrder/callback";
     protected static final String C_END_NOTIFY_URL = "https://www.qinzi123.com/userOrder/callback";
     protected static final String DISTRIBUTION_PARTNER_URL = "https://www.qinzi123.com/userOrder/distributionPartnerCallback";
-
+    protected static final String DISTRIBUTION_PARTNER_TO_BE_LEADER_URL = "https://www.qinzi123.com/userOrder/distributionPartnerToBeLeaderCallback";
 
     private Logger logger = LoggerFactory.getLogger(AbstractWechatMiniProgramService.class);
 

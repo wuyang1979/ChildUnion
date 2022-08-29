@@ -51,6 +51,13 @@
 	    select company_id from shop_info where id = (select shop_id from product_info where id = #{productId})
     </select>
 
+	<select id="getShopListByUserId" resultType="java.util.LinkedHashMap">
+		select * from shop_info
+			where card_id = (select id from card_info
+								where phone = (select phone from c_end_user_info
+													where id = #{userId} and belong = 0))
+    </select>
+
     <select id="getQrCodeByProductId" resultType="string">
 	    select qr_image from product_info where id = #{productId}
     </select>

@@ -37,6 +37,10 @@
 		                                            where id = #{userId}))
     </select>
 
+	<select id="getDistributionRecordByUserId" resultType="java.util.LinkedHashMap">
+		select * from distribution_partner_order where user_id = #{userId} and status = 1
+    </select>
+
     <select id="getDistributionShopByUserId" resultType="java.util.LinkedHashMap">
 		select * from shop_info
 			where card_id = (select id from card_info
@@ -48,9 +52,24 @@
 		select * from distribution_partner_order where status = 1 and user_id = #{userId}
     </select>
 
+    <select id="getDistributionShopListByUserId" resultType="java.util.LinkedHashMap">
+		select * from shop_info
+		    where shop_type = 1 and card_id = (select id from card_info
+		                        where phone = (select phone from c_end_user_info
+		                                            where id = #{userId}))
+    </select>
+
+    <select id="getCEndUnAuthRecordList" resultType="java.util.LinkedHashMap">
+        select * from c_end_auth_record where type in (1) and user_id = #{userId}
+	</select>
+
     <select id="getAllDistributionShopList" resultType="java.util.LinkedHashMap">
 		select * from shop_info where shop_type = 1
     </select>
+
+    <select id="getNewMembersJoinAuthListByUserId" resultType="java.util.LinkedHashMap">
+        select * from c_end_auth_record where type = 1 and user_id = #{userId}
+	</select>
 
     <insert id="registerNewUser" parameterType="java.util.Map">
 		insert into c_end_user_info(id, open_id,phone,nick_name,head_img_url,gender,belong,create_time)
@@ -58,8 +77,22 @@
 	</insert>
 
     <insert id="addDistributionPartnerOrder" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
-		insert into distribution_partner_order(user_id,order_no,total,num,price,status,can_withdrawal_money,already_withdrawal_money,create_time)
+		insert into distribution_partner_order(user_id,order_no,total,num,price,status,can_withdrawal_money,
+		                                       already_withdrawal_money,create_time)
 		                        values(#{userId},#{orderNo},'9.9','1','9.9',0,'0.00','0.00',#{createTime})
+	</insert>
+
+    <insert id="addCEndAuthAcceptRecord" useGeneratedKeys="true" keyProperty="id"
+            parameterType="java.util.Map">
+		insert into c_end_auth_record(user_id, open_id, type, auth_status, create_time)
+		    values(#{userId}, (select open_id from c_end_user_info where id = #{userId} and belong = 0),
+		           #{type},#{authStatus},#{createTime})
+    </insert>
+
+    <insert id="addFreeDistributionPartnerOrder" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into distribution_partner_order(user_id,order_no,total,num,price,status,can_withdrawal_money,
+		                                       already_withdrawal_money,create_time,pay_time)
+		                        values(#{userId},#{orderNo},'0.0','1','0.0',1,'0.00','0.00',#{createTime},#{payTime})
 	</insert>
 
     <insert id="addOfflineRecord" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
@@ -71,8 +104,16 @@
     	update card_info set phone = #{phone} where id = #{card}
 	</update>
 
+    <update id="updateNewMembersJoinAuthStatusByUserId" parameterType="java.lang.String">
+    	update c_end_auth_record set auth_status = 1 where type = 1 and user_id = #{userId}
+	</update>
+
     <delete id="deleteDistributionRecordByDistributionShopId" parameterType="int">
         delete from distribution_record where primary_shop_id = #{shopId}
+    </delete>
+
+    <delete id="deleteDistributionRecordByOrderId" parameterType="int">
+        delete from distribution_partner_order where id = #{orderId}
     </delete>
 
 </mapper>

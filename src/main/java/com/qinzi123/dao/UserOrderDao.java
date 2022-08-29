@@ -32,11 +32,21 @@ public interface UserOrderDao {
 
     List<LinkedHashMap> getDistributionPartnerListByPhone(@Param("phone") String phone);
 
+    String getPhoneByOpenId(@Param("openId") String openId);
+
+    List<LinkedHashMap> getCascadeListByUserId(@Param("userId") String userId);
+
     String getOpenIdByPhone(@Param("posterSharerPhone") String posterSharerPhone);
 
     String getPhoneByUserId(@Param("userId") String userId);
 
+    String getUserIdByDistributionRecordId(@Param("id") String id);
+
+    int addSecondRegimentalCommander(Map map);
+
     int addUserOrder(Map map);
+
+    int addCascade(Map map);
 
     int addUserFreeOrder(Map map);
 
@@ -61,6 +71,8 @@ public interface UserOrderDao {
     int updateIssuerShopWithdrawalAmount(Map map);
 
     String getPrimaryDistributionUserIdByOpenId(@Param("openId") String openId);
+
+    List<LinkedHashMap> getDistributionPartnerListByOpenId(@Param("openId") String openId);
 
     int updateExclusiveIssuerShopWithdrawalAmount(Map map);
 

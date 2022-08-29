@@ -9,6 +9,7 @@ import com.qinzi123.exception.GlobalProcessException;
 import com.qinzi123.service.RechargeMoneyService;
 import com.qinzi123.service.ScoreService;
 import com.qinzi123.util.DateUtils;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,8 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.Resource;
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -413,11 +416,88 @@ public class RechargeMoneyServiceImpl extends AbstractWechatMiniProgramService i
             if (!isPaySuccess) throw new GlobalProcessException("支付失败");
 
             String id = callBackMap.get("attach").toString();
+            String userId = userOrderDao.getUserIdByDistributionRecordId(id);
 //            String total_fee = callBackMap.get("total_fee").toString();
 //            String orderNo = callBackMap.get("out_trade_no").toString();
 //            String openId = callBackMap.get("openid").toString();
 
+            //更新分销合伙人记录
             updateClientEndDistributionPartnerOrder(id);
+
+            Map paramsMap = new HashedMap();
+            //判断该二级团长是否存在客户级联
+            List<LinkedHashMap> cascadeList = userOrderDao.getCascadeListByUserId(userId);
+            if (cascadeList.size() > 0) {
+                //存在级联，查询上级类型和上级id
+                int superiorType = Integer.parseInt(cascadeList.get(0).get("superior_type").toString());
+                String shopId = cascadeList.get(0).get("superior_id").toString();
+                if (superiorType == 0) {
+                    //该申请成为分销合伙人的二级团长的上级为小店
+                    paramsMap.put("firstCommanderType", 1);
+                } else if (superiorType == 1) {
+                    //该申请成为分销合伙人的二级团长的上级为分销合伙人
+                    paramsMap.put("firstCommanderType", 2);
+                }
+                paramsMap.put("shopId", shopId);
+            } else {
+                //不存在级联
+                //添加二级团长（平台所属）
+                paramsMap.put("firstCommanderType", 0);
+                paramsMap.put("shopId", 0);
+            }
+            paramsMap.put("userId", userId);
+            paramsMap.put("createTime", DateUtils.getAccurateDate());
+            userOrderDao.addSecondRegimentalCommander(paramsMap);
+
+            return callBackMap;
+        } catch (Exception e) {
+            throw new GlobalProcessException("回调接口失败", e.getMessage());
+        }
+    }
+
+    @Override
+    public Map clientEndDistributionPartnerToBeLeaderPayBack(String result) {
+        try {
+            log.info("微信回调函数入口 {}", result);
+            Map callBackMap = WXPayUtil.xmlToMap(result);
+            String result_code = callBackMap.get("result_code").toString();
+            boolean isPaySuccess = StringUtils.isNotBlank(result_code) && result_code.equals("SUCCESS");
+            if (!isPaySuccess) throw new GlobalProcessException("支付失败");
+
+            String attach = callBackMap.get("attach").toString();
+            String[] attachArr = attach.split("-");
+            String id = attachArr[0];
+            String shopId = attachArr[1];
+            String userId = userOrderDao.getUserIdByDistributionRecordId(id);
+
+            //更新分销合伙人记录
+            updateClientEndDistributionPartnerOrder(id);
+
+
+            Map paramsMap = new HashedMap();
+            //判断该二级团长是否存在客户级联
+            List<LinkedHashMap> cascadeList = userOrderDao.getCascadeListByUserId(userId);
+            if (cascadeList.size() > 0) {
+                //存在级联，查询上级类型和上级id
+                int superiorType = Integer.parseInt(cascadeList.get(0).get("superior_type").toString());
+                String topShopId = cascadeList.get(0).get("superior_id").toString();
+                if (superiorType == 0) {
+                    //该申请成为分销合伙人的二级团长的上级为小店
+                    paramsMap.put("firstCommanderType", 1);
+                } else if (superiorType == 1) {
+                    //该申请成为分销合伙人的二级团长的上级为分销合伙人
+                    paramsMap.put("firstCommanderType", 2);
+                }
+                paramsMap.put("shopId", topShopId);
+            } else {
+                //不存在级联
+                //添加二级团长（小店所属）
+                paramsMap.put("firstCommanderType", 1);
+                paramsMap.put("shopId", shopId);
+            }
+            paramsMap.put("userId", userId);
+            paramsMap.put("createTime", DateUtils.getAccurateDate());
+            userOrderDao.addSecondRegimentalCommander(paramsMap);
 
             return callBackMap;
         } catch (Exception e) {

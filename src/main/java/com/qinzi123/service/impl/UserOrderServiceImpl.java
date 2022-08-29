@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.TypeReference;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
+import com.qinzi123.constant.DistributionConstant;
 import com.qinzi123.dao.ProductDao;
 import com.qinzi123.dao.UserOrderDao;
 import com.qinzi123.dto.*;
@@ -20,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Service;
@@ -52,6 +54,10 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
     @Resource
     private PushMiniProgramService pushService;
 
+    private Double primaryDistributionProportion = DistributionConstant.primaryDistributionProportion;
+
+    private Double secondaryDistributionProportion = DistributionConstant.secondaryDistributionProportion;
+
     private final int PLATFORM_SERVICE_RATE = 0;
 
     private Logger log = LoggerFactory.getLogger(RechargeMoneyServiceImpl.class);
@@ -79,7 +85,8 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
     public int addUserOrder(Map map) {
         Map<String, Object> userInfoMap = userOrderDao.getUserInfoById(map);
         Map<String, Object> productInfo = userOrderDao.getProductInfoByProductId(map);
-        map.put("openId", userInfoMap.get("open_id"));
+        String buyerOpenId = userInfoMap.get("open_id").toString();
+        map.put("openId", buyerOpenId);
         map.put("phone", userInfoMap.get("phone"));
         map.put("orderNo", Utils.getCurrentDateNoFlag());
         map.put("status", OrderStatusType.PendingPayment.getType());
@@ -121,10 +128,11 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                 //非平台分销
                 //C端客户分销--满足条件 enterFromShop=false; 海报分享人手机号查询不到小店信息但是已成为分销合伙人
                 if (StringUtils.isNotEmpty(posterSharerPhone)) {
-                    //分销合伙人通过分享海报进行分销
+                    //C端客户通过分享海报进行分销
                     List<LinkedHashMap> shopIdList = userOrderDao.getPrimaryDistributionShopIdByPhone(posterSharerPhone);
                     List<LinkedHashMap> distributionPartnerList = userOrderDao.getDistributionPartnerListByPhone(posterSharerPhone);
                     if (shopIdList.size() == 0 && distributionPartnerList.size() > 0) {
+                        //是分销合伙人
                         map.put("orderSaleType", 1);
                         Double distribution = Double.parseDouble(standardInfo.get("distribution").toString());
                         DecimalFormat df = new DecimalFormat("#0.00");
@@ -137,6 +145,7 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                         map.put("platform_service_fee", platform_service_fee);
                         map.put("retail_commission_income", df.format(Double.parseDouble(retail_commission) - Double.parseDouble(platform_service_fee)));
                     } else if (shopIdList.size() == 0 && distributionPartnerList.size() == 0) {
+                        //不是分销合伙人
                         map.put("orderSaleType", 1);
                         Double distribution = Double.parseDouble(standardInfo.get("distribution").toString());
                         DecimalFormat df = new DecimalFormat("#0.00");
@@ -149,12 +158,13 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                         map.put("retail_commission_income", "0.00");
                     }
                 } else if (enterFromForwardDetailPage) {
-                    //分销合伙人通过转发产品详情页进行分销
+                    //C端客户通过转发产品详情页进行分销
                     String forwardUserId = map.get("forwardUserId").toString();
                     String forwardPhone = userOrderDao.getPhoneByUserId(forwardUserId);
                     List<LinkedHashMap> shopIdList = userOrderDao.getPrimaryDistributionShopIdByPhone(forwardPhone);
                     List<LinkedHashMap> distributionPartnerList = userOrderDao.getDistributionPartnerListByPhone(forwardPhone);
                     if (shopIdList.size() == 0 && distributionPartnerList.size() > 0) {
+                        //是分销合伙人
                         map.put("orderSaleType", 1);
                         Double distribution = Double.parseDouble(standardInfo.get("distribution").toString());
                         DecimalFormat df = new DecimalFormat("#0.00");
@@ -167,6 +177,7 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                         map.put("platform_service_fee", platform_service_fee);
                         map.put("retail_commission_income", df.format(Double.parseDouble(retail_commission) - Double.parseDouble(platform_service_fee)));
                     } else if (shopIdList.size() == 0 && distributionPartnerList.size() == 0) {
+                        //不是分销合伙人
                         map.put("orderSaleType", 1);
                         Double distribution = Double.parseDouble(standardInfo.get("distribution").toString());
                         DecimalFormat df = new DecimalFormat("#0.00");
@@ -217,7 +228,8 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
     public int addUserActivityOrder(Map map) {
         Map<String, Object> userInfoMap = userOrderDao.getUserInfoById(map);
         Map<String, Object> productInfo = userOrderDao.getProductInfoByProductId(map);
-        map.put("openId", userInfoMap.get("open_id"));
+        String buyerOpenId = userInfoMap.get("open_id").toString();
+        map.put("openId", buyerOpenId);
         map.put("phone", userInfoMap.get("phone"));
         map.put("orderNo", Utils.getCurrentDateNoFlag());
         map.put("status", OrderStatusType.PendingPayment.getType());
@@ -262,6 +274,7 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                     List<LinkedHashMap> shopIdList = userOrderDao.getPrimaryDistributionShopIdByPhone(posterSharerPhone);
                     List<LinkedHashMap> distributionPartnerList = userOrderDao.getDistributionPartnerListByPhone(posterSharerPhone);
                     if (shopIdList.size() == 0 && distributionPartnerList.size() > 0) {
+                        //是分销合伙人
                         map.put("orderSaleType", 1);
                         Double distribution = Double.parseDouble(standardInfo.get("distribution").toString());
                         DecimalFormat df = new DecimalFormat("#0.00");
@@ -274,6 +287,7 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                         map.put("platform_service_fee", platform_service_fee);
                         map.put("retail_commission_income", df.format(Double.parseDouble(retail_commission) - Double.parseDouble(platform_service_fee)));
                     } else if (shopIdList.size() == 0 && distributionPartnerList.size() == 0) {
+                        //不是分销合伙人
                         map.put("orderSaleType", 1);
                         Double distribution = Double.parseDouble(standardInfo.get("distribution").toString());
                         DecimalFormat df = new DecimalFormat("#0.00");
@@ -304,6 +318,7 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                         map.put("platform_service_fee", platform_service_fee);
                         map.put("retail_commission_income", df.format(Double.parseDouble(retail_commission) - Double.parseDouble(platform_service_fee)));
                     } else if (shopIdList.size() == 0 && distributionPartnerList.size() == 0) {
+                        //不是分销合伙人
                         map.put("orderSaleType", 1);
                         Double distribution = Double.parseDouble(standardInfo.get("distribution").toString());
                         DecimalFormat df = new DecimalFormat("#0.00");
@@ -354,7 +369,9 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
     public int addUserFreeOrder(HashMap map) {
         Map<String, Object> userInfoMap = userOrderDao.getUserInfoById(map);
         Map<String, Object> productInfo = userOrderDao.getProductInfoByProductId(map);
-        map.put("openId", userInfoMap.get("open_id"));
+        String buyerOpenId = userInfoMap.get("open_id").toString();
+        String buyerUserId = userOrderDao.getUserIdByOpenId(buyerOpenId);
+        map.put("openId", buyerOpenId);
         map.put("phone", userInfoMap.get("phone"));
         map.put("orderNo", Utils.getCurrentDateNoFlag());
         map.put("status", OrderStatusType.PendingConfirm.getType());
@@ -401,6 +418,7 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                     List<LinkedHashMap> shopIdList = userOrderDao.getPrimaryDistributionShopIdByPhone(posterSharerPhone);
                     List<LinkedHashMap> distributionPartnerList = userOrderDao.getDistributionPartnerListByPhone(posterSharerPhone);
                     if (shopIdList.size() == 0 && distributionPartnerList.size() > 0) {
+                        //是分销合伙人
                         map.put("orderSaleType", 1);
                         Double distribution = Double.parseDouble(standardInfo.get("distribution").toString());
                         DecimalFormat df = new DecimalFormat("#0.00");
@@ -412,7 +430,22 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                         String platform_service_fee = df.format(Double.parseDouble(retail_commission) * PLATFORM_SERVICE_RATE / 100);
                         map.put("platform_service_fee", platform_service_fee);
                         map.put("retail_commission_income", df.format(Double.parseDouble(retail_commission) - Double.parseDouble(platform_service_fee)));
+
+                        //C端客户分销，且分销者是分销合伙人，添加客户级联
+                        //先判断下单人是否已经存在客户级联
+                        List<LinkedHashMap> cascadeList = userOrderDao.getCascadeListByUserId(buyerUserId);
+                        if (cascadeList.size() == 0) {
+                            //若已存在级联关系则不添加级联记录
+                            //客户上级userId
+                            Map<String, Object> cascadeParamsMap = new HashedMap();
+                            cascadeParamsMap.put("superior_type", 1);
+                            cascadeParamsMap.put("superior_id", userOrderDao.getUserIdByOpenId(primary_distribution_open_id));
+                            cascadeParamsMap.put("subordinate_id", buyerUserId);
+                            cascadeParamsMap.put("create_time", DateUtils.getAccurateDate());
+                            userOrderDao.addCascade(cascadeParamsMap);
+                        }
                     } else if (shopIdList.size() == 0 && distributionPartnerList.size() == 0) {
+                        //不是分销合伙人
                         map.put("orderSaleType", 1);
                         Double distribution = Double.parseDouble(standardInfo.get("distribution").toString());
                         DecimalFormat df = new DecimalFormat("#0.00");
@@ -431,6 +464,7 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                     List<LinkedHashMap> shopIdList = userOrderDao.getPrimaryDistributionShopIdByPhone(forwardPhone);
                     List<LinkedHashMap> distributionPartnerList = userOrderDao.getDistributionPartnerListByPhone(forwardPhone);
                     if (shopIdList.size() == 0 && distributionPartnerList.size() > 0) {
+                        //是分销合伙人
                         map.put("orderSaleType", 1);
                         Double distribution = Double.parseDouble(standardInfo.get("distribution").toString());
                         DecimalFormat df = new DecimalFormat("#0.00");
@@ -442,7 +476,22 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                         String platform_service_fee = df.format(Double.parseDouble(retail_commission) * PLATFORM_SERVICE_RATE / 100);
                         map.put("platform_service_fee", platform_service_fee);
                         map.put("retail_commission_income", df.format(Double.parseDouble(retail_commission) - Double.parseDouble(platform_service_fee)));
+
+                        //C端客户分销，且分销者是分销合伙人，添加客户级联
+                        //先判断下单人是否已经存在客户级联
+                        List<LinkedHashMap> cascadeList = userOrderDao.getCascadeListByUserId(buyerUserId);
+                        if (cascadeList.size() == 0) {
+                            //若已存在级联关系则不添加级联记录
+                            //客户上级userId
+                            Map<String, Object> cascadeParamsMap = new HashedMap();
+                            cascadeParamsMap.put("superior_type", 1);
+                            cascadeParamsMap.put("superior_id", userOrderDao.getUserIdByOpenId(primary_distribution_open_id));
+                            cascadeParamsMap.put("subordinate_id", buyerUserId);
+                            cascadeParamsMap.put("create_time", DateUtils.getAccurateDate());
+                            userOrderDao.addCascade(cascadeParamsMap);
+                        }
                     } else if (shopIdList.size() == 0 && distributionPartnerList.size() == 0) {
+                        //不是分销合伙人
                         map.put("orderSaleType", 1);
                         Double distribution = Double.parseDouble(standardInfo.get("distribution").toString());
                         DecimalFormat df = new DecimalFormat("#0.00");
@@ -480,6 +529,20 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                         String platform_service_fee = df.format(Double.parseDouble(retail_commission) * PLATFORM_SERVICE_RATE / 100);
                         map.put("platform_service_fee", platform_service_fee);
                         map.put("retail_commission_income", df.format(Double.parseDouble(retail_commission) - Double.parseDouble(platform_service_fee)));
+
+                        //B端客户分销，添加客户级联
+                        //先判断下单人是否已经存在客户级联
+                        List<LinkedHashMap> cascadeList = userOrderDao.getCascadeListByUserId(buyerUserId);
+                        if (cascadeList.size() == 0) {
+                            //若已存在级联关系则不添加级联记录
+                            //客户上级userId
+                            Map<String, Object> cascadeParamsMap = new HashedMap();
+                            cascadeParamsMap.put("superior_type", 0);
+                            cascadeParamsMap.put("superior_id", disShopId);
+                            cascadeParamsMap.put("subordinate_id", buyerUserId);
+                            cascadeParamsMap.put("create_time", DateUtils.getAccurateDate());
+                            userOrderDao.addCascade(cascadeParamsMap);
+                        }
                     }
                 }
 
@@ -502,10 +565,16 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
     }
 
     @Override
+    public int deleteDistributionRecordByOrderId(Map map) {
+        return indexDao.deleteDistributionRecordByOrderId(map);
+    }
+
+    @Override
     public int addUserFreeActivityOrder(Map map) {
         Map<String, Object> userInfoMap = userOrderDao.getUserInfoById(map);
         Map<String, Object> productInfo = userOrderDao.getProductInfoByProductId(map);
-        map.put("openId", userInfoMap.get("open_id"));
+        String buyerOpenId = userInfoMap.get("open_id").toString();
+        map.put("openId", buyerOpenId);
         map.put("phone", userInfoMap.get("phone"));
         map.put("orderNo", Utils.getCurrentDateNoFlag());
         map.put("status", OrderStatusType.PendingConfirm.getType());
@@ -550,6 +619,7 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                     List<LinkedHashMap> shopIdList = userOrderDao.getPrimaryDistributionShopIdByPhone(posterSharerPhone);
                     List<LinkedHashMap> distributionPartnerList = userOrderDao.getDistributionPartnerListByPhone(posterSharerPhone);
                     if (shopIdList.size() == 0 && distributionPartnerList.size() > 0) {
+                        //是分销合伙人
                         map.put("orderSaleType", 1);
                         Double distribution = Double.parseDouble(standardInfo.get("distribution").toString());
                         DecimalFormat df = new DecimalFormat("#0.00");
@@ -562,6 +632,7 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                         map.put("platform_service_fee", platform_service_fee);
                         map.put("retail_commission_income", df.format(Double.parseDouble(retail_commission) - Double.parseDouble(platform_service_fee)));
                     } else if (shopIdList.size() == 0 && distributionPartnerList.size() == 0) {
+                        //不是分销合伙人
                         map.put("orderSaleType", 1);
                         Double distribution = Double.parseDouble(standardInfo.get("distribution").toString());
                         DecimalFormat df = new DecimalFormat("#0.00");
@@ -580,6 +651,7 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                     List<LinkedHashMap> shopIdList = userOrderDao.getPrimaryDistributionShopIdByPhone(forwardPhone);
                     List<LinkedHashMap> distributionPartnerList = userOrderDao.getDistributionPartnerListByPhone(forwardPhone);
                     if (shopIdList.size() == 0 && distributionPartnerList.size() > 0) {
+                        //是分销合伙人
                         map.put("orderSaleType", 1);
                         Double distribution = Double.parseDouble(standardInfo.get("distribution").toString());
                         DecimalFormat df = new DecimalFormat("#0.00");
@@ -592,6 +664,7 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
                         map.put("platform_service_fee", platform_service_fee);
                         map.put("retail_commission_income", df.format(Double.parseDouble(retail_commission) - Double.parseDouble(platform_service_fee)));
                     } else if (shopIdList.size() == 0 && distributionPartnerList.size() == 0) {
+                        //不是分销合伙人
                         map.put("orderSaleType", 1);
                         Double distribution = Double.parseDouble(standardInfo.get("distribution").toString());
                         DecimalFormat df = new DecimalFormat("#0.00");
@@ -712,7 +785,6 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
     @Override
     public Map prepay(Map map) {
         try {
-            //该字段表示是否由成长GO平台下单  0：是；1：否
             String appName = map.get("appName").toString();
             if ("chengzhanggo".equals(appName)) {
                 map.put("appid", getChengZhangGoAppId());
@@ -833,7 +905,8 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
     }
 
     @Override
-    public int confirmReceipt(Map map) throws Exception {
+    public int confirmReceipt(Map map) {
+        DecimalFormat df = new DecimalFormat("#0.00");
         Map<String, Object> orderInfo = userOrderDao.getOrderInfoByOrderId(map);
         //供应商小店id
         int issuerShopId = userOrderDao.getShopIdByProductId(orderInfo);
@@ -854,22 +927,53 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
         } else if (orderSaleType == 1) {
             //分销订单,分开结算
             int primaryDistributionShopId = Integer.parseInt(orderInfo.get("primary_distribution_shop_id").toString());
-            if (primaryDistributionShopId == -1) {
-                //客户分销
-                String primaryDistributionOpenId = orderInfo.get("primary_distribution_open_id").toString();
-                if (StringUtils.isNotEmpty(primaryDistributionOpenId)) {
-                    //只要一级分销客户的openId不为空，则说明该客户已成为分销合伙人 金额计入我的收益（可提现金额）
-                    String primaryDistributionUserId = userOrderDao.getPrimaryDistributionUserIdByOpenId(primaryDistributionOpenId);
+            String primaryDistributionOpenId = orderInfo.get("primary_distribution_open_id").toString();
+            ;
+            //primaryDistributionShopId为-1也能是非分销合伙人的客户分销订单
+            if (primaryDistributionShopId == -1 && StringUtils.isNotEmpty(primaryDistributionOpenId)) {
+                //客户分销（必定是存在二级分销）
+                //计算一级分销佣金
+                String primaryDistributionUserId = userOrderDao.getPrimaryDistributionUserIdByOpenId(primaryDistributionOpenId);
+                //根据一级分销客户openId查询分销合伙人列表
+                List<LinkedHashMap> distributionPartnerList = userOrderDao.getDistributionPartnerListByOpenId(primaryDistributionOpenId);
+                if (distributionPartnerList.size() > 0) {
+                    //该客户已成为分销合伙人 二级分销佣金计入我的收益（可提现金额）;若客户未成为分销合伙人，无操作
                     paramsMap.put("userId", primaryDistributionUserId);
-                    paramsMap.put("canWithdrawalMoney", Double.parseDouble(orderInfo.get("retail_commission_income").toString()));
+                    //分销佣金的90%
+                    paramsMap.put("canWithdrawalMoney", df.format(Double.parseDouble(orderInfo.get("retail_commission").toString()) * primaryDistributionProportion));
                     userOrderDao.updateDistributionPartnerAccountByUserId(paramsMap);
                 }
+
+                //计算二级分销佣金
+                //根据客户userId获取客户级联
+                List<LinkedHashMap> cascadeList = userOrderDao.getCascadeListByUserId(primaryDistributionUserId);
+                int superiorType = Integer.parseInt(cascadeList.get(0).get("superior_type").toString());
+                if (superiorType == 0) {
+                    //二级佣金级联类型为分销小店
+                    Map<String, Object> secondaryShopParamsMap = new HashedMap();
+                    int secondaryShopId = Integer.parseInt(cascadeList.get(0).get("superior_id").toString());
+                    secondaryShopParamsMap.put("primaryDistributionShopId", secondaryShopId);
+                    //分销佣金的10%
+                    secondaryShopParamsMap.put("primaryDistributorIncome", df.format(Double.parseDouble(orderInfo.get("retail_commission").toString()) * secondaryDistributionProportion));
+                    userOrderDao.updateDistributorShopWithdrawalAmount(secondaryShopParamsMap);
+                } else if (superiorType == 1) {
+                    //二级佣金级联类型为分销合伙人
+                    String secondaryDistributionPartnerUserId = cascadeList.get(0).get("superior_id").toString();
+                    Map<String, Object> secondaryDistributionPartnerParamsMap = new HashedMap();
+                    secondaryDistributionPartnerParamsMap.put("userId", secondaryDistributionPartnerUserId);
+                    //分销佣金的10%
+                    secondaryDistributionPartnerParamsMap.put("canWithdrawalMoney", df.format(Double.parseDouble(orderInfo.get("retail_commission").toString()) * secondaryDistributionProportion));
+                    userOrderDao.updateDistributionPartnerAccountByUserId(secondaryDistributionPartnerParamsMap);
+                }
+            } else if (primaryDistributionShopId == -1 && StringUtils.isEmpty(primaryDistributionOpenId)) {
+                //散客分销
             } else if (primaryDistributionShopId == 0) {
                 //平台分销
             } else {
-                //商户分销
+                //商户分销（只有一级）
                 paramsMap.put("primaryDistributionShopId", primaryDistributionShopId);
-                paramsMap.put("primaryDistributorIncome", Double.parseDouble(orderInfo.get("retail_commission_income").toString()));
+                //分销佣金的90%
+                paramsMap.put("primaryDistributorIncome", df.format(Double.parseDouble(orderInfo.get("retail_commission").toString()) * primaryDistributionProportion));
                 int type = userOrderDao.getTypeByShopId(primaryDistributionShopId);
                 if (type == 0) {
                     //普通小店
@@ -899,7 +1003,8 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
     }
 
     @Override
-    public int writeOffUserOrder(Map map) throws Exception {
+    public int writeOffUserOrder(Map map) {
+        DecimalFormat df = new DecimalFormat("#0.00");
         //这里有product_id
         Map<String, Object> orderInfo = userOrderDao.getOrderInfoByOrderId(map);
         Map<String, Object> productIdMap = userOrderDao.getProductIdByOrderId(map);
@@ -933,22 +1038,52 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
         } else if (orderSaleType == 1) {
             //分销订单,分开结算
             int primaryDistributionShopId = Integer.parseInt(orderInfo.get("primary_distribution_shop_id").toString());
-            if (primaryDistributionShopId == -1) {
-                //客户分销
-                String primaryDistributionOpenId = orderInfo.get("primary_distribution_open_id").toString();
-                if (StringUtils.isNotEmpty(primaryDistributionOpenId)) {
-                    //只要一级分销客户的openId不为空，则说明该客户已成为分销合伙人 金额计入我的收益（可提现金额）
-                    String primaryDistributionUserId = userOrderDao.getPrimaryDistributionUserIdByOpenId(primaryDistributionOpenId);
+            String primaryDistributionOpenId = orderInfo.get("primary_distribution_open_id").toString();
+            //primaryDistributionShopId为-1也能是非分销合伙人的客户分销订单
+            if (primaryDistributionShopId == -1 && StringUtils.isNotEmpty(primaryDistributionOpenId)) {
+                //客户分销（必定是存在二级分销）
+                //计算一级分销佣金
+                String primaryDistributionUserId = userOrderDao.getPrimaryDistributionUserIdByOpenId(primaryDistributionOpenId);
+                //根据一级分销客户openId查询分销合伙人列表
+                List<LinkedHashMap> distributionPartnerList = userOrderDao.getDistributionPartnerListByOpenId(primaryDistributionOpenId);
+                if (distributionPartnerList.size() > 0) {
+                    //该客户已成为分销合伙人 二级分销佣金计入我的收益（可提现金额）;若客户未成为分销合伙人，无操作
                     paramsMap.put("userId", primaryDistributionUserId);
-                    paramsMap.put("canWithdrawalMoney", Double.parseDouble(orderInfo.get("retail_commission_income").toString()));
+                    //分销佣金的90%
+                    paramsMap.put("canWithdrawalMoney", df.format(Double.parseDouble(orderInfo.get("retail_commission").toString()) * primaryDistributionProportion));
                     userOrderDao.updateDistributionPartnerAccountByUserId(paramsMap);
                 }
+
+                //计算二级分销佣金
+                //根据客户userId获取客户级联
+                List<LinkedHashMap> cascadeList = userOrderDao.getCascadeListByUserId(primaryDistributionUserId);
+                int superiorType = Integer.parseInt(cascadeList.get(0).get("superior_type").toString());
+                if (superiorType == 0) {
+                    //二级佣金级联类型为分销小店
+                    Map<String, Object> secondaryShopParamsMap = new HashedMap();
+                    int secondaryShopId = Integer.parseInt(cascadeList.get(0).get("superior_id").toString());
+                    secondaryShopParamsMap.put("primaryDistributionShopId", secondaryShopId);
+                    //分销佣金的10%
+                    secondaryShopParamsMap.put("primaryDistributorIncome", df.format(Double.parseDouble(orderInfo.get("retail_commission").toString()) * secondaryDistributionProportion));
+                    userOrderDao.updateDistributorShopWithdrawalAmount(secondaryShopParamsMap);
+                } else if (superiorType == 1) {
+                    //二级佣金级联类型为分销合伙人
+                    String secondaryDistributionPartnerUserId = cascadeList.get(0).get("superior_id").toString();
+                    Map<String, Object> secondaryDistributionPartnerParamsMap = new HashedMap();
+                    secondaryDistributionPartnerParamsMap.put("userId", secondaryDistributionPartnerUserId);
+                    //分销佣金的10%
+                    secondaryDistributionPartnerParamsMap.put("canWithdrawalMoney", df.format(Double.parseDouble(orderInfo.get("retail_commission").toString()) * secondaryDistributionProportion));
+                    userOrderDao.updateDistributionPartnerAccountByUserId(secondaryDistributionPartnerParamsMap);
+                }
+            } else if (primaryDistributionShopId == -1 && StringUtils.isEmpty(primaryDistributionOpenId)) {
+                //散客分销
             } else if (primaryDistributionShopId == 0) {
                 //平台分销
             } else {
-                //商户分销
+                //商户分销（只有一级）
                 paramsMap.put("primaryDistributionShopId", primaryDistributionShopId);
-                paramsMap.put("primaryDistributorIncome", Double.parseDouble(orderInfo.get("retail_commission_income").toString()));
+                //分销佣金的90%
+                paramsMap.put("primaryDistributorIncome", df.format(Double.parseDouble(orderInfo.get("retail_commission").toString()) * primaryDistributionProportion));
                 int type = userOrderDao.getTypeByShopId(primaryDistributionShopId);
                 if (type == 0) {
                     //普通小店
@@ -975,6 +1110,7 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int refreshOrder() {
+        DecimalFormat df = new DecimalFormat("#0.00");
         String currentTimeMinus7Days = DateUtils.formatDate(DateUtils.beforeDay(ORDER_TIMEOUT_DAYS), DateUtils.DATETIME_FORMAT);
         Map<String, Object> paramsMap = new HashedMap();
         paramsMap.put("currentTimeMinus7Days", currentTimeMinus7Days);
@@ -1002,22 +1138,52 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
             } else if (orderSaleType == 1) {
                 //分销订单,分开结算
                 int primaryDistributionShopId = Integer.parseInt(orderInfo.get("primary_distribution_shop_id").toString());
-                if (primaryDistributionShopId == -1) {
-                    //客户分销
-                    String primaryDistributionOpenId = orderInfo.get("primary_distribution_open_id").toString();
-                    if (StringUtils.isNotEmpty(primaryDistributionOpenId)) {
-                        //只要一级分销客户的openId不为空，则说明该客户已成为分销合伙人 金额计入我的收益（可提现金额）
-                        String primaryDistributionUserId = userOrderDao.getPrimaryDistributionUserIdByOpenId(primaryDistributionOpenId);
+                String primaryDistributionOpenId = orderInfo.get("primary_distribution_open_id").toString();
+                //primaryDistributionShopId为-1也能是非分销合伙人的客户分销订单
+                if (primaryDistributionShopId == -1 && StringUtils.isNotEmpty(primaryDistributionOpenId)) {
+                    //客户分销（必定是存在二级分销）
+                    //计算一级分销佣金
+                    String primaryDistributionUserId = userOrderDao.getPrimaryDistributionUserIdByOpenId(primaryDistributionOpenId);
+                    //根据一级分销客户openId查询分销合伙人列表
+                    List<LinkedHashMap> distributionPartnerList = userOrderDao.getDistributionPartnerListByOpenId(primaryDistributionOpenId);
+                    if (distributionPartnerList.size() > 0) {
+                        //该客户已成为分销合伙人 二级分销佣金计入我的收益（可提现金额）;若客户未成为分销合伙人，无操作
                         paramsMap.put("userId", primaryDistributionUserId);
-                        paramsMap.put("canWithdrawalMoney", Double.parseDouble(orderInfo.get("retail_commission_income").toString()));
+                        //分销佣金的90%
+                        paramsMap.put("canWithdrawalMoney", df.format(Double.parseDouble(orderInfo.get("retail_commission").toString()) * primaryDistributionProportion));
                         userOrderDao.updateDistributionPartnerAccountByUserId(paramsMap);
                     }
+
+                    //计算二级分销佣金
+                    //根据客户userId获取客户级联
+                    List<LinkedHashMap> cascadeList = userOrderDao.getCascadeListByUserId(primaryDistributionUserId);
+                    int superiorType = Integer.parseInt(cascadeList.get(0).get("superior_type").toString());
+                    if (superiorType == 0) {
+                        //二级佣金级联类型为分销小店
+                        Map<String, Object> secondaryShopParamsMap = new HashedMap();
+                        int secondaryShopId = Integer.parseInt(cascadeList.get(0).get("superior_id").toString());
+                        secondaryShopParamsMap.put("primaryDistributionShopId", secondaryShopId);
+                        //分销佣金的10%
+                        secondaryShopParamsMap.put("primaryDistributorIncome", df.format(Double.parseDouble(orderInfo.get("retail_commission").toString()) * secondaryDistributionProportion));
+                        userOrderDao.updateDistributorShopWithdrawalAmount(secondaryShopParamsMap);
+                    } else if (superiorType == 1) {
+                        //二级佣金级联类型为分销合伙人
+                        String secondaryDistributionPartnerUserId = cascadeList.get(0).get("superior_id").toString();
+                        Map<String, Object> secondaryDistributionPartnerParamsMap = new HashedMap();
+                        secondaryDistributionPartnerParamsMap.put("userId", secondaryDistributionPartnerUserId);
+                        //分销佣金的10%
+                        secondaryDistributionPartnerParamsMap.put("canWithdrawalMoney", df.format(Double.parseDouble(orderInfo.get("retail_commission").toString()) * secondaryDistributionProportion));
+                        userOrderDao.updateDistributionPartnerAccountByUserId(secondaryDistributionPartnerParamsMap);
+                    }
+                } else if (primaryDistributionShopId == -1 && StringUtils.isEmpty(primaryDistributionOpenId)) {
+                    //散客分销
                 } else if (primaryDistributionShopId == 0) {
                     //平台分销
                 } else {
-                    //商户分销
+                    //商户分销（只有一级）
                     newParamsMap.put("primaryDistributionShopId", primaryDistributionShopId);
-                    newParamsMap.put("primaryDistributorIncome", Double.parseDouble(orderInfo.get("retail_commission_income").toString()));
+                    //分销佣金的90%
+                    newParamsMap.put("primaryDistributorIncome", df.format(Double.parseDouble(orderInfo.get("retail_commission").toString()) * primaryDistributionProportion));
                     int type = userOrderDao.getTypeByShopId(primaryDistributionShopId);
                     if (type == 0) {
                         //普通小店
@@ -1156,11 +1322,20 @@ public class UserOrderServiceImpl extends AbstractWechatMiniProgramService imple
         String nonceStr = WXPayUtil.generateNonceStr();
         Map<String, String> packageParams = new HashMap<String, String>();
         packageParams.put("appid", map.get("appid").toString());
-        packageParams.put("attach", map.get("id").toString());
         packageParams.put("body", map.get("body").toString());
         packageParams.put("mch_id", map.get("mch_id").toString());
         packageParams.put("nonce_str", nonceStr);
-        packageParams.put("notify_url", DISTRIBUTION_PARTNER_URL);//支付成功后的回调地址
+        String attach;
+        String notifyUrl;
+        if (map.get("shopId") == null) {
+            attach = map.get("id").toString();
+            notifyUrl = DISTRIBUTION_PARTNER_URL;
+        } else {
+            attach = map.get("id").toString() + "-" + map.get("shopId").toString();
+            notifyUrl = DISTRIBUTION_PARTNER_TO_BE_LEADER_URL;
+        }
+        packageParams.put("attach", attach);
+        packageParams.put("notify_url", notifyUrl);//支付成功后的回调地址
         packageParams.put("openid", map.get("openid").toString());//支付方式
         packageParams.put("out_trade_no", map.get("order").toString());//商户订单号
         packageParams.put("sign_type", WXPayConstants.MD5);

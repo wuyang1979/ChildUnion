@@ -17,7 +17,7 @@ public interface WithdrawalService {
 
     int startWithdrawal(Map map) throws Exception;
 
-    int distributionPartnerStartWithdrawal(Map map) throws Exception;
+    Map distributionPartnerStartWithdrawal(Map map) throws Exception;
 
     Map getTotalOfCurrentDay(Map map);
 

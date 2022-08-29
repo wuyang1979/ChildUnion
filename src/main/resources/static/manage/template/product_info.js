@@ -116,7 +116,7 @@
             },
             {
                 name: "product_type",
-                desc: "发布类型",
+                desc: "发布类型（不支持修改）",
                 type: 2,
                 needInput: true,
                 initData: [{value: 0, desc: '产品'}, {value: 1, desc: '活动'}],
@@ -138,6 +138,24 @@
                 type: 2,
                 needInput: false,
                 initData: [{value: 0, desc: '虚拟产品'}, {value: 1, desc: '实体产品'}],
+                refs: {},
+                value: '0'
+            },
+            {
+                name: "activity_type1",
+                desc: "活动类型1（产品不选）",
+                type: 2,
+                needInput: false,
+                initData: [{value: 0, desc: '儿童营'}, {value: 1, desc: '亲子营'}],
+                refs: {},
+                value: '0'
+            },
+            {
+                name: "activity_type2",
+                desc: "活动类型2（产品不选）",
+                type: 2,
+                needInput: false,
+                initData: [{value: 0, desc: '周末营'}, {value: 1, desc: '假期营'}, {value: 2, desc: '冬夏令营'}],
                 refs: {},
                 value: '0'
             },

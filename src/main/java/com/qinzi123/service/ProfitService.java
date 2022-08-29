@@ -1,5 +1,7 @@
 package com.qinzi123.service;
 
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,4 +17,9 @@ public interface ProfitService {
 
 
     Map getDistributionPartnerProfitInfo(Map map);
+
+    List<LinkedHashMap> loadSelfProfitList(Map map);
+
+    List<LinkedHashMap> loadTeamProfitList(Map map);
+
 }

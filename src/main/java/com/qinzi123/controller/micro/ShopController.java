@@ -104,7 +104,7 @@ public class ShopController {
     public void downloadQrCode(@PathVariable("shopId") String shopId,
                                HttpServletResponse response) throws Exception {
         //获取AccessToken
-        String page = "pages/shop/info";
+        String page = "pages/shop/myShop";
         Map<String, Object> shopParamsMap = new HashedMap();
         shopParamsMap.put("shopId", shopId);
         List<LinkedHashMap> shopInfoList = shopService.getShopInfo(shopParamsMap);
@@ -121,7 +121,7 @@ public class ShopController {
         if (StringUtils.isEmpty(accessToken)) {
             throw new GlobalProcessException("accessToken获取出错");
         }
-        byte[] qrCodeBytes = null;
+        byte[] qrCodeBytes;
         Map<String, Object> paraMap = new HashMap();
         String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=";
         url += accessToken;

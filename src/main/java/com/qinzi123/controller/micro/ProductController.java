@@ -152,7 +152,14 @@ public class ProductController {
         int start = Integer.parseInt(map.get("start").toString());
         int num = Integer.parseInt(map.get("num").toString());
         int type = Integer.parseInt(map.get("type").toString());
-        List<LinkedHashMap> allList = productService.getAllListProduct(type, start, num);
+        String activityType1 = "";
+        String activityType2 = "";
+        if (type == 1) {
+            //活动列表
+            activityType2 = map.get("activityType2").toString();
+            activityType1 = map.get("activityType1").toString();
+        }
+        List<LinkedHashMap> allList = productService.getAllListProduct(type, activityType1, activityType2, start, num);
         allList.forEach(item -> {
             int productType = Integer.parseInt(item.get("product_type").toString());
             item.put("introduce", new String(Base64.getDecoder().decode(item.get("introduce").toString())));
@@ -487,6 +494,37 @@ public class ProductController {
         String scene = "i=" + productId + "&p=" + phone + "&f=" + enterFromShop;
         //二维码携带参数 不超过32位 参数类型必须是字符串
         paraMap.put("scene", scene);  //存入的参数
+        paraMap.put("page", page);
+        qrCodeBytes = WeChatUtil.getminiqrQr(url, paraMap);
+        response.setContentType("image/jpg");
+        // 写入response的输出流中
+        OutputStream stream = response.getOutputStream();
+        stream.write(qrCodeBytes);
+        stream.flush();
+        stream.close();
+    }
+
+    /*
+     * @Author: jie.yuan
+     * @Description:
+     * @Date: 2022/8/10 0012 10:28
+     * @Param [userId, response]
+     * @return void
+     **/
+    @ApiOperation(value = "成长GO发展团队海报获取二维码，指向加入团队操作页面", notes = "成长GO发展团队海报获取二维码，指向加入团队操作页面")
+    @RequestMapping(value = "/product/generateDevelopmentTeamQrCode/{userId}", method = RequestMethod.GET)
+    public void generateDevelopmentTeamQrCode(@PathVariable("userId") String userId,
+                                              HttpServletResponse response) throws Exception {
+        //获取AccessToken
+        String page = "pages/team/operate";
+        String accessToken = Utils.getWxChengZhangGoAccessToken();
+
+        byte[] qrCodeBytes;
+        Map<String, Object> paraMap = new HashMap();
+        String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=";
+        url += accessToken;
+        //二维码携带参数 不超过32位 参数类型必须是字符串
+        paraMap.put("scene", userId);  //存入的参数
         paraMap.put("page", page);
         qrCodeBytes = WeChatUtil.getminiqrQr(url, paraMap);
         response.setContentType("image/jpg");

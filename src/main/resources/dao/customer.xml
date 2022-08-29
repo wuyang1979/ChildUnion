@@ -31,7 +31,7 @@
     </select>
 
     <select id="getOrderListById" resultType="java.util.LinkedHashMap">
-		select DISTINCT o.standard_id,p.main_image,p.name,p.product_type,o.price,o.num,date_format(o.pay_time,'%Y-%m-%d %H:%i') as pay_time from c_end_order o
+		select DISTINCT o.id,o.standard_id,p.main_image,p.name,p.product_type,o.price,o.num,date_format(o.pay_time,'%Y-%m-%d %H:%i') as pay_time from c_end_order o
 		left join product_info p on o.product_id = p.id
 		left join distribution_record d on o.product_id = d.product_id
 		where (p.shop_id = (select id from shop_info where card_id = #{card})

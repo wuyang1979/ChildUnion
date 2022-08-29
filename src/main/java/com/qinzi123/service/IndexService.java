@@ -21,15 +21,25 @@ public interface IndexService {
 
     int addDistributionPartnerOrder(Map map);
 
+    int addOrUpdateNewMembersJoinAuthAcceptRecord(Map map);
+
+    int addDistributionRecordForShopkeeper(Map map);
+
+    List<LinkedHashMap> getDistributionRecordByUserId(Map map);
+
     Map<String, Object> registerNewUser(Map map);
 
     Map getCertificateNum(Map map);
 
     List<LinkedHashMap> getDistributionPartnerListByUserId(Map map);
 
+    List<LinkedHashMap> getShopListByUserId(Map map);
+
     List<LinkedHashMap> getShopListByUserId2(Map map);
 
     List<LinkedHashMap> getDistributionShopByUserId(Map map);
+
+    List<LinkedHashMap> getCEndUnAuthRecordList(Map map);
 
     int test();
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qinzi123.dao.TeamDao">
+
+    <select id="getAllTeamMemberList" resultType="java.util.LinkedHashMap">
+		select DISTINCT u.id,u.phone,u.nick_name,u.head_img_url from c_end_user_info u
+		left join c_end_commander_info c on u.id = c.user_id
+		left join distribution_partner_order d on u.id = d.user_id
+		where c.first_commander = #{firstCommander} limit #{start}, #{num}
+    </select>
+
+    <select id="getSearchTeamMemberList" resultType="java.util.LinkedHashMap">
+		select DISTINCT u.id,u.phone,u.nick_name,u.head_img_url from c_end_user_info u
+		left join c_end_commander_info c on u.id = c.user_id
+		left join distribution_partner_order d on u.id = d.user_id
+		where c.first_commander = #{firstCommander} and from_base64(u.nick_name) like concat('%',#{searchValue},'%')
+		limit #{start}, #{num}
+    </select>
+
+    <select id="getDistributionOrderListById" resultType="java.util.LinkedHashMap">
+		select DISTINCT o.id,o.standard_id,p.main_image,p.name,p.product_type,o.price,o.num,date_format(o.pay_time,'%Y-%m-%d %H:%i') as pay_time from c_end_order o
+		left join product_info p on o.product_id = p.id
+		left join distribution_record d on o.product_id = d.product_id
+		where o.primary_distribution_shop_id = -1
+		and o.primary_distribution_open_id = (select u.open_id from c_end_user_info u where u.id = #{userId})
+		and o.status in(1,2) limit #{start}, #{num}
+    </select>
+
+    <select id="getOpenIdByUserId" resultType="java.lang.String">
+		select open_id from c_end_user_info where id = #{userId} and belong = 0
+    </select>
+
+	<select id="getNickNameByUserId" resultType="java.lang.String">
+		select nick_name from c_end_user_info where id = #{userId} and belong = 0
+    </select>
+
+    <insert id="addCommanderInfoRecord" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+		insert into c_end_commander_info(first_commander_type,first_commander,user_id,create_time)
+		                        values(#{first_commander_type},#{first_commander},#{user_id},#{create_time})
+	</insert>
+
+	<update id="updateNewMembersJoinAuthRecordByUserId" parameterType="java.lang.String">
+    	update c_end_auth_record set auth_status = 0 where user_id = #{userId} and type = 1
+	</update>
+
+</mapper>

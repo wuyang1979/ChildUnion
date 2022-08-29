@@ -1,5 +1,9 @@
 package com.qinzi123.dao;
 
+import org.apache.ibatis.annotations.Param;
+
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,4 +18,15 @@ import java.util.Map;
 public interface ProfitDao {
 
     Map getDistributionPartnerProfitInfo(Map map);
+
+    List<LinkedHashMap> getSelfProfitListByUserId(@Param("userId") String userId);
+
+    List<LinkedHashMap> getSelfProfitCustomerOpenIdListByUserId(@Param("userId") String userId, @Param("start") int start, @Param("num") int num);
+
+    List<LinkedHashMap> getMemberProfitCustomerOpenIdListByUserId(@Param("param") List<String> param, @Param("start") int start, @Param("num") int num);
+
+    Map<String, Object> getCustomerInfoByOpenId(@Param("openId") String openId);
+
+    List<String> getMemberListByUserId(@Param("userId") String userId);
+
 }

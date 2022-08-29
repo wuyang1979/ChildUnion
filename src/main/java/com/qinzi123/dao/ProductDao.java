@@ -80,7 +80,7 @@ public interface ProductDao {
 
     int getPictureCountByProductId(Map map);
 
-    List<LinkedHashMap> getAllListProduct(@Param("type") int type, @Param("start") int start, @Param("num") int num);
+    List<LinkedHashMap> getAllListProduct(@Param("type") int type, @Param("activityType1") String activityType1, @Param("activityType2") String activityType2, @Param("start") int start, @Param("num") int num);
 
     List<LinkedHashMap> getExclusiveAllList(@Param("shopId") int shopId, @Param("type") int type, @Param("start") int start, @Param("num") int num);
 

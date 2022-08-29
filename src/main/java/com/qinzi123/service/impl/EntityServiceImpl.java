@@ -336,8 +336,12 @@ public class EntityServiceImpl implements EntityService {
         }
         int rows;
         if (product_type == 0) {
+            //产品
             rows = entityDao.addProductInfoService(productInfo);
         } else {
+            //活动
+            productInfo.setActivityType1(Integer.parseInt(map.get("activity_type1").toString()));
+            productInfo.setActivityType2(Integer.parseInt(map.get("activity_type2").toString()));
             rows = entityDao.addActivityInfoService(productInfo);
         }
         int productId = productInfo.getId();

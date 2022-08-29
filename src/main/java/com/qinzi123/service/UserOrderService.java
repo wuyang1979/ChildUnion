@@ -24,6 +24,8 @@ public interface UserOrderService {
 
     int addUserFreeActivityOrder(Map map);
 
+    int deleteDistributionRecordByOrderId(Map map);
+
     Map getShowInfo(Map map);
 
     Map prepay(Map map);

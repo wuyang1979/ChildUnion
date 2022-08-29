@@ -308,7 +308,7 @@ var vm = new Vue({
                             "distribution": "",
                             "inventory": "",
                             "onceMaxPurchaseCount": "",
-                            "onceMinPurchaseCount": ""
+                            "onceMinPurchaseCount": "1"
                         };
                     } else if (op.productType == 1) {
                         standard = {
@@ -318,7 +318,7 @@ var vm = new Vue({
                             "distribution": "",
                             "inventory": "",
                             "onceMaxPurchaseCount": "",
-                            "onceMinPurchaseCount": ""
+                            "onceMinPurchaseCount": "1"
                         };
                     }
                     op.tableMeta.columns[i].value.push(standard);

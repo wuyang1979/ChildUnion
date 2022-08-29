@@ -8,6 +8,7 @@ import com.qinzi123.dto.WxMssVo;
 import com.qinzi123.service.RechargeMoneyService;
 import com.qinzi123.util.DateUtils;
 import com.qinzi123.util.Utils;
+import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -103,10 +106,55 @@ public class MicroController {
             String notifyXml = sb.toString();
             logger.info(notifyXml);
             Map resultMap = rechargeMoneyService.clientEndPayBack(notifyXml);
-            //
+
             int orderId = Integer.parseInt(resultMap.get("attach").toString());
             Map<String, Object> productMap = productDao.getProductInfoByOrderId(orderId);
             Map<String, Object> orderMap = userOrderDao.getOrderInfoById(orderId);
+            int orderSaleType = Integer.parseInt(orderMap.get("order_sale_type").toString());
+            if (orderSaleType == 1) {
+                int primaryDistributionShopId = Integer.parseInt(orderMap.get("primary_distribution_shop_id").toString());
+                String buyerOpenId = orderMap.get("open_id").toString();
+                String buyerUserId = userOrderDao.getUserIdByOpenId(buyerOpenId);
+                if (primaryDistributionShopId == -1) {
+                    //查询分销者是否是分销合伙人
+                    String primaryDistributionOpenId = orderMap.get("primary_distribution_open_id").toString();
+                    String superiorId = userOrderDao.getUserIdByOpenId(primaryDistributionOpenId);
+                    String primaryDistributionPhone = userOrderDao.getPhoneByOpenId(primaryDistributionOpenId);
+                    List<LinkedHashMap> distributionPartnerList = userOrderDao.getDistributionPartnerListByPhone(primaryDistributionPhone);
+                    if (distributionPartnerList.size() > 0) {
+                        //是分销合伙人
+                        //C端客户分销，且分销者是分销合伙人，添加客户级联
+                        //先判断下单人是否已经存在客户级联
+                        List<LinkedHashMap> cascadeList = userOrderDao.getCascadeListByUserId(buyerUserId);
+                        if (cascadeList.size() == 0) {
+                            //若已存在级联关系则不添加级联记录
+                            //客户上级userId
+                            Map<String, Object> cascadeParamsMap = new HashedMap();
+                            cascadeParamsMap.put("superior_type", 1);
+                            cascadeParamsMap.put("superior_id", superiorId);
+                            cascadeParamsMap.put("subordinate_id", buyerUserId);
+                            cascadeParamsMap.put("create_time", DateUtils.getAccurateDate());
+                            userOrderDao.addCascade(cascadeParamsMap);
+                        }
+                    }
+                } else if (primaryDistributionShopId != 0) {
+                    //商户分销
+                    //B端客户分销，添加客户级联
+                    //先判断下单人是否已经存在客户级联
+                    List<LinkedHashMap> cascadeList = userOrderDao.getCascadeListByUserId(buyerUserId);
+                    if (cascadeList.size() == 0) {
+                        //若已存在级联关系则不添加级联记录
+                        //客户上级userId
+                        Map<String, Object> cascadeParamsMap = new HashedMap();
+                        cascadeParamsMap.put("superior_type", 0);
+                        cascadeParamsMap.put("superior_id", primaryDistributionShopId);
+                        cascadeParamsMap.put("subordinate_id", buyerUserId);
+                        cascadeParamsMap.put("create_time", DateUtils.getAccurateDate());
+                        userOrderDao.addCascade(cascadeParamsMap);
+                    }
+                }
+            }
+
             int orderType = Integer.parseInt(orderMap.get("order_type").toString());
             String statusName;
             if (orderType == 0) {
@@ -136,19 +184,28 @@ public class MicroController {
             //sb为微信返回的xml
             String notifyXml = sb.toString();
             logger.info(notifyXml);
-            Map resultMap = rechargeMoneyService.clientEndDistributionPartnerPayBack(notifyXml);
-//            int orderId = Integer.parseInt(resultMap.get("attach").toString());
-//            Map<String, Object> productMap = productDao.getProductInfoByOrderId(orderId);
-//            Map<String, Object> orderMap = userOrderDao.getOrderInfoById(orderId);
-//            int orderType = Integer.parseInt(orderMap.get("order_type").toString());
-//            String statusName;
-//            if (orderType == 0) {
-//                statusName = "待收货";
-//            } else {
-//                statusName = "待核销";
-//            }
-//            //订阅消息推送
-//            pushWxOrderTemplateMessage(orderMap.get("open_id").toString(), orderMap.get("order_no").toString(), productMap.get("name").toString(), statusName);
+            rechargeMoneyService.clientEndDistributionPartnerPayBack(notifyXml);
+
+            success(response);
+        } catch (IOException e) {
+            logger.error("微信回调接口失败", e);
+        }
+    }
+
+    @RequestMapping(value = "/userOrder/distributionPartnerToBeLeaderCallback")
+    private void userOrderDistributionPartnerToBeLeaderCallback(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader((ServletInputStream) request.getInputStream()));
+            String line = null;
+            StringBuilder sb = new StringBuilder();
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+            br.close();
+            //sb为微信返回的xml
+            String notifyXml = sb.toString();
+            logger.info(notifyXml);
+            rechargeMoneyService.clientEndDistributionPartnerToBeLeaderPayBack(notifyXml);
 
             success(response);
         } catch (IOException e) {

@@ -127,6 +127,7 @@ public class ShopServiceImpl extends AbstractWechatMiniProgramService implements
         resultMap.put("shopName", shopInfo.get("name"));
         resultMap.put("phone", shopDao.getShopownerPhoneByShopId(shopId));
         resultMap.put("visitCount", shopDao.getVisitCountByShopId(shopId));
+        resultMap.put("shopType", shopInfo.get("shop_type"));
         return resultMap;
     }
 

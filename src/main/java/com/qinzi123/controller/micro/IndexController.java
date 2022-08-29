@@ -101,6 +101,12 @@ public class IndexController {
         return userOrderService.joinDistributionPartnerPrePay(map);
     }
 
+    @ApiOperation(value = "删除分销合伙人记录", notes = "删除分销合伙人记录")
+    @RequestMapping(value = "/index/deleteDistributionRecordByOrderId", method = RequestMethod.POST)
+    private int deleteDistributionRecordByOrderId(@RequestBody Map map) {
+        return userOrderService.deleteDistributionRecordByOrderId(map);
+    }
+
     @ApiOperation(value = "更新用户手机号", notes = "更新用户手机号")
     @RequestMapping(value = "/index/updatePhoneByCard", method = RequestMethod.POST)
     private int updatePhoneByCard(@RequestBody Map map) {
@@ -126,10 +132,16 @@ public class IndexController {
         return indexService.registerNewUser(map);
     }
 
-    @ApiOperation(value = "获取b端在亲子云商开通的小店列表", notes = "获取b端在亲子云商开通的小店列表")
+    @ApiOperation(value = "获取c端在成长GO开通分销合伙人的记录", notes = "获取b端在亲子云商开通的小店列表")
     @RequestMapping(value = "/index/getDistributionPartnerListByUserId", method = RequestMethod.POST)
     private List<LinkedHashMap> getDistributionPartnerListByUserId(@RequestBody Map map) {
         return indexService.getDistributionPartnerListByUserId(map);
+    }
+
+    @ApiOperation(value = "根据C端用户id获取分销小店列表", notes = "根据C端用户id获取分销小店列表")
+    @RequestMapping(value = "/index/getShopListByUserId", method = RequestMethod.POST)
+    private List<LinkedHashMap> getShopListByUserId(@RequestBody Map map) {
+        return indexService.getShopListByUserId(map);
     }
 
     @ApiOperation(value = "获取b端在亲子云商开通的小店列表", notes = "获取b端在亲子云商开通的小店列表")
@@ -148,5 +160,29 @@ public class IndexController {
     @RequestMapping(value = "/index/test", method = RequestMethod.POST)
     private int test() {
         return indexService.test();
+    }
+
+    @ApiOperation(value = "获取成长GO未授权订阅消息列表", notes = "获取成长GO未授权订阅消息列表")
+    @RequestMapping(value = "/index/getCEndUnAuthRecordList", method = RequestMethod.POST)
+    private List<LinkedHashMap> getCEndUnAuthRecordList(@RequestBody Map map) {
+        return indexService.getCEndUnAuthRecordList(map);
+    }
+
+    @ApiOperation(value = "新增或修改成长GO用户发展合伙人授权记录", notes = "新增或修改成长GO用户发展合伙人授权记录")
+    @RequestMapping(value = "/index/addOrUpdateNewMembersJoinAuthAcceptRecord", method = RequestMethod.POST)
+    private int addOrUpdateNewMembersJoinAuthAcceptRecord(@RequestBody Map map) {
+        return indexService.addOrUpdateNewMembersJoinAuthAcceptRecord(map);
+    }
+
+    @ApiOperation(value = "根据userId获取分销合伙人列表", notes = "根据userId获取分销合伙人列表")
+    @RequestMapping(value = "/index/getDistributionRecordByUserId", method = RequestMethod.POST)
+    private List<LinkedHashMap> getDistributionRecordByUserId(@RequestBody Map map) {
+        return indexService.getDistributionRecordByUserId(map);
+    }
+
+    @ApiOperation(value = "未成为分销合伙人的B端店主，默认增加分销合伙人记录", notes = "未成为分销合伙人的B端店主，默认增加分销合伙人记录")
+    @RequestMapping(value = "/index/addDistributionRecordForShopkeeper", method = RequestMethod.POST)
+    private int addDistributionRecordForShopkeeper(@RequestBody Map map) {
+        return indexService.addDistributionRecordForShopkeeper(map);
     }
 }

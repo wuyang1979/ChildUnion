@@ -47,7 +47,7 @@ public interface ProductService {
 
     List<LinkedHashMap> listSearchReleasedProduct(int card, int start, int num, String searchValue);
 
-    List<LinkedHashMap> getAllListProduct(int type, int start, int num);
+    List<LinkedHashMap> getAllListProduct(int type, String activityType1, String activityType2, int start, int num);
 
     List<LinkedHashMap> getExclusiveAllList(int shopId, int type, int start, int num);
 

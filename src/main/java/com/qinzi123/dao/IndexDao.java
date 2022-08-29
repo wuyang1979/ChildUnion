@@ -23,11 +23,15 @@ public interface IndexDao {
 
     int addDistributionPartnerOrder(Map map);
 
+    int addFreeDistributionPartnerOrder(Map map);
+
     String getUuid();
 
     int registerNewUser(Map map);
 
     int addOfflineRecord(Map map);
+
+    int deleteDistributionRecordByOrderId(Map map);
 
     List<LinkedHashMap> getShopListByPhone(@Param("phone") String phone);
 
@@ -39,11 +43,23 @@ public interface IndexDao {
 
     int getCertificateNum(Map map);
 
+    int addCEndAuthAcceptRecord(Map map);
+
+    int updateNewMembersJoinAuthStatusByUserId(@Param("userId") String userId);
+
     List<LinkedHashMap> getShopListByUserId(Map map);
+
+    List<LinkedHashMap> getDistributionRecordByUserId(Map map);
 
     List<LinkedHashMap> getDistributionShopByUserId(Map map);
 
     List<LinkedHashMap> getDistributionPartnerListByUserId(Map map);
+
+    List<LinkedHashMap> getCEndUnAuthRecordList(Map map);
+
+    List<LinkedHashMap> getNewMembersJoinAuthListByUserId(@Param("userId") String userId);
+
+    List<LinkedHashMap> getDistributionShopListByUserId(Map map);
 
     List<LinkedHashMap> getAllDistributionShopList();
 

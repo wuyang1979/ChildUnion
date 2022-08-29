@@ -14,8 +14,8 @@
 
     <select id="listReleasedProduct" resultType="java.util.LinkedHashMap">
 		select id, status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
-		wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
-		date_format(create_time,'%Y-%m-%d') as create_time,
+		activity_type1,activity_type2,wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,
+		vedio_path,instruction,buy_count,date_format(create_time,'%Y-%m-%d') as create_time,
 		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time,qr_image from product_info
 		where card_id = #{card} order by is_hot desc, create_time desc limit #{start}, #{num}
     </select>
@@ -26,9 +26,9 @@
 
     <select id="listDistributionProduct" resultType="java.util.LinkedHashMap">
 		select p.id, p.status,p.is_hot,p.card_id,p.shop_id,p.name,p.address,p.address_name,p.longitude,p.latitude,
-		p.type,p.product_type,p.product_style,p.wuyu_type,p.main_image,p.is_allow_distribution,p.repeat_purchase,p.phone,p.introduce,
-		p.vedio_path,p.instruction,p.buy_count,date_format(p.create_time,'%Y-%m-%d') as create_time,
-		date_format(p.deadline_time,'%Y-%m-%d %H:%i') as deadline_time,p.qr_image from product_info p
+		p.type,p.product_type,p.product_style,p.activity_type1,p.activity_type2,p.wuyu_type,p.main_image,
+		p.is_allow_distribution,p.repeat_purchase,p.phone,p.introduce,p.vedio_path,p.instruction,p.buy_count,
+		date_format(p.create_time,'%Y-%m-%d') as create_time,date_format(p.deadline_time,'%Y-%m-%d %H:%i') as deadline_time,p.qr_image from product_info p
 		left join distribution_record d on p.id = d.product_id
 		where d.primary_shop_id = (select id from shop_info where card_id = #{card})
 		order by p.is_hot desc, p.create_time desc limit #{start}, #{num}
@@ -36,9 +36,9 @@
 
     <select id="listSearchDistributionProduct" resultType="java.util.LinkedHashMap">
 		select p.id, p.status,p.is_hot,p.card_id,p.shop_id,p.name,p.address,p.address_name,p.longitude,p.latitude,p.type,
-		p.product_type,p.product_style,p.wuyu_type,p.main_image,p.is_allow_distribution,p.repeat_purchase,p.phone,p.introduce,
-		p.vedio_path,p.instruction,p.buy_count,date_format(p.create_time,'%Y-%m-%d') as create_time,
-		date_format(p.deadline_time,'%Y-%m-%d %H:%i') as deadline_time,p.qr_image from product_info p
+		p.product_type,p.product_style,p.wuyu_type,p.activity_type1,p.activity_type2,p.main_image,p.is_allow_distribution,
+		p.repeat_purchase,p.phone,p.introduce,p.vedio_path,p.instruction,p.buy_count,
+		date_format(p.create_time,'%Y-%m-%d') as create_time,date_format(p.deadline_time,'%Y-%m-%d %H:%i') as deadline_time,p.qr_image from product_info p
 		left join distribution_record d on p.id = d.product_id
 		where d.primary_shop_id = (select id from shop_info where card_id = #{card}) and name like concat('%',#{searchValue},'%')
 		order by p.is_hot desc, p.create_time desc limit #{start}, #{num}
@@ -46,8 +46,8 @@
 
     <select id="listSearchReleasedProduct" resultType="java.util.LinkedHashMap">
 		select id,status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
-		wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
-		date_format(create_time,'%Y-%m-%d') as create_time,
+		activity_type1,activity_type2,wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,
+		instruction,buy_count,date_format(create_time,'%Y-%m-%d') as create_time,
 		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time,qr_image from product_info
 		where card_id = #{card} and name like concat('%',#{searchValue},'%') order by is_hot desc, create_time desc limit #{start}, #{num}
     </select>
@@ -57,11 +57,18 @@
     </select>
 
     <select id="getAllListProduct" resultType="java.util.LinkedHashMap">
-		select id,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
-		wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
-		date_format(create_time,'%Y-%m-%d') as create_time,
-		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
-		where status = 1 and product_type = #{type} order by is_hot desc, create_time desc limit #{start}, #{num}
+        select id,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
+        activity_type1,activity_type2,wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,
+        instruction,buy_count,date_format(create_time,'%Y-%m-%d') as create_time,
+        date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
+        where status = 1 and product_type = #{type}
+        <if test="activityType1 != null and activityType1 != ''">
+            and activity_type1 = #{activityType1}
+        </if>
+        <if test="activityType2 != null and activityType2 != ''">
+            and activity_type2 = #{activityType2}
+        </if>
+        order by is_hot desc, create_time desc limit #{start}, #{num}
     </select>
 
     <select id="getExclusiveAllList" resultType="java.util.LinkedHashMap">
@@ -107,7 +114,7 @@
 
     <select id="loadProductInfoById" resultType="java.util.Map">
 		select id,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,type,product_type,product_style,
-		wuyu_type,main_image,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
+		activity_type1,activity_type2,wuyu_type,main_image,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
 		date_format(create_time,'%Y-%m-%d') as create_time,
 		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
 		where status = 1 and id = #{productId}
@@ -138,11 +145,18 @@
     </select>
 
     <select id="getSearchList" resultType="java.util.LinkedHashMap">
-		select id,is_hot,card_id,shop_id,name,address,longitude,latitude,type,product_type,product_style,wuyu_type,
-		main_image,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
-		date_format(create_time,'%Y-%m-%d') as create_time,
-		date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
-		where status = 1 and product_type = #{type} and name like concat('%',#{searchValue},'%') order by is_hot desc, create_time desc limit #{start}, #{num}
+        select id,is_hot,card_id,shop_id,name,address,longitude,latitude,type,product_type,product_style,wuyu_type,
+        activity_type1,activity_type2,main_image,repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,
+        date_format(create_time,'%Y-%m-%d') as create_time,
+        date_format(deadline_time,'%Y-%m-%d %H:%i') as deadline_time from product_info
+        where status = 1 and product_type = #{type} and name like concat('%',#{searchValue},'%')
+        <if test="activityType1 != null and activityType1 != ''">
+            and activity_type1 = #{activityType1}
+        </if>
+        <if test="activityType2 != null and activityType2 != ''">
+            and activity_type2 = #{activityType2}
+        </if>
+        order by is_hot desc, create_time desc limit #{start}, #{num}
     </select>
 
     <select id="getExclusiveSearchList" resultType="java.util.LinkedHashMap">
@@ -394,12 +408,14 @@
     <insert id="addActivity" useGeneratedKeys="true" keyProperty="id"
             parameterType="com.qinzi123.dto.ProductInfo">
         insert into product_info(status,is_hot,card_id,shop_id,name,address,address_name,longitude,latitude,product_type,
-                                 wuyu_type,main_image,is_allow_distribution,repeat_purchase,phone,introduce,vedio_path,instruction,
-                                 buy_count,create_time,deadline_time,qr_image)
+                                 activity_type1,activity_type2,wuyu_type,main_image,is_allow_distribution,
+                                 repeat_purchase,phone,introduce,vedio_path,instruction,buy_count,create_time,deadline_time,
+                                 qr_image)
                             values(#{status},#{isHot},#{cardId},(select id from shop_info where card_id = #{cardId}),#{name},
-                                   #{address},#{addressName},#{longitude},#{latitude},#{productType},#{wuyuType},#{mainImage},
-                                   #{isAllowDistribution},#{repeatPurchase},#{phone},#{introduce},#{videoPath},#{instruction},
-                                   #{buyCount},#{createTime},#{deadlineTime},#{qrImage})
+                                   #{address},#{addressName},#{longitude},#{latitude},#{productType},#{activityType1},
+                                   #{activityType2},#{wuyuType},#{mainImage},#{isAllowDistribution},#{repeatPurchase},
+                                   #{phone},#{introduce},#{videoPath},#{instruction},#{buyCount},#{createTime},
+                                   #{deadlineTime},#{qrImage})
     </insert>
 
     <insert id="addOtherImagesToProduct" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
@@ -437,18 +453,20 @@
     <update id="updateProduct" parameterType="com.qinzi123.dto.ProductInfo">
     	update product_info
 		set name=#{name},address=#{address},address_name=#{addressName},longitude=#{longitude},latitude=#{latitude},
-		product_style=#{productStyle},wuyu_type=#{wuyuType},main_image=#{mainImage},is_allow_distribution=#{isAllowDistribution},
-		repeat_purchase = #{repeatPurchase},phone=#{phone},introduce=#{introduce},vedio_path=#{videoPath},
-		instruction=#{instruction},deadline_time=#{deadlineTime},qr_image=#{qrImage}
+		product_style=#{productStyle},wuyu_type=#{wuyuType},main_image=#{mainImage},
+		is_allow_distribution=#{isAllowDistribution},repeat_purchase = #{repeatPurchase},phone=#{phone},
+		introduce=#{introduce},vedio_path=#{videoPath},instruction=#{instruction},deadline_time=#{deadlineTime},
+		qr_image=#{qrImage}
 		where id = #{id}
 	</update>
 
     <update id="updateActivity" parameterType="com.qinzi123.dto.ProductInfo">
     	update product_info
 		set name=#{name},address=#{address},address_name=#{addressName},longitude=#{longitude},latitude=#{latitude},
-		    wuyu_type=#{wuyuType},main_image=#{mainImage},is_allow_distribution=#{isAllowDistribution},repeat_purchase=#{repeatPurchase},
-		    phone=#{phone},introduce=#{introduce},vedio_path=#{videoPath},instruction=#{instruction},
-		    deadline_time=#{deadlineTime},qr_image=#{qrImage}
+		    activity_type1=#{activityType1},activity_type2=#{activityType2},wuyu_type=#{wuyuType},main_image=#{mainImage},
+		    is_allow_distribution=#{isAllowDistribution},repeat_purchase=#{repeatPurchase},phone=#{phone},
+		    introduce=#{introduce},vedio_path=#{videoPath},instruction=#{instruction},deadline_time=#{deadlineTime},
+		    qr_image=#{qrImage}
 		where id = #{id}
 	</update>
 
